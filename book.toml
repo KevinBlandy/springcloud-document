@@ -1,0 +1,54 @@
+[book]
+authors = ["Spring中文文档"]
+language = "zh-CN"
+multilingual = false  
+src = "src"     # 源文件目录
+description = "Spring,SpringBoot,SpringCloud最新中文文档" # SEO
+
+[build]
+build-dir = "book"      # 构建目录
+create-missing = true  # 如果文件不存在， 是否创建
+
+[output.html]
+# theme = "my-theme"
+# default-theme = "light"
+# preferred-dark-theme = "navy"
+# curly-quotes = true           # 将直引号转换为卷引号，但出现在代码块和代码跨度中的引号除外。
+# mathjax-support = false       # 添加对MathJax 的支持。
+# copy-fonts = true                 # 将fonts.css 和相应的字体文件复制到输出目录并在默认主题中使用它们。
+# google-analytics = "UA-123456-7"  #  Google Analytics
+# additional-css = ["custom.css", "custom2.css"]    # 额外加载的css文件
+# additional-js = ["custom.js"]                     # 额外加载的JS文件
+no-section-label = true                          #  默认在目录列中添加序号章节标签。例如，“1.”、“2.1”。将此选项设置为 true 以禁用这些标签。
+# git-repository-url = "https://github.com/rust-lang/mdBook"    # 该文档的 git 存储库的 url。如果提供了图标链接，将在书的菜单栏中输出。
+# git-repository-icon = "fa-github"                             # 用于 git 存储库链接的 FontAwesome 图标类。默认为fa-github.
+# edit-url-template = "https://github.com/rust-lang/mdBook/edit/master/guide/{path}"    # 编辑 url 模板，提供时显示“建议编辑”按钮，用于直接跳转到编辑当前查看的页面。
+# site-url = "/example-book/"
+# cname = "myproject.rs"    # cname文件，根据 GitHub Pages 的要求，此字符串将写入站点根目录中名为 CNAME 的文件
+# input-404 = "not-found.md"
+
+[output.html.print]
+enable = false      # 是否添加打印功能
+
+[output.html.fold]
+enable = true   # 启用分段折叠。当关闭时，所有的折页都是开放的。默认为false。
+level = 0       # 越高，越多的折叠区域被打开。当级别为0时，所有折叠都是关闭的。默认为0。
+
+[output.html.playground]
+editable = true # 代码块的代码是否是可编辑的
+copyable = true # 代码块的代码是否是可复制的
+copy-js = true  # 将编辑器的 JavaScript 文件复制到输出目录。默认为true.
+line-numbers = true # 在可编辑的代码部分显示行号。既需要editable和copy-js要true。默认为false.
+
+[output.html.search]
+enable = true           # 启用搜索功能。默认为true.
+limit-results = 30      # 搜索结果的最大数量。默认为30.
+teaser-word-count = 30  # 用于搜索结果 Teaser 的字数。默认为30.
+use-boolean-and = true  # 定义多个搜索词之间的逻辑链接。如果为 true，则所有搜索词都必须出现在每个结果中。默认为false.
+boost-title = 2         # 如果搜索词出现在标题中，则搜索结果分数的提升因子。默认为2.
+boost-hierarchy = 1     # 如果搜索词出现在层次结构中，则搜索结果分数的提升因子。层次结构包含父文档的所有标题和所有父标题。默认为1.
+boost-paragraph = 1     # 如果搜索词出现在文本中，则搜索结果分数的提升因子。默认为1.
+expand = true           # 如果搜索应该匹配更长的结果，例如搜索micro 应该匹配，则为真microwave。默认为true.
+heading-split-level = 6 # 标题拆分级别：搜索结果将链接到包含结果的文档部分。文档按此级别或更低级别的标题分成多个部分。默认为3. ( ### This is a level 3 heading)
+copy-js = true          # copy-js：将搜索实现的 JavaScript 文件复制到输出目录。默认为true.
+

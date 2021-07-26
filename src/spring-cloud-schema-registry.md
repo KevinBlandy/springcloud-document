@@ -1,0 +1,1 @@
+# Spring Cloud Schema Registry
