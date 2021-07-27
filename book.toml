@@ -24,7 +24,7 @@ no-section-label = true                          #  默认在目录列中添加�
 # git-repository-icon = "fa-github"                             # 用于 git 存储库链接的 FontAwesome 图标类。默认为fa-github.
 edit-url-template = "https://github.com/KevinBlandy/springcloud-document/edit/master/{path}"    # 编辑 url 模板，提供时显示“建议编辑”按钮，用于直接跳转到编辑当前查看的页面。
 # site-url = "/example-book/"
-# cname = "myproject.rs"    # cname文件，根据 GitHub Pages 的要求，此字符串将写入站点根目录中名为 CNAME 的文件
+cname = "doc.springcloud.io"    # cname文件，根据 GitHub Pages 的要求，此字符串将写入站点根目录中名为 CNAME 的文件
 # input-404 = "not-found.md"
 
 [output.html.print]
