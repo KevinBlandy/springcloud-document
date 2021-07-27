@@ -1555,3 +1555,5 @@ String name = "World";
 ```
 
 前面的代码将设置`name`变量的值为`appAsecret`。
+
+{{#include ../license.md}}

@@ -762,3 +762,5 @@ public class Turbine {
 ## 10. 配置属性
 
 要查看所有与Consul有关的配置属性列表，请查看[附录页面](https://docs.spring.io/spring-cloud-consul/docs/current/reference/html/appendix.html)。
+
+{{#include ../license.md}}

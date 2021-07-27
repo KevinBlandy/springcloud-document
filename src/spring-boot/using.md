@@ -491,4 +491,266 @@ Spring Boot支持的几个库使用缓存来提高性能。例如，[模板引�
 
 > 关于devtools应用的属性的完整列表，见[DevToolsPropertyDefaultsPostProcessor](https://github.com/spring-projects/spring-boot/tree/v2.5.3/spring-boot-project/spring-boot-devtools/src/main/java/org/springframework/boot/devtools/env/DevToolsPropertyDefaultsPostProcessor.java)。
 
-TODO 
+### 8.2. 自动重启
+
+使用`spring-boot-devtools`的应用程序在classpath上的文件发生变化时自动重新启动。当在IDE中工作时，这可能是一个有用的功能，因为它为代码变化提供了一个非常快速的反馈回路。默认情况下，classpath上任何指向目录的条目都会被监测到变化。注意，某些资源，如静态资源和视图模板，[不需要重新启动应用程序](https://docs.spring.io/spring-boot/docs/current/reference/html/using.html#using.devtools.restart.excluding-resources)。
+
+触发重启
+
+* 由于DevTools监控classpath资源，触发重启的唯一方法是更新classpath。导致classpath被更新的方式取决于你所使用的IDE。
+* 在Eclipse中，保存一个修改过的文件会导致classpath被更新并触发重启。
+* 在IntelliJ IDEA中，构建项目（`Build +→+ Build Project`）有同样的效果。
+* 如果使用构建插件，运行Maven的`mvn compile`或Gradle的`gradle build`将触发重启。
+
+如果你使用Maven或Gradle的构建插件进行重启，你必须将`forking`设置为`enabled`。如果你禁用forking，devtools使用的隔离应用程序classloader将不会被创建，重新启动将无法正常运行。
+
+自动重启与LiveReload一起使用时效果非常好。[详见LiveReload部分](https://docs.spring.io/spring-boot/docs/current/reference/html/using.html#using.devtools.livereload)。如果你使用JRebel，自动重启被禁用，而采用动态类重载。其他devtools的功能（如LiveReload和属性覆盖）仍然可以使用。
+
+DevTools依靠应用程序上下文的shutdown hook来在重启期间关闭它。如果你禁用了shutdown hook（`SpringApplication.setRegisterShutdownHook(false)`），它就不能正确工作。
+
+DevTools需要定制`ApplicationContext`所使用的`ResourceLoader`。如果你的应用程序已经提供了一个，它将被包装。不支持直接覆盖`ApplicationContext`上的`getResource`方法。
+
+重启与重新加载
+
+Spring Boot提供的重启技术通过使用两个类加载器来工作。不变的类（例如，来自第三方jars的类）被加载到*base*类加载器。你正在开发的类被加载到*restart*类加载器中。当应用程序被重新启动时，*restart*类加载器被扔掉，并创建一个新的。这种方法意味着应用程序的重启通常比 "冷启动 "快得多，因为*基*类加载器已经可用并被填充。
+
+如果你发现重启对你的应用程序来说不够快，或者你遇到了类加载问题，你可以考虑ZeroTurnaround的[JRebel](https://jrebel.com/software/jrebel/)等重载技术。这些技术的工作原理是在类被加载时对其进行重写，使其更适合于重载。
+
+#### 8.2.1. 记录条件评估的变化
+
+默认情况下，每次你的应用程序重新启动时，都会记录一份显示条件评估delta的报告。该报告显示了你的应用程序的自动配置的变化，因为你做了一些改变，如添加或删除Bean和设置配置属性。
+
+要禁用报告的记录，请设置以下属性。
+
+```yaml
+spring:
+  devtools:
+    restart:
+      log-condition-evaluation-delta: false
+```
+
+#### 8.2.2. 排除资源
+
+某些资源在被改变时不一定需要触发重启。例如，Thymeleaf模板可以被就地编辑。默认情况下，改变`/META-INF/maven`、`/META-INF/resources`、`/resources`、`/static`、`/public`或`/templates`中的资源不会触发重启，但会触发[live reload](https://docs.spring.io/spring-boot/docs/current/reference/html/using.html#using.devtools.livereload)。如果你想自定义这些排除项，你可以使用`spring.devtools.restart.exclude`属性。例如，为了只排除`/static`和`/public`，你可以设置以下属性。
+
+```yaml
+spring:
+  devtools:
+    restart:
+      exclude: "static/**,public/**"
+
+```
+
+> 如果你想保留这些默认值，并添加额外的排除项，请使用`spring.devtools.restart.extra-exclude`属性来代替。
+
+#### 8.2.3. 观察额外的路径
+
+当你对不在classpath上的文件进行修改时，你可能希望你的应用程序被重新启动或重新加载。要做到这一点，可以使用`spring.devtools.restart.extra-paths`属性来配置额外的路径来观察变化。你可以使用`spring.devtools.restart.exclude`属性[如前所述](https://docs.spring.io/spring-boot/docs/current/reference/html/using.html#using.devtools.restart.excluding-resources)来控制附加路径下的变化是触发完全重启还是[实时重新加载](https://docs.spring.io/spring-boot/docs/current/reference/html/using.html#using.devtools.livereload)。
+
+#### 8.2.4. 禁用重新启动
+
+如果你不想使用重启功能，你可以通过使用`spring.devtools.restart.enabled`属性禁用它。在大多数情况下，你可以在你的`application.properties`中设置这个属性（这样做仍然会初始化重启类加载器，但它不会观察文件变化）。
+
+如果你需要完全禁用重启支持（例如，因为它不能与特定的库一起工作），你需要在调用`SpringApplication.run(...)`之前将`spring.devtools.restart.enabled` `System`属性设置为`false`，如以下例子所示。
+
+```java
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class MyApplication {
+
+    public static void main(String[] args) {
+        System.setProperty("spring.devtools.restart.enabled", "false");
+        SpringApplication.run(MyApplication.class, args);
+    }
+
+}
+```
+
+#### 8.2.5. 使用Trigger File
+
+如果你使用一个持续编译修改过的文件的IDE工作，你可能更喜欢只在特定时间触发重启。要做到这一点，你可以使用一个 "Trigger File"，这是一个特殊的文件，当你想实际触发重启检查时，必须对它进行修改。
+
+> 对文件的任何更新都会触发检查，但只有在Devtools检测到它有事情要做时才会实际重新启动。
+
+要使用一个触发器文件，将`spring.devtools.restart.trigger-file`属性设置为触发器文件的名称（不包括任何路径）。触发器文件必须出现在你的classpath上的某个地方。
+
+例如，如果你有一个结构如下的项目。
+
+```text
+src
++- main
+   +- resources
+      +- .reloadtrigger
+```
+
+那么你的 `trigger-file` 属性将是。
+
+```yaml
+spring:
+  devtools:
+    restart:
+      trigger-file: ".reloadtrigger"
+```
+
+现在只有当`src/main/resources/.reloadtrigger`被更新时才会重新启动。
+
+> 你可能想把`spring.devtools.restart.trigger-file`设置为[全局设置](https://docs.spring.io/spring-boot/docs/current/reference/html/using.html#using.devtools.globalsettings)，这样你的所有项目都会以同样的方式行事。
+
+一些IDE有一些功能，使你不需要手动更新你的触发器文件。[Spring Tools for Eclipse](https://spring.io/tools)和[IntelliJ IDEA (Ultimate Edition)](https://www.jetbrains.com/idea/)都有这种支持。对于Spring Tools，你可以使用控制台视图中的 "reload "按钮（只要你的`trigger-file`被命名为`.reloadtrigger`）。对于IntelliJ IDEA，你可以按照[其文档中的说明](https://www.jetbrains.com/help/idea/spring-boot.html#application-update-policies)。
+
+#### 8.2.6. 自定义重启类加载器
+
+正如前面[重启与重载](https://docs.spring.io/spring-boot/docs/current/reference/html/using.html#using-spring-boot-restart-vs-reload)一节中所描述的，重启功能是通过使用两个类加载器来实现。对于大多数应用程序来说，这种方法运行良好。然而，它有时会引起类加载问题。
+
+默认情况下，你的IDE中任何打开的项目都是用 "restart" 类加载器加载的，而任何普通的`.jar`文件都是用 "base" 类加载器加载的。如果你在一个多模块项目上工作，而不是每个模块都被导入你的IDE，你可能需要定制一些东西。要做到这一点，你可以创建一个`META-INF/spring-devtools.properties`文件。
+
+`spring-devtools.properties`文件可以包含以`restart.exclude`和`restart.include`为前缀的属性。`include`元素是应该被拉到 "restart" 类加载器的项目，而`exclude`元素是应该被推到 "base" 类加载器的项目。该属性的值是一个应用于classpath的regex模式，如以下例子所示。
+
+```yaml
+restart:
+  exclude:
+    companycommonlibs: "/mycorp-common-[\\w\\d-\\.]+\\.jar"
+  include:
+    projectcommon: "/mycorp-myproj-[\\w\\d-\\.]+\\.jar"
+
+```
+
+> 所有的属性键必须是唯一的。只要一个属性以`restart.include.`或`restart.exclude.`开头，就被认为是。
+
+> 所有来自classpath的`META-INF/spring-devtools.properties`都被加载。你可以在你的项目中打包文件，或者在项目所消耗的库中打包文件。
+
+#### 8.2.7. 已知的限制
+
+重启功能对于那些通过使用标准的`ObjectInputStream`来反序列化的对象来说效果并不好。如果你需要反序列化数据，你可能需要使用Spring的`ConfigurableObjectInputStream`与`Thread.currentThread().getContextClassLoader()`相结合。
+
+不幸的是，一些第三方库在进行反序列化时没有考虑上下文类加载器。如果你发现这样的问题，你需要向原作者请求修复。
+
+### 8.3. LiveReload
+
+`spring-boot-devtools`模块包括一个内嵌的LiveReload服务器，可以用来在资源发生变化时触发浏览器刷新。LiveReload浏览器扩展可以从[livereload.com](http://livereload.com/extensions/)免费获得，适用于Chrome、Firefox和Safari。
+
+如果你不想在应用程序运行时启动LiveReload服务器，你可以将`spring.devtools.livereload.enabled`属性设置为`false`。
+
+你一次只能运行一个LiveReload服务器。在启动你的应用程序之前，确保没有其他LiveReload服务器正在运行。如果你从你的IDE启动多个应用程序，只有第一个有LiveReload支持。
+
+> 要在文件变化时触发LiveReload，必须启用[自动重新启动](https://docs.spring.io/spring-boot/docs/current/reference/html/using.html#using.devtools.restart)。
+
+### 8.4. 全局设置
+
+你可以通过在`$HOME/.config/spring-boot`目录下添加以下任何文件来配置全局devtools设置。
+
+1. spring-boot-devtools.properties
+2. spring-boot-devtools.yaml
+3. spring-boot-devtools.yml
+
+添加到这些文件中的任何属性都适用于你机器上所有使用devtools的Spring Boot应用程序。例如，要将重启配置为始终使用[触发文件](https://docs.spring.io/spring-boot/docs/current/reference/html/using.html#using.devtools.restart.triggerfile)，你可以在`spring-boot-devtools`文件中添加以下属性。
+
+```yaml
+spring:
+  devtools:
+    restart:
+      trigger-file: ".reloadtrigger"
+```
+
+如果在`$HOME/.config/spring-boot`中找不到devtools的配置文件，则在`$HOME`目录的根部搜索是否有`.spring-boot-devtools.properties`文件。这允许你与那些不支持`$HOME/.config/spring-boot`位置的旧版Spring Boot的应用程序共享devtools全局配置。
+
+devtools properties/yaml文件中不支持配置文件。
+
+在`.spring-boot-devtools.properties`中激活的任何配置文件都不会影响[配置文件特定的配置文件](https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.external-config.files.profile-specific)的加载。不支持YAML和属性文件中的特定配置文件（形式为`spring-boot-devtools-<profile>.properties`）和`spring.config.activated.on-profile`文件。
+
+#### 8.4.1. 配置 File System Watcher
+
+[FileSystemWatcher](https://github.com/spring-projects/spring-boot/tree/v2.5.3/spring-boot-project/spring-boot-devtools/src/main/java/org/springframework/boot/devtools/filewatch/FileSystemWatcher.java)的工作方式是以一定的时间间隔轮询类的变化，然后等待一个预定义的安静期，以确保不再有变化。由于Spring Boot完全依赖IDE来编译并将文件复制到Spring Boot可以读取的位置，你可能会发现有时devtools重新启动应用程序时，某些变化并没有得到反映。如果你经常观察到这样的问题，可以尝试增加`spring.devtools.restart.poll-interval`和`spring.devtools.restart.quiet-period`参数到适合你开发环境的值。
+
+```yaml
+spring:
+  devtools:
+    restart:
+      poll-interval: "2s"
+      quiet-period: "1s"
+
+```
+
+受监控的classpath目录现在每2秒轮询一次变化，并保持1秒的安静期以确保没有额外的类变化。
+
+### 8.5. 远程应用
+
+Spring Boot的开发者工具并不局限于本地开发。你也可以在远程运行应用程序时使用一些功能。远程支持是可选的，因为启用它可能会有安全风险。只有在受信任的网络上运行时，或在用SSL保护时，才应启用它。如果这两个选项对你来说都不可用，你就不应该使用DevTools的远程支持。你不应该在生产部署中启用支持。
+
+要启用它，你需要确保`devtools`包含在重新打包的档案中，如以下列表所示。
+
+```xml
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+            <configuration>
+                <excludeDevtools>false</excludeDevtools>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
+```
+
+然后你需要设置`spring.devtools.remote.secret`属性。就像任何重要的密码或秘密一样，这个值应该是唯一的和强大的，以至于它不能被猜到或被暴力破解。
+
+远程devtools支持由两部分组成：一个接受连接的服务器端端点和一个你在IDE中运行的客户端应用程序。当`spring.devtools.remote.secret`属性被设置时，服务器组件会自动启用。客户端组件必须手动启动。
+
+#### 8.5.1. 运行远程客户端应用程序
+
+远程客户端应用程序被设计成可以在你的IDE中运行。你需要运行`org.springframework.boot.devtools.RemoteSpringApplication`，其classpath与你所连接的远程项目相同。该应用程序的唯一必要参数是它所连接的远程URL。
+
+例如，如果您使用的是 Eclipse 或 Spring Tools，并且您有一个名为 `my-app` 的项目，并已将其部署到 Cloud Foundry，您可以执行以下操作。
+
+* 从 `Run` 菜单中选择 `Run Configurations…​`。
+* 创建一个新的`Java Application`"启动配置"。
+* 浏览`my-app`项目。
+* 使用`org.springframework.boot.devtools.RemoteSpringApplication`作为Main类。
+* 在 `Program arguments` 中添加`https://myapp.cfapps.io`（或者你的远程URL）。
+
+一个正在运行的远程客户端可能类似于以下列表。
+
+```text
+  .   ____          _                                              __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _          ___               _      \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` |        | _ \___ _ __  ___| |_ ___ \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| []::::::[]   / -_) '  \/ _ \  _/ -_) ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, |        |_|_\___|_|_|_\___/\__\___|/ / / /
+ =========|_|==============|___/===================================/_/_/_/
+ :: Spring Boot Remote :: 2.5.3
+
+2015-06-10 18:25:06.632  INFO 14938 --- [           main] o.s.b.devtools.RemoteSpringApplication   : Starting RemoteSpringApplication on pwmbp with PID 14938 (/Users/pwebb/projects/spring-boot/code/spring-boot-project/spring-boot-devtools/target/classes started by pwebb in /Users/pwebb/projects/spring-boot/code)
+2015-06-10 18:25:06.671  INFO 14938 --- [           main] s.c.a.AnnotationConfigApplicationContext : Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@2a17b7b6: startup date [Wed Jun 10 18:25:06 PDT 2015]; root of context hierarchy
+2015-06-10 18:25:07.043  WARN 14938 --- [           main] o.s.b.d.r.c.RemoteClientConfiguration    : The connection to http://localhost:8080 is insecure. You should use a URL starting with 'https://'.
+2015-06-10 18:25:07.074  INFO 14938 --- [           main] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2015-06-10 18:25:07.130  INFO 14938 --- [           main] o.s.b.devtools.RemoteSpringApplication   : Started RemoteSpringApplication in 0.74 seconds (JVM running for 1.105)
+```
+
+因为远程客户端使用的是与真实应用程序相同的classpath，它可以直接读取应用程序的属性。`spring.devtools.remote.secret`属性就是这样被读取并传递给服务器进行认证。
+
+始终建议使用`https://`作为连接协议，这样流量是加密的，密码也不会被截获。
+
+如果你需要使用代理来访问远程应用程序，配置`spring.devtools.remote.proxy.host`和`spring.devtools.remote.proxy.port`属性。
+
+#### 8.5.2. 远程更新
+
+远程客户端以与[本地重启](https://docs.spring.io/spring-boot/docs/current/reference/html/using.html#using.devtools.restart)相同的方式监控你的应用程序classpath的变化。任何更新的资源都会被推送到远程应用程序，并（*如果需要*）触发重启。如果你在一个使用云服务的功能上迭代，而你在本地没有云服务，这可能会很有帮助。一般来说，远程更新和重启要比完全重建和部署周期快得多。
+
+在一个较慢的开发环境中，可能会发生安静期不够的情况，类中的变化可能被分成几批。在第一批类的变化被上传后，服务器被重新启动。由于服务器正在重启，下一批不能被发送到应用程序。
+
+这通常表现为在`RemoteSpringApplication`日志中出现警告，说未能上传一些类，并随之重试。但它也可能导致应用代码不一致，以及在第一批修改上传后无法重启。如果你不断观察到这样的问题，可以尝试增加`spring.devtools.restart.poll-interval`和`spring.devtools.restart.quiet-period`参数到适合你开发环境的值。参见[配置文件系统观察器](https://docs.spring.io/spring-boot/docs/current/reference/html/using.html#using.devtools.globalsettings.configuring-file-system-watcher)一节，以配置这些属性。
+
+文件只在远程客户端运行时被监控。如果你在启动远程客户端之前改变了一个文件，它不会被推送到远程服务器上。
+
+## 9. 打包生产环境的应用
+
+Executable jars可以用于生产部署。由于它们是独立的，它们也非常适合于基于云的部署。
+
+对于额外的 "production ready"功能，如health、auditing和metric REST或JMX end-points，考虑添加`spring-boot-actuator`。详情见[actuator.html](https://docs.spring.io/spring-boot/docs/current/reference/html/actuator.html#actuator)。
+
+## 10. 接下来要读什么
+
+你现在应该明白如何使用Spring Boot以及应该遵循的一些最佳实践。现在你可以继续深入了解特定的[Spring Boot特性](/spring-boot/features.html)，或者你可以跳过前面的内容，阅读Spring Boot的[生产就绪](/spring-boot/actuator.html)。

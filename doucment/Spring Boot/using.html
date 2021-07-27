@@ -1,0 +1,2649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.12">
+<title>Developing with Spring Boot</title>
+<link rel="stylesheet" href="css/site.css">
+<script src="js/setup.js"></script><script defer src="js/site.js"></script>
+<script type="application/json" id="anchor-rewrite">
+{
+"actuator-properties":"application-properties.actuator",
+"auto-configuration-classes-from-actuator":"auto-configuration-classes.actuator",
+"auto-configuration-classes-from-autoconfigure-module":"auto-configuration-classes.core",
+"boot-documentation":"documentation",
+"boot-documentation-about":"documentation.about",
+"boot-documentation-advanced":"documentation.advanced",
+"boot-documentation-first-steps":"documentation.first-steps",
+"boot-documentation-getting-help":"documentation.getting-help",
+"boot-documentation-learning":"documentation.features",
+"boot-documentation-production":"documentation.actuator",
+"boot-documentation-upgrading":"documentation.upgrading",
+"boot-documentation-workingwith":"documentation.using",
+"boot-features":"features",
+"boot-features-activemq":"features.messaging.jms.activemq",
+"boot-features-adding-active-profiles":"features.profiles.adding-active-profiles",
+"boot-features-amqp":"features.messaging.amqp",
+"boot-features-application-admin":"features.spring-application.admin",
+"boot-features-application-arguments":"features.spring-application.application-arguments",
+"boot-features-application-availability":"features.spring-application.application-availability",
+"boot-features-application-availability-liveness-state":"features.spring-application.application-availability.liveness",
+"boot-features-application-availability-managing":"features.spring-application.application-availability.managing",
+"boot-features-application-availability-readiness-state":"features.spring-application.application-availability.readiness",
+"boot-features-application-events-and-listeners":"features.spring-application.application-events-and-listeners",
+"boot-features-application-exit":"features.spring-application.application-exit",
+"boot-features-application-startup-tracking":"features.spring-application.startup-tracking",
+"boot-features-artemis":"features.messaging.jms.artemis",
+"boot-features-banner":"features.spring-application.banner",
+"boot-features-bean-conditions":"features.developing-auto-configuration.condition-annotations.bean-conditions",
+"boot-features-caching":"features.caching",
+"boot-features-caching-provider":"features.caching.provider",
+"boot-features-caching-provider-caffeine":"features.caching.provider.caffeine",
+"boot-features-caching-provider-couchbase":"features.caching.provider.couchbase",
+"boot-features-caching-provider-ehcache2":"features.caching.provider.ehcache2",
+"boot-features-caching-provider-generic":"features.caching.provider.generic",
+"boot-features-caching-provider-hazelcast":"features.caching.provider.hazelcast",
+"boot-features-caching-provider-infinispan":"features.caching.provider.infinispan",
+"boot-features-caching-provider-jcache":"features.caching.provider.jcache",
+"boot-features-caching-provider-none":"features.caching.provider.none",
+"boot-features-caching-provider-redis":"features.caching.provider.redis",
+"boot-features-caching-provider-simple":"features.caching.provider.simple",
+"boot-features-cassandra":"features.nosql.cassandra",
+"boot-features-class-conditions":"features.developing-auto-configuration.condition-annotations.class-conditions",
+"boot-features-command-line-runner":"features.spring-application.command-line-runner",
+"boot-features-condition-annotations":"features.developing-auto-configuration.condition-annotations",
+"boot-features-configfileapplicationcontextinitializer-test-utility":"features.testing.utilities.config-data-application-context-initializer",
+"boot-features-configure-datasource":"features.sql.datasource",
+"boot-features-connect-to-production-database":"features.sql.datasource.production",
+"boot-features-connect-to-production-database-configuration":"features.sql.datasource.configuration",
+"boot-features-connect-to-production-database-connection-pool":"features.sql.datasource.connection-pool",
+"boot-features-connecting-to-a-jndi-datasource":"features.sql.datasource.jndi",
+"boot-features-connecting-to-cassandra":"features.nosql.cassandra.connecting",
+"boot-features-connecting-to-couchbase":"features.nosql.couchbase.connecting",
+"boot-features-connecting-to-elasticsearch-reactive-rest":"features.nosql.elasticsearch.connecting-using-reactive-rest",
+"boot-features-connecting-to-elasticsearch-rest":"features.nosql.elasticsearch.connecting-using-rest",
+"boot-features-connecting-to-elasticsearch-spring-data":"features.nosql.elasticsearch.connecting-using-spring-data",
+"boot-features-connecting-to-influxdb":"features.nosql.influxdb.connecting",
+"boot-features-connecting-to-mongodb":"features.nosql.mongodb.connecting",
+"boot-features-connecting-to-neo4j":"features.nosql.neo4j.connecting",
+"boot-features-connecting-to-redis":"features.nosql.redis.connecting",
+"boot-features-connecting-to-solr":"features.nosql.solr.connecting",
+"boot-features-container-images":"features.container-images",
+"boot-features-container-images-building":"features.container-images.building",
+"boot-features-container-images-buildpacks":"features.container-images.building.buildpacks",
+"boot-features-container-images-docker":"features.container-images.building.dockerfiles",
+"boot-features-cors":"features.developing-web-applications.spring-mvc.cors",
+"boot-features-couchbase":"features.nosql.couchbase",
+"boot-features-creating-and-dropping-jpa-databases":"features.sql.jpa-and-spring-data.creating-and-dropping",
+"boot-features-custom-log-configuration":"features.logging.custom-log-configuration",
+"boot-features-custom-log-groups":"features.logging.log-groups",
+"boot-features-custom-log-levels":"features.logging.log-levels",
+"boot-features-custom-starter":"features.developing-auto-configuration.custom-starter",
+"boot-features-custom-starter-configuration-keys":"features.developing-auto-configuration.custom-starter.configuration-keys",
+"boot-features-custom-starter-module-autoconfigure":"features.developing-auto-configuration.custom-starter.autoconfigure-module",
+"boot-features-custom-starter-module-starter":"features.developing-auto-configuration.custom-starter.starter-module",
+"boot-features-custom-starter-naming":"features.developing-auto-configuration.custom-starter.naming",
+"boot-features-customizing-configurableservletwebserverfactory-directly":"features.developing-web-applications.embedded-container.customizing.direct",
+"boot-features-customizing-embedded-containers":"features.developing-web-applications.embedded-container.customizing",
+"boot-features-customizing-spring-application":"features.spring-application.customizing-spring-application",
+"boot-features-data-jdbc":"features.sql.jdbc",
+"boot-features-developing-auto-configuration":"features.developing-auto-configuration",
+"boot-features-developing-web-applications":"features.developing-web-applications",
+"boot-features-elasticsearch":"features.nosql.elasticsearch",
+"boot-features-email":"features.email",
+"boot-features-embedded-container":"features.developing-web-applications.embedded-container",
+"boot-features-embedded-container-application-context":"features.developing-web-applications.embedded-container.application-context",
+"boot-features-embedded-container-context-initializer":"features.developing-web-applications.embedded-container.context-initializer",
+"boot-features-embedded-container-servlets-filters-listeners":"features.developing-web-applications.embedded-container.servlets-filters-listeners",
+"boot-features-embedded-container-servlets-filters-listeners-beans":"features.developing-web-applications.embedded-container.servlets-filters-listeners.beans",
+"boot-features-embedded-container-servlets-filters-listeners-scanning":"features.developing-web-applications.embedded-container.context-initializer.scanning",
+"boot-features-embedded-database-support":"features.sql.datasource.embedded",
+"boot-features-embedded-kafka":"features.messaging.kafka.embedded",
+"boot-features-encrypting-properties":"features.external-config.encrypting",
+"boot-features-entity-classes":"features.sql.jpa-and-spring-data.entity-classes",
+"boot-features-error-handling":"features.developing-web-applications.spring-mvc.error-handling",
+"boot-features-error-handling-custom-error-pages":"features.developing-web-applications.spring-mvc.error-handling.error-pages",
+"boot-features-error-handling-mapping-error-pages-without-mvc":"features.developing-web-applications.spring-mvc.error-handling.error-pages-without-spring-mvc",
+"boot-features-error-handling-war-deployment":"features.developing-web-applications.spring-mvc.error-handling.in-a-war-deployment",
+"boot-features-external-config":"features.external-config",
+"boot-features-external-config-3rd-party-configuration":"features.external-config.typesafe-configuration-properties.third-party-configuration",
+"boot-features-external-config-application-json":"features.external-config.application-json",
+"boot-features-external-config-application-property-files":"features.external-config.files",
+"boot-features-external-config-command-line-args":"features.external-config.command-line-args",
+"boot-features-external-config-complex-type-merge":"features.external-config.typesafe-configuration-properties.merging-complex-types",
+"boot-features-external-config-constructor-binding":"features.external-config.typesafe-configuration-properties.constructor-binding",
+"boot-features-external-config-conversion":"features.external-config.typesafe-configuration-properties.conversion",
+"boot-features-external-config-conversion-datasize":"features.external-config.typesafe-configuration-properties.conversion.data-sizes",
+"boot-features-external-config-conversion-duration":"features.external-config.typesafe-configuration-properties.conversion.durations",
+"boot-features-external-config-conversion-period":"features.external-config.typesafe-configuration-properties.conversion.periods",
+"boot-features-external-config-enabling":"features.external-config.typesafe-configuration-properties.enabling-annotated-types",
+"boot-features-external-config-exposing-yaml-to-spring":"features.external-config.yaml.directly-loading",
+"boot-features-external-config-file-activation-properties":"features.external-config.files.activation-properties",
+"boot-features-external-config-files":"features.external-config.files",
+"boot-features-external-config-files-configtree":"features.external-config.files.configtree",
+"boot-features-external-config-files-importing":"features.external-config.files.importing",
+"boot-features-external-config-files-importing-extensionless":"features.external-config.file.importing-extensionless",
+"boot-features-external-config-files-multi-document":"features.external-config.files.multi-document",
+"boot-features-external-config-files-profile-specific":"features.external-config.files.profile-specific",
+"boot-features-external-config-files-wildcards":"features.external-config.files.wildcard-locations",
+"boot-features-external-config-java-bean-binding":"features.external-config.typesafe-configuration-properties.java-bean-binding",
+"boot-features-external-config-loading-yaml":"features.external-config.yaml.directly-loading",
+"boot-features-external-config-optional-prefix":"features.external-config.files.optional-prefix",
+"boot-features-external-config-placeholders-in-properties":"features.external-config.files.property-placeholders",
+"boot-features-external-config-random-values":"features.external-config.random-values",
+"boot-features-external-config-relaxed-binding":"features.external-config.typesafe-configuration-properties.relaxed-binding",
+"boot-features-external-config-relaxed-binding-from-environment-variables":"features.external-config.typesafe-configuration-properties.relaxed-binding.environment-variables",
+"boot-features-external-config-relaxed-binding-maps":"features.external-config.typesafe-configuration-properties.relaxed-binding.maps",
+"boot-features-external-config-system-environment":"features.external-config.system-environment",
+"boot-features-external-config-typesafe-configuration-properties":"features.external-config.typesafe-configuration-properties",
+"boot-features-external-config-using":"features.external-config.typesafe-configuration-properties.using-annotated-types",
+"boot-features-external-config-validation":"features.external-config.typesafe-configuration-properties.validation",
+"boot-features-external-config-vs-value":"features.external-config.typesafe-configuration-properties.vs-value-annotation",
+"boot-features-external-config-yaml":"features.external-config.yaml",
+"boot-features-external-config-yaml-to-properties":"features.external-config.yaml.mapping-to-properties",
+"boot-features-fluent-builder-api":"features.spring-application.fluent-builder-api",
+"boot-features-graceful-shutdown":"features.graceful-shutdown",
+"boot-features-hazelcast":"features.hazelcast",
+"boot-features-influxdb":"features.nosql.influxdb",
+"boot-features-integration":"features.spring-integration",
+"boot-features-internationalization":"features.internationalization",
+"boot-features-jersey":"features.developing-web-applications.jersey",
+"boot-features-jms":"features.messaging.jms",
+"boot-features-jms-jndi":"features.messaging.jms.jndi",
+"boot-features-jmx":"features.jmx",
+"boot-features-jooq":"features.sql.jooq",
+"boot-features-jooq-codegen":"features.sql.jooq.codegen",
+"boot-features-jooq-customizing":"features.sql.jooq.customizing",
+"boot-features-jooq-dslcontext":"features.sql.jooq.dslcontext",
+"boot-features-jooq-sqldialect":"features.sql.jooq.sqldialect",
+"boot-features-jpa-and-spring-data":"features.sql.jpa-and-spring-data",
+"boot-features-jpa-in-web-environment":"features.sql.jpa-and-spring-data.open-entity-manager-in-view",
+"boot-features-json":"features.json",
+"boot-features-json-components":"features.developing-web-applications.spring-mvc.json",
+"boot-features-json-gson":"features.json.gson",
+"boot-features-json-jackson":"features.json.jackson",
+"boot-features-json-json-b":"features.json.json-b",
+"boot-features-jsp-limitations":"features.developing-web-applications.embedded-container.jsp-limitations",
+"boot-features-jta":"features.jta",
+"boot-features-jta-atomikos":"features.jta.atomikos",
+"boot-features-jta-javaee":"features.jta.javaee",
+"boot-features-jta-mixed-jms":"features.jta.mixing-xa-and-non-xa-connections",
+"boot-features-jta-supporting-alternative-embedded":"features.jta.supporting-alternative-embedded-transaction-manager",
+"boot-features-kafka":"features.messaging.kafka",
+"boot-features-kafka-extra-props":"features.messaging.kafka.additional-properties",
+"boot-features-kafka-receiving-a-message":"features.messaging.kafka.receiving",
+"boot-features-kafka-sending-a-message":"features.messaging.kafka.sending",
+"boot-features-kafka-streams":"features.messaging.kafka.streams",
+"boot-features-kotlin":"features.kotlin",
+"boot-features-kotlin-api":"features.kotlin.api",
+"boot-features-kotlin-api-extensions":"features.kotlin.api.extensions",
+"boot-features-kotlin-api-runapplication":"features.kotlin.api.run-application",
+"boot-features-kotlin-configuration-properties":"features.kotlin.configuration-properties",
+"boot-features-kotlin-dependency-management":"features.kotlin.dependency-management",
+"boot-features-kotlin-null-safety":"features.kotlin.null-safety",
+"boot-features-kotlin-requirements":"features.kotlin.requirements",
+"boot-features-kotlin-resources":"features.kotlin.resources",
+"boot-features-kotlin-resources-examples":"features.kotlin.resources.examples",
+"boot-features-kotlin-resources-further-reading":"features.kotlin.resources.further-reading",
+"boot-features-kotlin-testing":"features.kotlin.testing",
+"boot-features-lazy-initialization":"features.spring-application.lazy-initialization",
+"boot-features-ldap":"features.nosql.ldap",
+"boot-features-ldap-connecting":"features.nosql.ldap.connecting",
+"boot-features-ldap-embedded":"features.nosql.ldap.embedded",
+"boot-features-ldap-spring-data-repositories":"features.nosql.ldap.repositories",
+"boot-features-locating-auto-configuration-candidates":"features.developing-auto-configuration.locating-auto-configuration-candidates",
+"boot-features-log-shutdown-hook":"features.logging.shutdown-hook",
+"boot-features-logback-environment-properties":"features.logging.logback-extensions.environment-properties",
+"boot-features-logback-extensions":"features.logging.logback-extensions",
+"boot-features-logback-extensions-profile-specific":"features.logging.logback-extensions.profile-specific",
+"boot-features-logging":"features.logging",
+"boot-features-logging-color-coded-output":"features.logging.console-output.color-coded",
+"boot-features-logging-console-output":"features.logging.console-output",
+"boot-features-logging-file-output":"features.logging.file-output",
+"boot-features-logging-file-rotation":"features.logging.file-rotation",
+"boot-features-logging-format":"features.logging.log-format",
+"boot-features-messaging":"features.messaging",
+"boot-features-mongo-embedded":"features.nosql.mongodb.embedded",
+"boot-features-mongo-template":"features.nosql.mongodb.template",
+"boot-features-mongodb":"features.nosql.mongodb",
+"boot-features-neo4j":"features.nosql.neo4j",
+"boot-features-nosql":"features.nosql",
+"boot-features-output-capture-test-utility":"features.testing.utilities.output-capture",
+"boot-features-profile-specific-configuration":"features.profiles.profile-specific-configuration-files",
+"boot-features-profiles":"features.profiles",
+"boot-features-profiles-groups":"features.profiles.groups",
+"boot-features-programmatic-embedded-container-customization":"features.developing-web-applications.embedded-container.customizing.programmatic",
+"boot-features-programmatically-setting-profiles":"features.profiles.programmatically-setting-profiles",
+"boot-features-property-conditions":"features.developing-auto-configuration.condition-annotations.property-conditions",
+"boot-features-quartz":"features.quartz",
+"boot-features-r2dbc":"features.sql.r2dbc",
+"boot-features-r2dbc-embedded-database":"features.sql.r2dbc.embedded",
+"boot-features-r2dbc-using-database-client":"features.sql.r2dbc.using-database-client",
+"boot-features-rabbitmq":"features.messaging.amqp.rabbitmq",
+"boot-features-reactive-server":"features.developing-web-applications.reactive-server",
+"boot-features-reactive-server-resources":"features.developing-web-applications.reactive-server-resources-configuration",
+"boot-features-redis":"features.nosql.redis",
+"boot-features-resource-conditions":"features.developing-auto-configuration.condition-annotations.resource-conditions",
+"boot-features-rest-templates-test-utility":"features.testing.utilities.test-rest-template",
+"boot-features-resttemplate":"features.resttemplate",
+"boot-features-resttemplate-customization":"features.resttemplate.customization",
+"boot-features-rsocket":"features.rsocket",
+"boot-features-rsocket-messaging":"features.rsocket.messaging",
+"boot-features-rsocket-requester":"features.rsocket.requester",
+"boot-features-rsocket-server-auto-configuration":"features.rsocket.server-auto-configuration",
+"boot-features-rsocket-strategies-auto-configuration":"features.rsocket.strategies-auto-configuration",
+"boot-features-security":"features.security",
+"boot-features-security-actuator":"features.security.actuator",
+"boot-features-security-authorization-server":"features.security.oauth2.authorization-server",
+"boot-features-security-csrf":"features.security.actuator.csrf",
+"boot-features-security-mvc":"features.security.spring-mvc",
+"boot-features-security-oauth2":"features.security.oauth2",
+"boot-features-security-oauth2-client":"features.security.oauth2.client",
+"boot-features-security-oauth2-common-providers":"features.security.oauth2.client.common-providers",
+"boot-features-security-oauth2-server":"features.security.oauth2.server",
+"boot-features-security-saml":"features.security.saml2",
+"boot-features-security-saml2-relying-party":"features.security.saml2.relying-party",
+"boot-features-security-webflux":"features.security.spring-webflux",
+"boot-features-session":"features.spring-session",
+"boot-features-solr":"features.nosql.solr",
+"boot-features-spel-conditions":"features.developing-auto-configuration.condition-annotations.spel-conditions",
+"boot-features-spring-application":"features.spring-application",
+"boot-features-spring-data-cassandra-repositories":"features.nosql.cassandra.repositories",
+"boot-features-spring-data-couchbase-repositories":"features.nosql.couchbase.repositories",
+"boot-features-spring-data-elasticsearch-repositories":"features.nosql.elasticsearch.repositories",
+"boot-features-spring-data-jpa-repositories":"features.sql.jpa-and-spring-data.repositories",
+"boot-features-spring-data-mongo-repositories":"features.nosql.mongodb.repositories",
+"boot-features-spring-data-mongodb-repositories":"features.nosql.mongodb.repositories",
+"boot-features-spring-data-neo4j-repositories":"features.nosql.neo4j.repositories",
+"boot-features-spring-data-r2dbc-repositories":"features.sql.r2dbc.repositories",
+"boot-features-spring-hateoas":"features.developing-web-applications.spring-mvc.spring-hateoas",
+"boot-features-spring-message-codes":"features.developing-web-applications.spring-mvc.message-codes",
+"boot-features-spring-mvc":"features.developing-web-applications.spring-mvc",
+"boot-features-spring-mvc-auto-configuration":"features.developing-web-applications.spring-mvc.auto-configuration",
+"boot-features-spring-mvc-message-converters":"features.developing-web-applications.spring-mvc.message-converters",
+"boot-features-spring-mvc-pathmatch":"features.developing-web-applications.spring-mvc.content-negotiation",
+"boot-features-spring-mvc-static-content":"features.developing-web-applications.spring-mvc.static-content",
+"boot-features-spring-mvc-template-engines":"features.developing-web-applications.spring-mvc.template-engines",
+"boot-features-spring-mvc-web-binding-initializer":"features.developing-web-applications.spring-mvc.binding-initializer",
+"boot-features-spring-mvc-welcome-page":"features.developing-web-applications.spring-mvc.welcome-page",
+"boot-features-sql":"features.sql",
+"boot-features-sql-h2-console":"features.sql.h2-web-console",
+"boot-features-sql-h2-console-custom-path":"features.sql.h2-web-console.custom-path",
+"boot-features-startup-failure":"features.spring-application.startup-failure",
+"boot-features-task-execution-scheduling":"features.task-execution-and-scheduling",
+"boot-features-test-autoconfig":"features.developing-auto-configuration.testing",
+"boot-features-test-autoconfig-overriding-classpath":"features.developing-auto-configuration.testing.overriding-classpath",
+"boot-features-test-autoconfig-simulating-web-context":"features.developing-auto-configuration.testing.simulating-a-web-context",
+"boot-features-test-property-values":"features.testing.utilities.test-property-values",
+"boot-features-test-scope-dependencies":"features.testing.test-scope-dependencies",
+"boot-features-test-utilities":"features.testing.utilities",
+"boot-features-testing":"features.testing",
+"boot-features-testing-spring-applications":"features.testing.spring-applications",
+"boot-features-testing-spring-boot-application-arguments":"features.testing.spring-boot-applications.using-application-arguments",
+"boot-features-testing-spring-boot-applications":"features.testing.spring-boot-applications",
+"boot-features-testing-spring-boot-applications-customizing-web-test-client":"features.testing.spring-boot-applications.customizing-web-test-client",
+"boot-features-testing-spring-boot-applications-detecting-config":"features.testing.spring-boot-applications.detecting-configuration",
+"boot-features-testing-spring-boot-applications-detecting-web-app-type":"features.testing.spring-boot-applications.detecting-web-app-type",
+"boot-features-testing-spring-boot-applications-excluding-config":"features.testing.spring-boot-applications.excluding-configuration",
+"boot-features-testing-spring-boot-applications-jmx":"features.testing.spring-boot-applications.jmx",
+"boot-features-testing-spring-boot-applications-metrics":"features.testing.spring-boot-applications.metrics",
+"boot-features-testing-spring-boot-applications-mocking-beans":"features.testing.spring-boot-applications.mocking-beans",
+"boot-features-testing-spring-boot-applications-testing-auto-configured-additional-auto-config":"features.testing.spring-boot-applications.additional-autoconfiguration-and-slicing",
+"boot-features-testing-spring-boot-applications-testing-autoconfigured-cassandra-test":"features.testing.spring-boot-applications.autoconfigured-spring-data-cassandra",
+"boot-features-testing-spring-boot-applications-testing-autoconfigured-data-jdbc-test":"features.testing.spring-boot-applications.autoconfigured-spring-data-jdbc",
+"boot-features-testing-spring-boot-applications-testing-autoconfigured-jdbc-test":"features.testing.spring-boot-applications.autoconfigured-jdbc",
+"boot-features-testing-spring-boot-applications-testing-autoconfigured-jooq-test":"features.testing.spring-boot-applications.autoconfigured-jooq",
+"boot-features-testing-spring-boot-applications-testing-autoconfigured-jpa-test":"features.testing.spring-boot-applications.autoconfigured-spring-data-jpa",
+"boot-features-testing-spring-boot-applications-testing-autoconfigured-json-tests":"features.testing.spring-boot-applications.json-tests",
+"boot-features-testing-spring-boot-applications-testing-autoconfigured-ldap-test":"features.testing.spring-boot-applications.autoconfigured-spring-data-ldap",
+"boot-features-testing-spring-boot-applications-testing-autoconfigured-mongo-test":"features.testing.spring-boot-applications.autoconfigured-spring-data-mongodb",
+"boot-features-testing-spring-boot-applications-testing-autoconfigured-mvc-tests":"features.testing.spring-boot-applications.spring-mvc-tests",
+"boot-features-testing-spring-boot-applications-testing-autoconfigured-neo4j-test":"features.testing.spring-boot-applications.autoconfigured-spring-data-neo4j",
+"boot-features-testing-spring-boot-applications-testing-autoconfigured-redis-test":"features.testing.spring-boot-applications.autoconfigured-spring-data-redis",
+"boot-features-testing-spring-boot-applications-testing-autoconfigured-rest-client":"features.testing.spring-boot-applications.autoconfigured-rest-client",
+"boot-features-testing-spring-boot-applications-testing-autoconfigured-rest-docs":"features.testing.spring-boot-applications.autoconfigured-spring-restdocs",
+"boot-features-testing-spring-boot-applications-testing-autoconfigured-rest-docs-mock-mvc":"features.testing.spring-boot-applications.autoconfigured-spring-restdocs.with-mock-mvc",
+"boot-features-testing-spring-boot-applications-testing-autoconfigured-rest-docs-rest-assured":"features.testing.spring-boot-applications.autoconfigured-spring-restdocs.with-rest-assured",
+"boot-features-testing-spring-boot-applications-testing-autoconfigured-rest-docs-web-test-client":"features.testing.spring-boot-applications.autoconfigured-spring-restdocs.with-web-test-client",
+"boot-features-testing-spring-boot-applications-testing-autoconfigured-tests":"features.testing.spring-boot-applications.autoconfigured-tests",
+"boot-features-testing-spring-boot-applications-testing-autoconfigured-webflux-tests":"features.testing.spring-boot-applications.spring-webflux-tests",
+"boot-features-testing-spring-boot-applications-testing-autoconfigured-webservices":"features.testing.spring-boot-applications.autoconfigured-webservices",
+"boot-features-testing-spring-boot-applications-testing-user-configuration":"features.testing.spring-boot-applications.user-configuration-and-slicing",
+"boot-features-testing-spring-boot-applications-testing-with-mock-environment":"features.testing.spring-boot-applications.with-mock-environment",
+"boot-features-testing-spring-boot-applications-testing-with-running-server":"features.testing.spring-boot-applications.with-running-server",
+"boot-features-testing-spring-boot-applications-with-spock":"features.testing.spring-boot-applications.spock",
+"boot-features-understanding-auto-configured-beans":"features.developing-auto-configuration.understanding-auto-configured-beans",
+"boot-features-using-amqp-receiving":"features.messaging.amqp.receiving",
+"boot-features-using-amqp-sending":"features.messaging.amqp.sending",
+"boot-features-using-jdbc-template":"features.sql.jdbc-template",
+"boot-features-using-jms-receiving":"features.messaging.jms.receiving",
+"boot-features-using-jms-sending":"features.messaging.jms.sending",
+"boot-features-validation":"features.validation",
+"boot-features-web-application-conditions":"features.developing-auto-configuration.condition-annotations.web-application-conditions",
+"boot-features-web-environment":"features.spring-application.web-environment",
+"boot-features-webclient":"features.webclient",
+"boot-features-webclient-customization":"features.webclient.customization",
+"boot-features-webclient-runtime":"features.webclient.runtime",
+"boot-features-webflux":"features.developing-web-applications.spring-webflux",
+"boot-features-webflux-auto-configuration":"features.developing-web-applications.spring-webflux.auto-configuration",
+"boot-features-webflux-error-handling":"features.developing-web-applications.spring-webflux.error-handling",
+"boot-features-webflux-error-handling-custom-error-pages":"features.developing-web-applications.spring-webflux.error-handling.error-pages",
+"boot-features-webflux-httpcodecs":"features.developing-web-applications.spring-webflux.httpcodecs",
+"boot-features-webflux-static-content":"features.developing-web-applications.spring-webflux.static-content",
+"boot-features-webflux-template-engines":"features.developing-web-applications.spring-webflux.template-engines",
+"boot-features-webflux-web-filters":"features.developing-web-applications.spring-webflux.web-filters",
+"boot-features-webflux-welcome-page":"features.developing-web-applications.spring-webflux.welcome-page",
+"boot-features-webservices":"features.webservices",
+"boot-features-webservices-template":"features.webservices.template",
+"boot-features-websockets":"features.websockets",
+"boot-features-whats-next":"features.whats-next",
+"boot-layering-docker-images":"features.container-images.layering",
+"build-tool-plugins-antlib":"build-tool-plugins.antlib",
+"build-tool-plugins-find-a-main-class":"build-tool-plugins.other-build-systems.finding-main-class",
+"build-tool-plugins-gradle-plugin":"build-tool-plugins.gradle",
+"build-tool-plugins-maven-plugin":"build-tool-plugins.maven",
+"build-tool-plugins-nested-libraries":"build-tool-plugins.other-build-systems.nested-libraries",
+"build-tool-plugins-other-build-systems":"build-tool-plugins.other-build-systems",
+"build-tool-plugins-repackage-implementation":"build-tool-plugins.other-build-systems.example-repackage-implementation",
+"build-tool-plugins-repackaging-archives":"build-tool-plugins.other-build-systems.repackaging-archives",
+"build-tool-plugins-whats-next":"build-tool-plugins.whats-next",
+"cache-properties":"application-properties.cache",
+"cli-automatic-main-method":"cli.using-the-cli.run.automatic-main-method",
+"cli-deduced-grab-annotations":"cli.using-the-cli.run.deduced-grab-annotations",
+"cli-default-grab-deduced-coordinates":"cli.using-the-cli.run.deduced-grab-coordinates",
+"cli-default-grab-deduced-coordinates-custom-dependency-management":"cli.using-the-cli.run.custom-dependency-management",
+"cli-default-import-statements":"cli.using-the-cli.run.default-import-statements",
+"cli-groovy-beans-dsl":"cli.groovy-beans-dsl",
+"cli-init":"cli.using-the-cli.initialize-new-project",
+"cli-install-uninstall":"cli.using-the-cli.extensions",
+"cli-installation":"cli.installation",
+"cli-jar":"cli.using-the-cli.packaging",
+"cli-maven-settings":"cli.maven-setting",
+"cli-multiple-source-files":"cli.using-the-cli.multiple-source-files",
+"cli-run":"cli.using-the-cli.run",
+"cli-shell":"cli.using-the-cli.embedded-shell",
+"cli-using-the-cli":"cli.using-the-cli",
+"cli-whats-next":"cli.whats-next",
+"cloud-deployment":"deployment.cloud",
+"cloud-deployment-aws":"deployment.cloud.aws",
+"cloud-deployment-aws-beanstalk":"deployment.cloud.aws.beanstalk",
+"cloud-deployment-aws-java-se-platform":"deployment.cloud.aws.beanstalk.java-se-platform",
+"cloud-deployment-aws-summary":"deployment.cloud.aws.summary",
+"cloud-deployment-aws-tomcat-platform":"deployment.cloud.aws.beanstalk.tomcat-platform",
+"cloud-deployment-boxfuse":"deployment.cloud.boxfuse",
+"cloud-deployment-cloud-foundry":"deployment.cloud.cloud-foundry",
+"cloud-deployment-cloud-foundry-services":"deployment.cloud.cloud-foundry.binding-to-services",
+"cloud-deployment-gae":"deployment.cloud.google",
+"cloud-deployment-heroku":"deployment.cloud.heroku",
+"cloud-deployment-kubernetes":"deployment.cloud.kubernetes",
+"cloud-deployment-kubernetes-container-lifecycle":"deployment.cloud.kubernetes.container-lifecycle",
+"cloud-deployment-openshift":"deployment.cloud.openshift",
+"common-application-properties":"application-properties",
+"common-application-properties-actuator":"application-properties.actuator",
+"common-application-properties-cache":"application-properties.cache",
+"common-application-properties-core":"application-properties.core",
+"common-application-properties-data":"application-properties.data",
+"common-application-properties-data-migration":"application-properties.data-migration",
+"common-application-properties-devtools":"application-properties.devtools",
+"common-application-properties-integration":"application-properties.integration",
+"common-application-properties-json":"application-properties.json",
+"common-application-properties-mail":"application-properties.mail",
+"common-application-properties-rsocket":"application-properties.rsocket",
+"common-application-properties-security":"application-properties.security",
+"common-application-properties-server":"application-properties.server",
+"common-application-properties-templating":"application-properties.templating",
+"common-application-properties-testing":"application-properties.testing",
+"common-application-properties-transaction":"application-properties.transaction",
+"common-application-properties-web":"application-properties.web",
+"configuration-metadata-additional-metadata":"configuration-metadata.annotation-processor.adding-additional-metadata",
+"configuration-metadata-annotation-processor":"configuration-metadata.annotation-processor",
+"configuration-metadata-annotation-processor-metadata-generation":"configuration-metadata.annotation-processor.automatic-metadata-generation",
+"configuration-metadata-annotation-processor-metadata-generation-nested":"configuration-metadata.annotation-processor.automatic-metadata-generation.nested-properties",
+"configuration-metadata-annotation-processor-setup":"configuration-metadata.annotation-processor.configuring",
+"configuration-metadata-format":"configuration-metadata.format",
+"configuration-metadata-group-attributes":"configuration-metadata.format.group",
+"configuration-metadata-hints-attributes":"configuration-metadata.format.hints",
+"configuration-metadata-property-attributes":"configuration-metadata.format.property",
+"configuration-metadata-providing-manual-hints":"configuration-metadata.manual-hints",
+"configuration-metadata-providing-manual-hints-any":"configuration-metadata.manual-hints.value-providers.any",
+"configuration-metadata-providing-manual-hints-class-reference":"configuration-metadata.manual-hints.value-providers.class-reference",
+"configuration-metadata-providing-manual-hints-handle-as":"configuration-metadata.manual-hints.value-providers.handle-as",
+"configuration-metadata-providing-manual-hints-logger-name":"configuration-metadata.manual-hints.value-providers.logger-name",
+"configuration-metadata-providing-manual-hints-spring-bean-reference":"configuration-metadata.manual-hints.value-providers.spring-bean-reference",
+"configuration-metadata-providing-manual-hints-spring-profile-name":"configuration-metadata.manual-hints.value-providers.spring-profile-name",
+"configuration-metadata-providing-manual-hints-value-hint":"configuration-metadata.manual-hints.value-hint",
+"configuration-metadata-providing-manual-hints-value-providers":"configuration-metadata.manual-hints.value-providers",
+"configuration-metadata-repeated-items":"configuration-metadata.format.repeated-items",
+"configuring-file-system-watcher":"using.devtools.globalsettings.configuring-file-system-watcher",
+"containers-deployment":"deployment.containers",
+"core-properties":"application-properties.core",
+"data-migration-properties":"application-properties.data-migration",
+"data-properties":"application-properties.data",
+"dependency-versions-coordinates":"dependency-versions.coordinates",
+"dependency-versions-properties":"dependency-versions.properties",
+"deployment-initd-service":"deployment.installing.nix-services.init-d",
+"deployment-initd-service-securing":"deployment.installing.nix-services.init-d.securing",
+"deployment-install":"deployment.installing",
+"deployment-install-supported-operating-systems":"deployment.installing.supported-operating-systems",
+"deployment-script-customization":"deployment.installing.nix-services.script-customization",
+"deployment-script-customization-when-it-runs":"deployment.installing.nix-services.script-customization.when-running",
+"deployment-script-customization-when-it-written":"deployment.installing.nix-services.script-customization.when-written",
+"deployment-service":"deployment.installing.nix-services",
+"deployment-systemd-service":"deployment.installing.nix-services.system-d",
+"deployment-whats-next":"deployment.whats-next",
+"deployment-windows":"deployment.installing.windows-services",
+"devtools-properties":"application-properties.devtools",
+"executable-jar-alternatives":"executable-jar.alternatives",
+"executable-jar-jar-file-structure":"executable-jar.nested-jars.jar-structure",
+"executable-jar-jarfile":"executable-jar.jarfile-class",
+"executable-jar-jarfile-compatibility":"executable-jar.jarfile-class.compatibilty",
+"executable-jar-launcher-manifest":"executable-jar.launching.manifest",
+"executable-jar-launching":"executable-jar.launching",
+"executable-jar-nested-jars":"executable-jar.nested-jars",
+"executable-jar-property-launcher-features":"executable-jar.property-launcher",
+"executable-jar-restrictions":"executable-jar.restrictions",
+"executable-jar-war-file-structure":"executable-jar.nested-jars.war-structure",
+"executable-jar-war-index-files":"executable-jar.nested-jars.index-files",
+"executable-jar-war-index-files-classpath":"executable-jar.nested-jars.classpath-index",
+"executable-jar-war-index-files-layers":"executable-jar.nested-jars.layer-index",
+"getting-started-cli-command-line-completion":"getting-started.installing.cli.completion",
+"getting-started-cli-example":"getting-started.installing.cli.quick-start",
+"getting-started-first-application":"getting-started.first-application",
+"getting-started-first-application-annotations":"getting-started.first-application.code.mvc-annotations",
+"getting-started-first-application-auto-configuration":"getting-started.first-application.code.enable-auto-configuration",
+"getting-started-first-application-code":"getting-started.first-application.code",
+"getting-started-first-application-dependencies":"getting-started.first-application.dependencies",
+"getting-started-first-application-executable-jar":"getting-started.first-application.executable-jar",
+"getting-started-first-application-main-method":"getting-started.first-application.code.main-method",
+"getting-started-first-application-pom":"getting-started.first-application.pom",
+"getting-started-first-application-run":"getting-started.first-application.run",
+"getting-started-gradle-installation":"getting-started.installing.java.gradle",
+"getting-started-homebrew-cli-installation":"getting-started.installing.cli.homebrew",
+"getting-started-installation-instructions-for-java":"getting-started.installing.java",
+"getting-started-installing-spring-boot":"getting-started.installing",
+"getting-started-installing-the-cli":"getting-started.installing.cli",
+"getting-started-introducing-spring-boot":"getting-started.introducing-spring-boot",
+"getting-started-macports-cli-installation":"getting-started.installing.cli.macports",
+"getting-started-manual-cli-installation":"getting-started.installing.cli.manual-installation",
+"getting-started-maven-installation":"getting-started.installing.java.maven",
+"getting-started-scoop-cli-installation":"getting-started.installing.cli.scoop",
+"getting-started-sdkman-cli-installation":"getting-started.installing.cli.sdkman",
+"getting-started-system-requirements":"getting-started.system-requirements",
+"getting-started-system-requirements-servlet-containers":"getting-started.system-requirements.servlet-containers",
+"getting-started-upgrading-from-an-earlier-version":"getting-started.installing.upgrading",
+"getting-started-whats-next":"getting-started.whats-next",
+"how-to-enable-http-response-compression":"howto.webserver.enable-response-compression",
+"howto-actuator":"howto.actuator",
+"howto-add-a-servlet-filter-or-listener":"howto.webserver.add-servlet-filter-listener",
+"howto-add-a-servlet-filter-or-listener-as-spring-bean":"howto.webserver.add-servlet-filter-listener.spring-bean",
+"howto-add-a-servlet-filter-or-listener-using-scanning":"howto.webserver.add-servlet-filter-listener.using-scanning",
+"howto-automatic-expansion":"howto.properties-and-configuration.expand-properties",
+"howto-automatic-expansion-gradle":"howto.properties-and-configuration.expand-properties.gradle",
+"howto-automatic-expansion-maven":"howto.properties-and-configuration.expand-properties.maven",
+"howto-batch-applications":"howto.batch",
+"howto-build":"howto.build",
+"howto-build-an-application-context-hierarchy":"howto.application.context-hierarchy",
+"howto-build-an-executable-archive-with-ant":"howto.build.build-an-executable-archive-with-ant-without-using-spring-boot-antlib",
+"howto-build-info":"howto.build.generate-info",
+"howto-change-configuration-depending-on-the-environment":"howto.properties-and-configuration.change-configuration-depending-on-the-environment",
+"howto-change-the-http-port":"howto.webserver.change-port",
+"howto-change-the-http-port-or-address-of-the-actuator-endpoints":"howto.actuator.change-http-port-or-address",
+"howto-change-the-location-of-external-properties":"howto.properties-and-configuration.external-properties-location",
+"howto-change-the-user-details-service-and-add-user-accounts":"howto.security.change-user-details-service-and-add-user-accounts",
+"howto-configure-a-component-that-is-used-by-JPA":"howto.data-access.configure-a-component-that-is-used-by-jpa",
+"howto-configure-a-datasource":"howto.data-access.configure-custom-datasource",
+"howto-configure-accesslogs":"howto.webserver.configure-access-logs",
+"howto-configure-hibernate-naming-strategy":"howto.data-access.configure-hibernate-naming-strategy",
+"howto-configure-hibernate-second-level-caching":"howto.data-access.configure-hibernate-second-level-caching",
+"howto-configure-http2":"howto.webserver.configure-http2",
+"howto-configure-http2-jetty":"howto.webserver.configure-http2.jetty",
+"howto-configure-http2-netty":"howto.webserver.configure-http2.netty",
+"howto-configure-http2-tomcat":"howto.webserver.configure-http2.tomcat",
+"howto-configure-http2-undertow":"howto.webserver.configure-http2.undertow",
+"howto-configure-jOOQ-with-multiple-datasources":"howto.data-access.configure-jooq-with-multiple-datasources",
+"howto-configure-jpa-properties":"howto.data-access.jpa-properties",
+"howto-configure-log4j-for-logging":"howto.logging.log4j",
+"howto-configure-log4j-for-logging-yaml-or-json-config":"howto.logging.log4j.yaml-or-json-config",
+"howto-configure-logback-for-logging":"howto.logging.logback",
+"howto-configure-logback-for-logging-fileonly":"howto.logging.logback.file-only-output",
+"howto-configure-ssl":"howto.webserver.configure-ssl",
+"howto-configure-webserver":"howto.webserver.configure",
+"howto-convert-an-existing-application-to-spring-boot":"howto.traditional-deployment.convert-existing-application",
+"howto-create-a-deployable-war-file":"howto.traditional-deployment.war",
+"howto-create-a-non-web-application":"howto.application.non-web-application",
+"howto-create-a-nonexecutable-jar":"howto.build.create-a-nonexecutable-jar",
+"howto-create-an-additional-executable-jar":"howto.build.use-a-spring-boot-application-as-dependency",
+"howto-create-an-executable-jar-with-maven":"howto.build.create-an-executable-jar-with-maven",
+"howto-create-websocket-endpoints-using-serverendpoint":"howto.webserver.create-websocket-endpoints-using-serverendpoint",
+"howto-customize-dependency-versions":"howto.build.customize-dependency-versions",
+"howto-customize-the-environment-or-application-context":"howto.application.customize-the-environment-or-application-context",
+"howto-customize-the-jackson-objectmapper":"howto.spring-mvc.customize-jackson-objectmapper",
+"howto-customize-the-responsebody-rendering":"howto.spring-mvc.customize-responsebody-rendering",
+"howto-customize-the-whitelabel-error-page":"howto.actuator.customize-whitelabel-error-page",
+"howto-customize-tomcat-behind-a-proxy-server":"howto.webserver.use-behind-a-proxy-server.tomcat",
+"howto-customize-view-resolvers":"howto.spring-mvc.customize-view-resolvers",
+"howto-data-access":"howto.data-access",
+"howto-database-initialization":"howto.data-initialization",
+"howto-disable-registration-of-a-servlet-or-filter":"howto.webserver.add-servlet-filter-listener.spring-bean.disable",
+"howto-disable-web-server":"howto.webserver.disable",
+"howto-discover-build-in-options-for-external-properties":"howto.properties-and-configuration.discover-build-in-options-for-external-properties",
+"howto-discover-the-http-port-at-runtime":"howto.webserver.discover-port",
+"howto-embedded-web-servers":"howto.webserver",
+"howto-enable-https":"howto.security.enable-https",
+"howto-enable-multiple-connectors-in-tomcat":"howto.webserver.enable-multiple-connectors-in-tomcat",
+"howto-enable-multiple-listeners-in-undertow":"howto.webserver.enable-multiple-listeners-in-undertow",
+"howto-enable-tomcat-mbean-registry":"howto.webserver.enable-tomcat-mbean-registry",
+"howto-execute-flyway-database-migrations-on-startup":"howto.data-initialization.migration-tool.flyway",
+"howto-execute-liquibase-database-migrations-on-startup":"howto.data-initialization.migration-tool.liquibase",
+"howto-externalize-configuration":"howto.properties-and-configuration.externalize-configuration",
+"howto-extract-specific-libraries-when-an-executable-jar-runs":"howto.build.extract-specific-libraries-when-an-executable-jar-runs",
+"howto-failure-analyzer":"howto.application.failure-analyzer",
+"howto-git-info":"howto.build.generate-git-info",
+"howto-hotswapping":"howto.hotswapping",
+"howto-http-clients":"howto.http-clients",
+"howto-http-clients-proxy-configuration":"howto.http-clients.rest-template-proxy-configuration",
+"howto-initialize-a-database-configuring-dependencies":"howto.data-initialization.dependencies",
+"howto-initialize-a-database-configuring-dependencies-depends-on-initialization-detection":"howto.data-initialization.dependencies.depends-on-initialization-detection",
+"howto-initialize-a-database-configuring-dependencies-initializer-detection":"howto.data-initialization.dependencies.initializer-detection",
+"howto-initialize-a-database-using-basic-scripts":"howto.data-initialization.using-basic-sql-scripts",
+"howto-initialize-a-database-using-hibernate":"howto.data-initialization.using-hibernate",
+"howto-initialize-a-database-using-jpa":"howto.data-initialization.using-jpa",
+"howto-initialize-a-spring-batch-database":"howto.data-initialization.batch",
+"howto-jersey":"howto.jersey",
+"howto-jersey-alongside-another-web-framework":"howto.jersey.alongside-another-web-framework",
+"howto-jersey-spring-security":"howto.jersey.spring-security",
+"howto-jms-disable-transaction":"howto.messaging.disable-transacted-jms-session",
+"howto-logging":"howto.logging",
+"howto-map-health-indicators-to-metrics":"howto.actuator.map-health-indicators-to-metrics",
+"howto-messaging":"howto.messaging",
+"howto-multipart-file-upload-configuration":"howto.spring-mvc.multipart-file-uploads",
+"howto-properties-and-configuration":"howto.properties-and-configuration",
+"howto-reload-fast-restart":"howto.hotswapping.fast-application-restarts",
+"howto-reload-freemarker-content":"howto.hotswapping.reload-templates.freemarker",
+"howto-reload-groovy-template-content":"howto.hotswapping.reload-templates.groovy",
+"howto-reload-java-classes-without-restarting":"howto.hotswapping.reload-java-classes-without-restarting",
+"howto-reload-static-content":"howto.hotswapping.reload-static-content",
+"howto-reload-thymeleaf-content":"howto.hotswapping.reload-templates.thymeleaf",
+"howto-reload-thymeleaf-template-content":"howto.hotswapping.reload-templates",
+"howto-remote-debug-maven-run":"howto.build.remote-debug-maven",
+"howto-sanitize-sensible-values":"howto.actuator.sanitize-sensitive-values",
+"howto-sanitize-sensitive-values":"howto.actuator.sanitize-sensitive-values",
+"howto-security":"howto.security",
+"howto-separate-entity-definitions-from-spring-configuration":"howto.data-access.separate-entity-definitions-from-spring-configuration",
+"howto-set-active-spring-profiles":"howto.properties-and-configuration.set-active-spring-profiles",
+"howto-spring-batch-running-command-line":"howto.batch.running-from-the-command-line",
+"howto-spring-batch-running-jobs-on-startup":"howto.batch.running-jobs-on-startup",
+"howto-spring-batch-specifying-a-data-source":"howto.batch.specifying-a-data-source",
+"howto-spring-batch-storing-job-repository":"howto.batch.storing-job-repository",
+"howto-spring-boot-application":"howto.application",
+"howto-spring-mvc":"howto.spring-mvc",
+"howto-switch-off-default-mvc-configuration":"howto.spring-mvc.switch-off-default-configuration",
+"howto-switch-off-spring-boot-security-configuration":"howto.security.switch-off-spring-boot-configuration",
+"howto-switch-off-the-spring-mvc-dispatcherservlet":"howto.spring-mvc.switch-off-dispatcherservlet",
+"howto-testcontainers":"howto.testing.testcontainers",
+"howto-traditional-deployment":"howto.traditional-deployment",
+"howto-troubleshoot-auto-configuration":"howto.application.troubleshoot-auto-configuration",
+"howto-two-datasources":"howto.data-access.configure-two-datasources",
+"howto-use-a-higher-level-database-migration-tool":"howto.data-initialization.migration-tool",
+"howto-use-another-web-server":"howto.webserver.use-another",
+"howto-use-behind-a-proxy-server":"howto.webserver.use-behind-a-proxy-server",
+"howto-use-custom-entity-manager":"howto.data-access.use-custom-entity-manager",
+"howto-use-customize-spring-datas-web-support":"howto.data-access.customize-spring-data-web-support",
+"howto-use-dependency-injection-hibernate-components":"howto.data-access.dependency-injection-in-hibernate-components",
+"howto-use-exposing-spring-data-repositories-rest-endpoint":"howto.data-access.exposing-spring-data-repositories-as-rest",
+"howto-use-jedis-instead-of-lettuce":"howto.nosql.jedis-instead-of-lettuce",
+"howto-use-multiple-entity-managers":"howto.data-access.use-multiple-entity-managers",
+"howto-use-short-command-line-arguments":"howto.properties-and-configuration.short-command-line-arguments",
+"howto-use-spring-data-jpa--and-mongo-repositories":"howto.data-access.use-spring-data-jpa-and-mongo-repositories",
+"howto-use-spring-data-repositories":"howto.data-access.spring-data-repositories",
+"howto-use-test-with-spring-security":"howto.spring-mvc.testing.with-spring-security",
+"howto-use-tomcat-legacycookieprocessor":"howto.webserver.use-tomcat-legacycookieprocessor",
+"howto-use-traditional-persistence-xml":"howto.data-access.use-traditional-persistence-xml",
+"howto-use-two-entity-managers":"howto.data-access.use-multiple-entity-managers",
+"howto-use-yaml-for-external-properties":"howto.properties-and-configuration.yaml",
+"howto-user-a-random-unassigned-http-port":"howto.webserver.use-random-port",
+"howto-webclient-reactor-netty-customization":"howto.http-clients.webclient-reactor-netty-customization",
+"howto-weblogic":"howto.traditional-deployment.weblogic",
+"howto-write-a-json-rest-service":"howto.spring-mvc.write-json-rest-service",
+"howto-write-an-xml-rest-service":"howto.spring-mvc.write-xml-rest-service",
+"integration-properties":"application-properties.integration",
+"json-properties":"application-properties.json",
+"mail-properties":"application-properties.mail",
+"production-ready":"actuator",
+"production-ready-application-info":"actuator.endpoints.info",
+"production-ready-application-info-autoconfigure":"actuator.endpoints.info.auto-configured-info-contributors",
+"production-ready-application-info-build":"actuator.endpoints.info.build-information",
+"production-ready-application-info-custom":"actuator.endpoints.info.writing-custom-info-contributors",
+"production-ready-application-info-env":"actuator.endpoints.info.custom-application-information",
+"production-ready-application-info-git":"actuator.endpoints.info.git-commit-information",
+"production-ready-auditing":"actuator.auditing",
+"production-ready-auditing-custom":"actuator.auditing.custom",
+"production-ready-cloudfoundry":"actuator.cloud-foundry",
+"production-ready-cloudfoundry-disable":"actuator.cloud-foundry.disable",
+"production-ready-cloudfoundry-ssl":"actuator.cloud-foundry.ssl",
+"production-ready-custom-context-path":"actuator.cloud-foundry.custom-context-path",
+"production-ready-custom-mbean-names":"actuator.jmx.custom-mbean-names",
+"production-ready-customizing-jolokia":"actuator.jmx.jolokia.customizing",
+"production-ready-customizing-management-server-address":"actuator.monitoring.customizing-management-server-address",
+"production-ready-customizing-management-server-context-path":"actuator.monitoring.customizing-management-server-context-path",
+"production-ready-customizing-management-server-port":"actuator.monitoring.customizing-management-server-port",
+"production-ready-disable-jmx-endpoints":"actuator.jmx.disable-jmx-endpoints",
+"production-ready-disabling-http-endpoints":"actuator.monitoring.disabling-http-endpoints",
+"production-ready-disabling-jolokia":"actuator.jmx.jolokia.disabling",
+"production-ready-enabling":"actuator.enabling",
+"production-ready-endpoints":"actuator.endpoints",
+"production-ready-endpoints-caching":"actuator.endpoints.caching",
+"production-ready-endpoints-cors":"actuator.endpoints.cors",
+"production-ready-endpoints-custom":"actuator.endpoints.implementing-custom",
+"production-ready-endpoints-custom-controller":"actuator.endpoints.implementing-custom.controller",
+"production-ready-endpoints-custom-input":"actuator.endpoints.implementing-custom.input",
+"production-ready-endpoints-custom-input-conversion":"actuator.endpoints.implementing-custom.input.conversion",
+"production-ready-endpoints-custom-servlet":"actuator.endpoints.implementing-custom.servlet",
+"production-ready-endpoints-custom-web":"actuator.endpoints.implementing-custom.web",
+"production-ready-endpoints-custom-web-predicate":"actuator.endpoints.implementing-custom.web.request-predicates",
+"production-ready-endpoints-custom-web-predicate-consumes":"actuator.endpoints.implementing-custom.web.consumes-predicates",
+"production-ready-endpoints-custom-web-predicate-http-method":"actuator.endpoints.implementing-custom.web.method-predicates",
+"production-ready-endpoints-custom-web-predicate-path":"actuator.endpoints.implementing-custom.web.path-predicates",
+"production-ready-endpoints-custom-web-predicate-produces":"actuator.endpoints.implementing-custom.web.produces-predicates",
+"production-ready-endpoints-custom-web-range-requests":"actuator.endpoints.implementing-custom.web.range-requests",
+"production-ready-endpoints-custom-web-response-status":"actuator.endpoints.implementing-custom.web.response-status",
+"production-ready-endpoints-custom-web-security":"actuator.endpoints.implementing-custom.web.security",
+"production-ready-endpoints-enabling-endpoints":"actuator.endpoints.enabling",
+"production-ready-endpoints-exposing-endpoints":"actuator.endpoints.exposing",
+"production-ready-endpoints-hypermedia":"actuator.endpoints.hypermedia",
+"production-ready-endpoints-security":"actuator.endpoints.security",
+"production-ready-health":"actuator.endpoints.health",
+"production-ready-health-datasource":"actuator.endpoints.health.datasource",
+"production-ready-health-groups":"actuator.endpoints.health.groups",
+"production-ready-health-indicators":"actuator.endpoints.health.auto-configured-health-indicators",
+"production-ready-health-indicators-writing":"actuator.endpoints.health.writing-custom-health-indicators",
+"production-ready-http-tracing":"actuator.tracing",
+"production-ready-http-tracing-custom":"actuator.tracing.custom",
+"production-ready-jmx":"actuator.jmx",
+"production-ready-jolokia":"actuator.jmx.jolokia",
+"production-ready-kubernetes-probes":"actuator.endpoints.kubernetes-probes",
+"production-ready-kubernetes-probes-external-state":"actuator.endpoints.kubernetes-probes.external-state",
+"production-ready-kubernetes-probes-lifecycle":"actuator.endpoints.kubernetes-probes.lifecycle",
+"production-ready-logger-configuration":"actuator.loggers.configure",
+"production-ready-loggers":"actuator.loggers",
+"production-ready-management-specific-ssl":"actuator.monitoring.management-specific-ssl",
+"production-ready-metrics":"actuator.metrics",
+"production-ready-metrics-cache":"actuator.metrics.supported.cache",
+"production-ready-metrics-common-tags":"actuator.metrics.customizing.common-tags",
+"production-ready-metrics-custom":"actuator.metrics.registering-custom",
+"production-ready-metrics-customizing":"actuator.metrics.customizing",
+"production-ready-metrics-data-repository":"actuator.metrics.supported.spring-data-repository",
+"production-ready-metrics-endpoint":"actuator.metrics.endpoint",
+"production-ready-metrics-export":"actuator.metrics.export",
+"production-ready-metrics-export-appoptics":"actuator.metrics.export.appoptics",
+"production-ready-metrics-export-atlas":"actuator.metrics.export.atlas",
+"production-ready-metrics-export-datadog":"actuator.metrics.export.datadog",
+"production-ready-metrics-export-dynatrace":"actuator.metrics.export.dynatrace",
+"production-ready-metrics-export-elastic":"actuator.metrics.export.elastic",
+"production-ready-metrics-export-ganglia":"actuator.metrics.export.ganglia",
+"production-ready-metrics-export-graphite":"actuator.metrics.export.graphite",
+"production-ready-metrics-export-humio":"actuator.metrics.export.humio",
+"production-ready-metrics-export-influx":"actuator.metrics.export.influx",
+"production-ready-metrics-export-jmx":"actuator.metrics.export.jmx",
+"production-ready-metrics-export-kairos":"actuator.metrics.export.kairos",
+"production-ready-metrics-export-newrelic":"actuator.metrics.export.newrelic",
+"production-ready-metrics-export-prometheus":"actuator.metrics.export.prometheus",
+"production-ready-metrics-export-signalfx":"actuator.metrics.export.signalfx",
+"production-ready-metrics-export-simple":"actuator.metrics.export.simple",
+"production-ready-metrics-export-stackdriver":"actuator.metrics.export.stackdriver",
+"production-ready-metrics-export-statsd":"actuator.metrics.export.statsd",
+"production-ready-metrics-export-wavefront":"actuator.metrics.export.wavefront",
+"production-ready-metrics-getting-started":"actuator.metrics.getting-started",
+"production-ready-metrics-hibernate":"actuator.metrics.supported.hibernate",
+"production-ready-metrics-http-clients":"actuator.metrics.supported.http-clients",
+"production-ready-metrics-integration":"actuator.metrics.supported.spring-integration",
+"production-ready-metrics-jdbc":"actuator.metrics.supported.jdbc",
+"production-ready-metrics-jersey-server":"actuator.metrics.supported.jersey",
+"production-ready-metrics-jvm":"actuator.metrics.supported.jvm",
+"production-ready-metrics-kafka":"actuator.metrics.supported.kafka",
+"production-ready-metrics-logger":"actuator.metrics.supported.logger",
+"production-ready-metrics-meter":"actuator.metrics.supported",
+"production-ready-metrics-mongodb":"actuator.metrics.supported.mongodb",
+"production-ready-metrics-mongodb-command":"actuator.metrics.supported.mongodb.command",
+"production-ready-metrics-mongodb-connectionpool":"actuator.metrics.supported.mongodb.connection-pool",
+"production-ready-metrics-per-meter-properties":"actuator.metrics.customizing.per-meter-properties",
+"production-ready-metrics-rabbitmq":"actuator.metrics.supported.rabbitmq",
+"production-ready-metrics-spring-mvc":"actuator.metrics.supported.spring-mvc",
+"production-ready-metrics-system":"actuator.metrics.supported.system",
+"production-ready-metrics-timed-annotation":"actuator.metrics.supported.timed-annotation",
+"production-ready-metrics-tomcat":"actuator.metrics.supported.tomcat",
+"production-ready-metrics-web-flux":"actuator.metrics.supported.spring-webflux",
+"production-ready-monitoring":"actuator.monitoring",
+"production-ready-process-monitoring":"actuator.process-monitoring",
+"production-ready-process-monitoring-configuration":"actuator.process-monitoring.configuration",
+"production-ready-process-monitoring-programmatically":"actuator.process-monitoring.programmatically",
+"production-ready-whats-next":"actuator.whats-next",
+"reactive-health-indicators":"actuator.endpoints.health.reactive-health-indicators",
+"reactive-health-indicators-autoconfigured":"actuator.endpoints.health.auto-configured-reactive-health-indicators",
+"rsocket-properties":"application-properties.rsocket",
+"running-remote-client-application":"using.devtools.remote-applications.client",
+"security-properties":"application-properties.security",
+"server-properties":"application-properties.server",
+"spring-boot-ant-exejar":"build-tool-plugins.antlib.tasks.exejar",
+"spring-boot-ant-exejar-examples":"build-tool-plugins.antlib.tasks.examples",
+"spring-boot-ant-findmainclass":"build-tool-plugins.antlib.findmainclass",
+"spring-boot-ant-findmainclass-examples":"build-tool-plugins.antlib.findmainclass.examples",
+"spring-boot-ant-tasks":"build-tool-plugins.antlib.tasks",
+"spring-boot-reference-documentation":"index",
+"templating-properties":"application-properties.templating",
+"test-auto-configuration-slices":"test-auto-configuration.slices",
+"testing-properties":"application-properties.testing",
+"transaction-properties":"application-properties.transaction",
+"using-boot":"using",
+"using-boot-ant":"using.build-systems.ant",
+"using-boot-auto-configuration":"using.auto-configuration",
+"using-boot-build-systems":"using.build-systems",
+"using-boot-configuration-classes":"using.configuration-classes",
+"using-boot-dependency-management":"using.build-systems.dependency-management",
+"using-boot-devtools":"using.devtools",
+"using-boot-devtools-customizing-classload":"using.devtools.restart.customizing-the-classload",
+"using-boot-devtools-globalsettings":"using.devtools.globalsettings",
+"using-boot-devtools-known-restart-limitations":"using.devtools.restart.limitations",
+"using-boot-devtools-livereload":"using.devtools.livereload",
+"using-boot-devtools-property-defaults":"using.devtools.property-defaults",
+"using-boot-devtools-remote":"using.devtools.remote-applications",
+"using-boot-devtools-remote-update":"using.devtools.remote-applications.update",
+"using-boot-devtools-restart":"using.devtools.restart",
+"using-boot-devtools-restart-additional-paths":"using.devtools.restart.watching-additional-paths",
+"using-boot-devtools-restart-disable":"using.devtools.restart.disable",
+"using-boot-devtools-restart-exclude":"using.devtools.restart.excluding-resources",
+"using-boot-devtools-restart-logging-condition-delta":"using.devtools.restart.logging-condition-delta",
+"using-boot-devtools-restart-triggerfile":"using.devtools.restart.triggerfile",
+"using-boot-disabling-specific-auto-configuration":"using.auto-configuration.disabling-specific",
+"using-boot-gradle":"using.build-systems.gradle",
+"using-boot-hot-swapping":"using.running-your-application.hot-swapping",
+"using-boot-importing-configuration":"using.configuration-classes.importing-additional-configuration",
+"using-boot-importing-xml-configuration":"using.configuration-classes.importing-xml-configuration",
+"using-boot-locating-the-main-class":"using.structuring-your-code.locating-the-main-class",
+"using-boot-maven":"using.build-systems.maven",
+"using-boot-packaging-for-production":"using.packaging-for-production",
+"using-boot-replacing-auto-configuration":"using.auto-configuration.replacing",
+"using-boot-running-as-a-packaged-application":"using.running-your-application.as-a-packaged-application",
+"using-boot-running-from-an-ide":"using.running-your-application.from-an-ide",
+"using-boot-running-with-the-gradle-plugin":"using.running-your-application.with-the-gradle-plugin",
+"using-boot-running-with-the-maven-plugin":"using.running-your-application.with-the-maven-plugin",
+"using-boot-running-your-application":"using.running-your-application",
+"using-boot-spring-beans-and-dependency-injection":"using.spring-beans-and-dependency-injection",
+"using-boot-starter":"using.build-systems.starters",
+"using-boot-structuring-your-code":"using.structuring-your-code",
+"using-boot-using-springbootapplication-annotation":"using.using-the-springbootapplication-annotation",
+"using-boot-using-the-default-package":"using.structuring-your-code.using-the-default-package",
+"using-boot-whats-next":"using.whats-next",
+"web-properties":"application-properties.web"
+}
+</script>
+</head>
+<body id="using" class="book toc2 toc-left"><div id="banner-container" class="container" role="banner">
+<div id="banner" class="contained" role="banner">
+<div id="switch-theme">
+<input type="checkbox" id="switch-theme-checkbox" />
+<label for="switch-theme-checkbox">Dark Theme</label>
+</div>
+</div>
+</div>
+<div id="tocbar-container" class="container" role="navigation">
+<div id="tocbar" class="contained" role="navigation">
+<button id="toggle-toc"></button>
+</div>
+</div>
+<div id="main-container" class="container">
+<div id="main" class="contained">
+<div id="doc" class="doc">
+<div id="header">
+<h1>Developing with Spring Boot</h1>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<span id="back-to-index"><a href="index.html">Back to index</a></span><ul class="sectlevel1">
+<li><a href="#using.build-systems">1. Build Systems</a>
+<ul class="sectlevel2">
+<li><a href="#using.build-systems.dependency-management">1.1. Dependency Management</a></li>
+<li><a href="#using.build-systems.maven">1.2. Maven</a></li>
+<li><a href="#using.build-systems.gradle">1.3. Gradle</a></li>
+<li><a href="#using.build-systems.ant">1.4. Ant</a></li>
+<li><a href="#using.build-systems.starters">1.5. Starters</a></li>
+</ul>
+</li>
+<li><a href="#using.structuring-your-code">2. Structuring Your Code</a>
+<ul class="sectlevel2">
+<li><a href="#using.structuring-your-code.using-the-default-package">2.1. Using the &#8220;default&#8221; Package</a></li>
+<li><a href="#using.structuring-your-code.locating-the-main-class">2.2. Locating the Main Application Class</a></li>
+</ul>
+</li>
+<li><a href="#using.configuration-classes">3. Configuration Classes</a>
+<ul class="sectlevel2">
+<li><a href="#using.configuration-classes.importing-additional-configuration">3.1. Importing Additional Configuration Classes</a></li>
+<li><a href="#using.configuration-classes.importing-xml-configuration">3.2. Importing XML Configuration</a></li>
+</ul>
+</li>
+<li><a href="#using.auto-configuration">4. Auto-configuration</a>
+<ul class="sectlevel2">
+<li><a href="#using.auto-configuration.replacing">4.1. Gradually Replacing Auto-configuration</a></li>
+<li><a href="#using.auto-configuration.disabling-specific">4.2. Disabling Specific Auto-configuration Classes</a></li>
+</ul>
+</li>
+<li><a href="#using.spring-beans-and-dependency-injection">5. Spring Beans and Dependency Injection</a></li>
+<li><a href="#using.using-the-springbootapplication-annotation">6. Using the @SpringBootApplication Annotation</a></li>
+<li><a href="#using.running-your-application">7. Running Your Application</a>
+<ul class="sectlevel2">
+<li><a href="#using.running-your-application.from-an-ide">7.1. Running from an IDE</a></li>
+<li><a href="#using.running-your-application.as-a-packaged-application">7.2. Running as a Packaged Application</a></li>
+<li><a href="#using.running-your-application.with-the-maven-plugin">7.3. Using the Maven Plugin</a></li>
+<li><a href="#using.running-your-application.with-the-gradle-plugin">7.4. Using the Gradle Plugin</a></li>
+<li><a href="#using.running-your-application.hot-swapping">7.5. Hot Swapping</a></li>
+</ul>
+</li>
+<li><a href="#using.devtools">8. Developer Tools</a>
+<ul class="sectlevel2">
+<li><a href="#using.devtools.property-defaults">8.1. Property Defaults</a></li>
+<li><a href="#using.devtools.restart">8.2. Automatic Restart</a>
+<ul class="sectlevel3">
+<li><a href="#using.devtools.restart.logging-condition-delta">8.2.1. Logging changes in condition evaluation</a></li>
+<li><a href="#using.devtools.restart.excluding-resources">8.2.2. Excluding Resources</a></li>
+<li><a href="#using.devtools.restart.watching-additional-paths">8.2.3. Watching Additional Paths</a></li>
+<li><a href="#using.devtools.restart.disable">8.2.4. Disabling Restart</a></li>
+<li><a href="#using.devtools.restart.triggerfile">8.2.5. Using a Trigger File</a></li>
+<li><a href="#using.devtools.restart.customizing-the-classload">8.2.6. Customizing the Restart Classloader</a></li>
+<li><a href="#using.devtools.restart.limitations">8.2.7. Known Limitations</a></li>
+</ul>
+</li>
+<li><a href="#using.devtools.livereload">8.3. LiveReload</a></li>
+<li><a href="#using.devtools.globalsettings">8.4. Global Settings</a>
+<ul class="sectlevel3">
+<li><a href="#using.devtools.globalsettings.configuring-file-system-watcher">8.4.1. Configuring File System Watcher</a></li>
+</ul>
+</li>
+<li><a href="#using.devtools.remote-applications">8.5. Remote Applications</a>
+<ul class="sectlevel3">
+<li><a href="#using.devtools.remote-applications.client">8.5.1. Running the Remote Client Application</a></li>
+<li><a href="#using.devtools.remote-applications.update">8.5.2. Remote Update</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#using.packaging-for-production">9. Packaging Your Application for Production</a></li>
+<li><a href="#using.whats-next">10. What to Read Next</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section goes into more detail about how you should use Spring Boot.
+It covers topics such as build systems, auto-configuration, and how to run your applications.
+We also cover some Spring Boot best practices.
+Although there is nothing particularly special about Spring Boot (it is just another library that you can consume), there are a few recommendations that, when followed, make your development process a little easier.</p>
+</div>
+<div class="paragraph">
+<p>If you are starting out with Spring Boot, you should probably read the <em><a href="getting-started.html#getting-started">Getting Started</a></em> guide before diving into this section.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="using.build-systems"><a class="anchor" href="#using.build-systems"></a>1. Build Systems</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>It is strongly recommended that you choose a build system that supports <a href="#using.build-systems.dependency-management"><em>dependency management</em></a> and that can consume artifacts published to the &#8220;Maven Central&#8221; repository.
+We would recommend that you choose Maven or Gradle.
+It is possible to get Spring Boot to work with other build systems (Ant, for example), but they are not particularly well supported.</p>
+</div>
+<div class="sect2">
+<h3 id="using.build-systems.dependency-management"><a class="anchor" href="#using.build-systems.dependency-management"></a>1.1. Dependency Management</h3>
+<div class="paragraph">
+<p>Each release of Spring Boot provides a curated list of dependencies that it supports.
+In practice, you do not need to provide a version for any of these dependencies in your build configuration, as Spring Boot manages that for you.
+When you upgrade Spring Boot itself, these dependencies are upgraded as well in a consistent way.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+You can still specify a version and override Spring Boot&#8217;s recommendations if you need to do so.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The curated list contains all the Spring modules that you can use with Spring Boot as well as a refined list of third party libraries.
+The list is available as a standard Bills of Materials (<code>spring-boot-dependencies</code>) that can be used with both <a href="#using.build-systems.maven">Maven</a> and <a href="#using.build-systems.gradle">Gradle</a>.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Each release of Spring Boot is associated with a base version of the Spring Framework.
+We <strong>highly</strong> recommend that you not specify its version.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="using.build-systems.maven"><a class="anchor" href="#using.build-systems.maven"></a>1.2. Maven</h3>
+<div class="paragraph">
+<p>To learn about using Spring Boot with Maven, please refer to the documentation for Spring Boot&#8217;s Maven plugin:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Reference (<a href="https://docs.spring.io/spring-boot/docs/2.5.3/maven-plugin/reference/htmlsingle/">HTML</a> and <a href="https://docs.spring.io/spring-boot/docs/2.5.3/maven-plugin/reference/pdf/spring-boot-maven-plugin-reference.pdf">PDF</a>)</p>
+</li>
+<li>
+<p><a href="https://docs.spring.io/spring-boot/docs/2.5.3/maven-plugin/api/">API</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="using.build-systems.gradle"><a class="anchor" href="#using.build-systems.gradle"></a>1.3. Gradle</h3>
+<div class="paragraph">
+<p>To learn about using Spring Boot with Gradle, please refer to the documentation for Spring Boot&#8217;s Gradle plugin:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Reference (<a href="https://docs.spring.io/spring-boot/docs/2.5.3/gradle-plugin/reference/htmlsingle/">HTML</a> and <a href="https://docs.spring.io/spring-boot/docs/2.5.3/gradle-plugin/reference/pdf/spring-boot-gradle-plugin-reference.pdf">PDF</a>)</p>
+</li>
+<li>
+<p><a href="https://docs.spring.io/spring-boot/docs/2.5.3/gradle-plugin/api/">API</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="using.build-systems.ant"><a class="anchor" href="#using.build-systems.ant"></a>1.4. Ant</h3>
+<div class="paragraph">
+<p>It is possible to build a Spring Boot project using Apache Ant+Ivy.
+The <code>spring-boot-antlib</code> &#8220;AntLib&#8221; module is also available to help Ant create executable jars.</p>
+</div>
+<div class="paragraph">
+<p>To declare dependencies, a typical <code>ivy.xml</code> file looks something like the following example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;ivy-module version="2.0"&gt;
+    &lt;info organisation="org.springframework.boot" module="spring-boot-sample-ant" /&gt;
+    &lt;configurations&gt;
+        &lt;conf name="compile" description="everything needed to compile this module" /&gt;
+        &lt;conf name="runtime" extends="compile" description="everything needed to run this module" /&gt;
+    &lt;/configurations&gt;
+    &lt;dependencies&gt;
+        &lt;dependency org="org.springframework.boot" name="spring-boot-starter"
+            rev="${spring-boot.version}" conf="compile" /&gt;
+    &lt;/dependencies&gt;
+&lt;/ivy-module&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A typical <code>build.xml</code> looks like the following example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;project
+    xmlns:ivy="antlib:org.apache.ivy.ant"
+    xmlns:spring-boot="antlib:org.springframework.boot.ant"
+    name="myapp" default="build"&gt;
+
+    &lt;property name="spring-boot.version" value="2.5.3" /&gt;
+
+    &lt;target name="resolve" description="--&gt; retrieve dependencies with ivy"&gt;
+        &lt;ivy:retrieve pattern="lib/[conf]/[artifact]-[type]-[revision].[ext]" /&gt;
+    &lt;/target&gt;
+
+    &lt;target name="classpaths" depends="resolve"&gt;
+        &lt;path id="compile.classpath"&gt;
+            &lt;fileset dir="lib/compile" includes="*.jar" /&gt;
+        &lt;/path&gt;
+    &lt;/target&gt;
+
+    &lt;target name="init" depends="classpaths"&gt;
+        &lt;mkdir dir="build/classes" /&gt;
+    &lt;/target&gt;
+
+    &lt;target name="compile" depends="init" description="compile"&gt;
+        &lt;javac srcdir="src/main/java" destdir="build/classes" classpathref="compile.classpath" /&gt;
+    &lt;/target&gt;
+
+    &lt;target name="build" depends="compile"&gt;
+        &lt;spring-boot:exejar destfile="build/myapp.jar" classes="build/classes"&gt;
+            &lt;spring-boot:lib&gt;
+                &lt;fileset dir="lib/runtime" /&gt;
+            &lt;/spring-boot:lib&gt;
+        &lt;/spring-boot:exejar&gt;
+    &lt;/target&gt;
+&lt;/project&gt;</code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+If you do not want to use the <code>spring-boot-antlib</code> module, see the <em><a href="howto.html#howto.build.build-an-executable-archive-with-ant-without-using-spring-boot-antlib">howto.html</a></em> &#8220;How-to&#8221; .
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="using.build-systems.starters"><a class="anchor" href="#using.build-systems.starters"></a>1.5. Starters</h3>
+<div class="paragraph">
+<p>Starters are a set of convenient dependency descriptors that you can include in your application.
+You get a one-stop shop for all the Spring and related technologies that you need without having to hunt through sample code and copy-paste loads of dependency descriptors.
+For example, if you want to get started using Spring and JPA for database access, include the <code>spring-boot-starter-data-jpa</code> dependency in your project.</p>
+</div>
+<div class="paragraph">
+<p>The starters contain a lot of the dependencies that you need to get a project up and running quickly and with a consistent, supported set of managed transitive dependencies.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">What&#8217;s in a name</div>
+<div class="paragraph">
+<p>All <strong>official</strong> starters follow a similar naming pattern; <code>spring-boot-starter-*</code>, where <code>*</code> is a particular type of application.
+This naming structure is intended to help when you need to find a starter.
+The Maven integration in many IDEs lets you search dependencies by name.
+For example, with the appropriate Eclipse or Spring Tools plugin installed, you can press <code>ctrl-space</code> in the POM editor and type &#8220;spring-boot-starter&#8221; for a complete list.</p>
+</div>
+<div class="paragraph">
+<p>As explained in the &#8220;<a href="features.html#features.developing-auto-configuration.custom-starter">Creating Your Own Starter</a>&#8221; section, third party starters should not start with <code>spring-boot</code>, as it is reserved for official Spring Boot artifacts.
+Rather, a third-party starter typically starts with the name of the project.
+For example, a third-party starter project called <code>thirdpartyproject</code> would typically be named <code>thirdpartyproject-spring-boot-starter</code>.</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>The following application starters are provided by Spring Boot under the <code>org.springframework.boot</code> group:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Spring Boot application starters</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spring-boot-starter"></a><code>spring-boot-starter</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Core starter, including auto-configuration support, logging and YAML</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spring-boot-starter-activemq"></a><code>spring-boot-starter-activemq</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starter for JMS messaging using Apache ActiveMQ</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spring-boot-starter-amqp"></a><code>spring-boot-starter-amqp</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starter for using Spring AMQP and Rabbit MQ</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spring-boot-starter-aop"></a><code>spring-boot-starter-aop</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starter for aspect-oriented programming with Spring AOP and AspectJ</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spring-boot-starter-artemis"></a><code>spring-boot-starter-artemis</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starter for JMS messaging using Apache Artemis</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spring-boot-starter-batch"></a><code>spring-boot-starter-batch</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starter for using Spring Batch</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spring-boot-starter-cache"></a><code>spring-boot-starter-cache</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starter for using Spring Framework&#8217;s caching support</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spring-boot-starter-data-cassandra"></a><code>spring-boot-starter-data-cassandra</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starter for using Cassandra distributed database and Spring Data Cassandra</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spring-boot-starter-data-cassandra-reactive"></a><code>spring-boot-starter-data-cassandra-reactive</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starter for using Cassandra distributed database and Spring Data Cassandra Reactive</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spring-boot-starter-data-couchbase"></a><code>spring-boot-starter-data-couchbase</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starter for using Couchbase document-oriented database and Spring Data Couchbase</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spring-boot-starter-data-couchbase-reactive"></a><code>spring-boot-starter-data-couchbase-reactive</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starter for using Couchbase document-oriented database and Spring Data Couchbase Reactive</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spring-boot-starter-data-elasticsearch"></a><code>spring-boot-starter-data-elasticsearch</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starter for using Elasticsearch search and analytics engine and Spring Data Elasticsearch</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spring-boot-starter-data-jdbc"></a><code>spring-boot-starter-data-jdbc</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starter for using Spring Data JDBC</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spring-boot-starter-data-jpa"></a><code>spring-boot-starter-data-jpa</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starter for using Spring Data JPA with Hibernate</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spring-boot-starter-data-ldap"></a><code>spring-boot-starter-data-ldap</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starter for using Spring Data LDAP</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spring-boot-starter-data-mongodb"></a><code>spring-boot-starter-data-mongodb</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starter for using MongoDB document-oriented database and Spring Data MongoDB</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spring-boot-starter-data-mongodb-reactive"></a><code>spring-boot-starter-data-mongodb-reactive</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starter for using MongoDB document-oriented database and Spring Data MongoDB Reactive</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spring-boot-starter-data-neo4j"></a><code>spring-boot-starter-data-neo4j</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starter for using Neo4j graph database and Spring Data Neo4j</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spring-boot-starter-data-r2dbc"></a><code>spring-boot-starter-data-r2dbc</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starter for using Spring Data R2DBC</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spring-boot-starter-data-redis"></a><code>spring-boot-starter-data-redis</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starter for using Redis key-value data store with Spring Data Redis and the Lettuce client</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spring-boot-starter-data-redis-reactive"></a><code>spring-boot-starter-data-redis-reactive</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starter for using Redis key-value data store with Spring Data Redis reactive and the Lettuce client</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spring-boot-starter-data-rest"></a><code>spring-boot-starter-data-rest</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starter for exposing Spring Data repositories over REST using Spring Data REST</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spring-boot-starter-freemarker"></a><code>spring-boot-starter-freemarker</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starter for building MVC web applications using FreeMarker views</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spring-boot-starter-groovy-templates"></a><code>spring-boot-starter-groovy-templates</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starter for building MVC web applications using Groovy Templates views</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spring-boot-starter-hateoas"></a><code>spring-boot-starter-hateoas</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starter for building hypermedia-based RESTful web application with Spring MVC and Spring HATEOAS</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spring-boot-starter-integration"></a><code>spring-boot-starter-integration</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starter for using Spring Integration</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spring-boot-starter-jdbc"></a><code>spring-boot-starter-jdbc</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starter for using JDBC with the HikariCP connection pool</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spring-boot-starter-jersey"></a><code>spring-boot-starter-jersey</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starter for building RESTful web applications using JAX-RS and Jersey. An alternative to <a href="#spring-boot-starter-web"><code>spring-boot-starter-web</code></a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spring-boot-starter-jooq"></a><code>spring-boot-starter-jooq</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starter for using jOOQ to access SQL databases. An alternative to <a href="#spring-boot-starter-data-jpa"><code>spring-boot-starter-data-jpa</code></a> or <a href="#spring-boot-starter-jdbc"><code>spring-boot-starter-jdbc</code></a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spring-boot-starter-json"></a><code>spring-boot-starter-json</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starter for reading and writing json</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spring-boot-starter-jta-atomikos"></a><code>spring-boot-starter-jta-atomikos</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starter for JTA transactions using Atomikos</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spring-boot-starter-mail"></a><code>spring-boot-starter-mail</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starter for using Java Mail and Spring Framework&#8217;s email sending support</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spring-boot-starter-mustache"></a><code>spring-boot-starter-mustache</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starter for building web applications using Mustache views</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spring-boot-starter-oauth2-client"></a><code>spring-boot-starter-oauth2-client</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starter for using Spring Security&#8217;s OAuth2/OpenID Connect client features</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spring-boot-starter-oauth2-resource-server"></a><code>spring-boot-starter-oauth2-resource-server</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starter for using Spring Security&#8217;s OAuth2 resource server features</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spring-boot-starter-quartz"></a><code>spring-boot-starter-quartz</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starter for using the Quartz scheduler</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spring-boot-starter-rsocket"></a><code>spring-boot-starter-rsocket</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starter for building RSocket clients and servers</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spring-boot-starter-security"></a><code>spring-boot-starter-security</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starter for using Spring Security</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spring-boot-starter-test"></a><code>spring-boot-starter-test</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starter for testing Spring Boot applications with libraries including JUnit Jupiter, Hamcrest and Mockito</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spring-boot-starter-thymeleaf"></a><code>spring-boot-starter-thymeleaf</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starter for building MVC web applications using Thymeleaf views</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spring-boot-starter-validation"></a><code>spring-boot-starter-validation</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starter for using Java Bean Validation with Hibernate Validator</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spring-boot-starter-web"></a><code>spring-boot-starter-web</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starter for building web, including RESTful, applications using Spring MVC. Uses Tomcat as the default embedded container</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spring-boot-starter-web-services"></a><code>spring-boot-starter-web-services</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starter for using Spring Web Services</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spring-boot-starter-webflux"></a><code>spring-boot-starter-webflux</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starter for building WebFlux applications using Spring Framework&#8217;s Reactive Web support</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spring-boot-starter-websocket"></a><code>spring-boot-starter-websocket</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starter for building WebSocket applications using Spring Framework&#8217;s WebSocket support</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>In addition to the application starters, the following starters can be used to add <em><a href="actuator.html#actuator">production ready</a></em> features:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 2. Spring Boot production starters</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spring-boot-starter-actuator"></a><code>spring-boot-starter-actuator</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starter for using Spring Boot&#8217;s Actuator which provides production ready features to help you monitor and manage your application</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Finally, Spring Boot also includes the following starters that can be used if you want to exclude or swap specific technical facets:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 3. Spring Boot technical starters</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spring-boot-starter-jetty"></a><code>spring-boot-starter-jetty</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starter for using Jetty as the embedded servlet container. An alternative to <a href="#spring-boot-starter-tomcat"><code>spring-boot-starter-tomcat</code></a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spring-boot-starter-log4j2"></a><code>spring-boot-starter-log4j2</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starter for using Log4j2 for logging. An alternative to <a href="#spring-boot-starter-logging"><code>spring-boot-starter-logging</code></a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spring-boot-starter-logging"></a><code>spring-boot-starter-logging</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starter for logging using Logback. Default logging starter</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spring-boot-starter-reactor-netty"></a><code>spring-boot-starter-reactor-netty</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starter for using Reactor Netty as the embedded reactive HTTP server.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spring-boot-starter-tomcat"></a><code>spring-boot-starter-tomcat</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starter for using Tomcat as the embedded servlet container. Default servlet container starter used by <a href="#spring-boot-starter-web"><code>spring-boot-starter-web</code></a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spring-boot-starter-undertow"></a><code>spring-boot-starter-undertow</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starter for using Undertow as the embedded servlet container. An alternative to <a href="#spring-boot-starter-tomcat"><code>spring-boot-starter-tomcat</code></a></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>To learn how to swap technical facets, please see the how-to documentation for <a href="howto.html#howto.webserver.use-another">swapping web server</a> and <a href="howto.html#howto.logging.log4j">logging system</a>.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+For a list of additional community contributed starters, see the <a href="https://github.com/spring-projects/spring-boot/tree/main/spring-boot-project/spring-boot-starters/README.adoc">README file</a> in the <code>spring-boot-starters</code> module on GitHub.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="using.structuring-your-code"><a class="anchor" href="#using.structuring-your-code"></a>2. Structuring Your Code</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Spring Boot does not require any specific code layout to work.
+However, there are some best practices that help.</p>
+</div>
+<div class="sect2">
+<h3 id="using.structuring-your-code.using-the-default-package"><a class="anchor" href="#using.structuring-your-code.using-the-default-package"></a>2.1. Using the &#8220;default&#8221; Package</h3>
+<div class="paragraph">
+<p>When a class does not include a <code>package</code> declaration, it is considered to be in the &#8220;default package&#8221;.
+The use of the &#8220;default package&#8221; is generally discouraged and should be avoided.
+It can cause particular problems for Spring Boot applications that use the <code>@ComponentScan</code>, <code>@ConfigurationPropertiesScan</code>, <code>@EntityScan</code>, or <code>@SpringBootApplication</code> annotations, since every class from every jar is read.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+We recommend that you follow Java&#8217;s recommended package naming conventions and use a reversed domain name (for example, <code>com.example.project</code>).
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="using.structuring-your-code.locating-the-main-class"><a class="anchor" href="#using.structuring-your-code.locating-the-main-class"></a>2.2. Locating the Main Application Class</h3>
+<div class="paragraph">
+<p>We generally recommend that you locate your main application class in a root package above other classes.
+The <a href="#using.using-the-springbootapplication-annotation"><code>@SpringBootApplication</code> annotation</a> is often placed on your main class, and it implicitly defines a base &#8220;search package&#8221; for certain items.
+For example, if you are writing a JPA application, the package of the <code>@SpringBootApplication</code> annotated class is used to search for <code>@Entity</code> items.
+Using a root package also allows component scan to apply only on your project.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+If you don&#8217;t want to use <code>@SpringBootApplication</code>, the <code>@EnableAutoConfiguration</code> and <code>@ComponentScan</code> annotations that it imports defines that behavior so you can also use those instead.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The following listing shows a typical layout:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>com
+ +- example
+     +- myapplication
+         +- MyApplication.java
+         |
+         +- customer
+         |   +- Customer.java
+         |   +- CustomerController.java
+         |   +- CustomerService.java
+         |   +- CustomerRepository.java
+         |
+         +- order
+             +- Order.java
+             +- OrderController.java
+             +- OrderService.java
+             +- OrderRepository.java</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>MyApplication.java</code> file would declare the <code>main</code> method, along with the basic <code>@SpringBootApplication</code>, as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java"><span class="fold-block hide-when-folded">import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+</span><span class="fold-block">@SpringBootApplication
+public class MyApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(MyApplication.class, args);
+    }
+
+}
+</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="using.configuration-classes"><a class="anchor" href="#using.configuration-classes"></a>3. Configuration Classes</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Spring Boot favors Java-based configuration.
+Although it is possible to use <code>SpringApplication</code> with XML sources, we generally recommend that your primary source be a single <code>@Configuration</code> class.
+Usually the class that defines the <code>main</code> method is a good candidate as the primary <code>@Configuration</code>.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Many Spring configuration examples have been published on the Internet that use XML configuration.
+If possible, always try to use the equivalent Java-based configuration.
+Searching for <code>Enable*</code> annotations can be a good starting point.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="using.configuration-classes.importing-additional-configuration"><a class="anchor" href="#using.configuration-classes.importing-additional-configuration"></a>3.1. Importing Additional Configuration Classes</h3>
+<div class="paragraph">
+<p>You need not put all your <code>@Configuration</code> into a single class.
+The <code>@Import</code> annotation can be used to import additional configuration classes.
+Alternatively, you can use <code>@ComponentScan</code> to automatically pick up all Spring components, including <code>@Configuration</code> classes.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="using.configuration-classes.importing-xml-configuration"><a class="anchor" href="#using.configuration-classes.importing-xml-configuration"></a>3.2. Importing XML Configuration</h3>
+<div class="paragraph">
+<p>If you absolutely must use XML based configuration, we recommend that you still start with a <code>@Configuration</code> class.
+You can then use an <code>@ImportResource</code> annotation to load XML configuration files.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="using.auto-configuration"><a class="anchor" href="#using.auto-configuration"></a>4. Auto-configuration</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Spring Boot auto-configuration attempts to automatically configure your Spring application based on the jar dependencies that you have added.
+For example, if <code>HSQLDB</code> is on your classpath, and you have not manually configured any database connection beans, then Spring Boot auto-configures an in-memory database.</p>
+</div>
+<div class="paragraph">
+<p>You need to opt-in to auto-configuration by adding the <code>@EnableAutoConfiguration</code> or <code>@SpringBootApplication</code> annotations to one of your <code>@Configuration</code> classes.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+You should only ever add one <code>@SpringBootApplication</code> or <code>@EnableAutoConfiguration</code> annotation.
+We generally recommend that you add one or the other to your primary <code>@Configuration</code> class only.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="using.auto-configuration.replacing"><a class="anchor" href="#using.auto-configuration.replacing"></a>4.1. Gradually Replacing Auto-configuration</h3>
+<div class="paragraph">
+<p>Auto-configuration is non-invasive.
+At any point, you can start to define your own configuration to replace specific parts of the auto-configuration.
+For example, if you add your own <code>DataSource</code> bean, the default embedded database support backs away.</p>
+</div>
+<div class="paragraph">
+<p>If you need to find out what auto-configuration is currently being applied, and why, start your application with the <code>--debug</code> switch.
+Doing so enables debug logs for a selection of core loggers and logs a conditions report to the console.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="using.auto-configuration.disabling-specific"><a class="anchor" href="#using.auto-configuration.disabling-specific"></a>4.2. Disabling Specific Auto-configuration Classes</h3>
+<div class="paragraph">
+<p>If you find that specific auto-configuration classes that you do not want are being applied, you can use the exclude attribute of <code>@SpringBootApplication</code> to disable them, as shown in the following example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java"><span class="fold-block hide-when-folded">import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+
+</span><span class="fold-block">@SpringBootApplication(exclude = { DataSourceAutoConfiguration.class })
+public class MyApplication {
+
+}
+</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If the class is not on the classpath, you can use the <code>excludeName</code> attribute of the annotation and specify the fully qualified name instead.
+If you prefer to use <code>@EnableAutoConfiguration</code> rather than <code>@SpringBootApplication</code>, <code>exclude</code> and <code>excludeName</code> are also available.
+Finally, you can also control the list of auto-configuration classes to exclude by using the <code>spring.autoconfigure.exclude</code> property.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+You can define exclusions both at the annotation level and by using the property.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Even though auto-configuration classes are <code>public</code>, the only aspect of the class that is considered public API is the name of the class which can be used for disabling the auto-configuration.
+The actual contents of those classes, such as nested configuration classes or bean methods are for internal use only and we do not recommend using those directly.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="using.spring-beans-and-dependency-injection"><a class="anchor" href="#using.spring-beans-and-dependency-injection"></a>5. Spring Beans and Dependency Injection</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You are free to use any of the standard Spring Framework techniques to define your beans and their injected dependencies.
+We generally recommend using constructor injection to wire up dependencies and <code>@ComponentScan</code> to find beans.</p>
+</div>
+<div class="paragraph">
+<p>If you structure your code as suggested above (locating your application class in a top package), you can add <code>@ComponentScan</code> without any arguments or use the <code>@SpringBootApplication</code> annotation which implicitly includes it.
+All of your application components (<code>@Component</code>, <code>@Service</code>, <code>@Repository</code>, <code>@Controller</code> etc.) are automatically registered as Spring Beans.</p>
+</div>
+<div class="paragraph">
+<p>The following example shows a <code>@Service</code> Bean that uses constructor injection to obtain a required <code>RiskAssessor</code> bean:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java"><span class="fold-block hide-when-folded">import org.springframework.stereotype.Service;
+
+</span><span class="fold-block">@Service
+public class MyAccountService implements AccountService {
+
+    private final RiskAssessor riskAssessor;
+
+    public MyAccountService(RiskAssessor riskAssessor) {
+        this.riskAssessor = riskAssessor;
+    }
+
+    // ...
+
+}
+</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If a bean has more than one constructor, you&#8217;ll need to mark the one you want Spring to use with <code>@Autowired</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java"><span class="fold-block hide-when-folded">import java.io.PrintStream;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+</span><span class="fold-block">@Service
+public class MyAccountService implements AccountService {
+
+    private final RiskAssessor riskAssessor;
+
+    private final PrintStream out;
+
+    @Autowired
+    public MyAccountService(RiskAssessor riskAssessor) {
+        this.riskAssessor = riskAssessor;
+        this.out = System.out;
+    }
+
+    public MyAccountService(RiskAssessor riskAssessor, PrintStream out) {
+        this.riskAssessor = riskAssessor;
+        this.out = out;
+    }
+
+    // ...
+
+}
+</span></code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Notice how using constructor injection lets the <code>riskAssessor</code> field be marked as <code>final</code>, indicating that it cannot be subsequently changed.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="using.using-the-springbootapplication-annotation"><a class="anchor" href="#using.using-the-springbootapplication-annotation"></a>6. Using the @SpringBootApplication Annotation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Many Spring Boot developers like their apps to use auto-configuration, component scan and be able to define extra configuration on their "application class".
+A single <code>@SpringBootApplication</code> annotation can be used to enable those three features, that is:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>@EnableAutoConfiguration</code>: enable <a href="#using.auto-configuration">Spring Boot&#8217;s auto-configuration mechanism</a></p>
+</li>
+<li>
+<p><code>@ComponentScan</code>: enable <code>@Component</code> scan on the package where the application is located (see <a href="#using.structuring-your-code">the best practices</a>)</p>
+</li>
+<li>
+<p><code>@SpringBootConfiguration</code>: enable registration of extra beans in the context or the import of additional configuration classes.
+An alternative to Spring&#8217;s standard <code>@Configuration</code> that aids <a href="features.html#features.testing.spring-boot-applications.detecting-configuration">configuration detection</a> in your integration tests.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java"><span class="fold-block hide-when-folded">import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+</span><span class="fold-block">@SpringBootApplication // same as @SpringBootConfiguration @EnableAutoConfiguration
+                        // @ComponentScan
+public class MyApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(MyApplication.class, args);
+    }
+
+}
+</span></code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>@SpringBootApplication</code> also provides aliases to customize the attributes of <code>@EnableAutoConfiguration</code> and <code>@ComponentScan</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>None of these features are mandatory and you may choose to replace this single annotation by any of the features that it enables.
+For instance, you may not want to use component scan or configuration properties scan in your application:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java"><span class="fold-block hide-when-folded">import org.springframework.boot.SpringApplication;
+import org.springframework.boot.SpringBootConfiguration;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.context.annotation.Import;
+
+</span><span class="fold-block">@SpringBootConfiguration(proxyBeanMethods = false)
+@EnableAutoConfiguration
+@Import({ SomeConfiguration.class, AnotherConfiguration.class })
+public class MyApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(MyApplication.class, args);
+    }
+
+}
+</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In this example, <code>MyApplication</code> is just like any other Spring Boot application except that <code>@Component</code>-annotated classes and <code>@ConfigurationProperties</code>-annotated classes are not detected automatically and the user-defined beans are imported explicitly (see <code>@Import</code>).</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="using.running-your-application"><a class="anchor" href="#using.running-your-application"></a>7. Running Your Application</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>One of the biggest advantages of packaging your application as a jar and using an embedded HTTP server is that you can run your application as you would any other.
+The sample applies to debugging Spring Boot applications.
+You do not need any special IDE plugins or extensions.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This section only covers jar based packaging.
+If you choose to package your application as a war file, you should refer to your server and IDE documentation.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="using.running-your-application.from-an-ide"><a class="anchor" href="#using.running-your-application.from-an-ide"></a>7.1. Running from an IDE</h3>
+<div class="paragraph">
+<p>You can run a Spring Boot application from your IDE as a Java application.
+However, you first need to import your project.
+Import steps vary depending on your IDE and build system.
+Most IDEs can import Maven projects directly.
+For example, Eclipse users can select <code>Import&#8230;&#8203;</code> &#8594; <code>Existing Maven Projects</code> from the <code>File</code> menu.</p>
+</div>
+<div class="paragraph">
+<p>If you cannot directly import your project into your IDE, you may be able to generate IDE metadata by using a build plugin.
+Maven includes plugins for <a href="https://maven.apache.org/plugins/maven-eclipse-plugin/">Eclipse</a> and <a href="https://maven.apache.org/plugins/maven-idea-plugin/">IDEA</a>.
+Gradle offers plugins for <a href="https://docs.gradle.org/current/userguide/userguide.html">various IDEs</a>.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+If you accidentally run a web application twice, you see a &#8220;Port already in use&#8221; error.
+Spring Tools users can use the <code>Relaunch</code> button rather than the <code>Run</code> button to ensure that any existing instance is closed.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="using.running-your-application.as-a-packaged-application"><a class="anchor" href="#using.running-your-application.as-a-packaged-application"></a>7.2. Running as a Packaged Application</h3>
+<div class="paragraph">
+<p>If you use the Spring Boot Maven or Gradle plugins to create an executable jar, you can run your application using <code>java -jar</code>, as shown in the following example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-shell" data-lang="shell">$ java -jar target/myapplication-0.0.1-SNAPSHOT.jar</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>It is also possible to run a packaged application with remote debugging support enabled.
+Doing so lets you attach a debugger to your packaged application, as shown in the following example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-shell" data-lang="shell">$ java -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=8000,suspend=n \
+       -jar target/myapplication-0.0.1-SNAPSHOT.jar</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="using.running-your-application.with-the-maven-plugin"><a class="anchor" href="#using.running-your-application.with-the-maven-plugin"></a>7.3. Using the Maven Plugin</h3>
+<div class="paragraph">
+<p>The Spring Boot Maven plugin includes a <code>run</code> goal that can be used to quickly compile and run your application.
+Applications run in an exploded form, as they do in your IDE.
+The following example shows a typical Maven command to run a Spring Boot application:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-shell" data-lang="shell">$ mvn spring-boot:run</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You might also want to use the <code>MAVEN_OPTS</code> operating system environment variable, as shown in the following example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-shell" data-lang="shell">$ export MAVEN_OPTS=-Xmx1024m</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="using.running-your-application.with-the-gradle-plugin"><a class="anchor" href="#using.running-your-application.with-the-gradle-plugin"></a>7.4. Using the Gradle Plugin</h3>
+<div class="paragraph">
+<p>The Spring Boot Gradle plugin also includes a <code>bootRun</code> task that can be used to run your application in an exploded form.
+The <code>bootRun</code> task is added whenever you apply the <code>org.springframework.boot</code> and <code>java</code> plugins and is shown in the following example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ gradle bootRun</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You might also want to use the <code>JAVA_OPTS</code> operating system environment variable, as shown in the following example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ export JAVA_OPTS=-Xmx1024m</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="using.running-your-application.hot-swapping"><a class="anchor" href="#using.running-your-application.hot-swapping"></a>7.5. Hot Swapping</h3>
+<div class="paragraph">
+<p>Since Spring Boot applications are plain Java applications, JVM hot-swapping should work out of the box.
+JVM hot swapping is somewhat limited with the bytecode that it can replace.
+For a more complete solution, <a href="https://www.jrebel.com/products/jrebel">JRebel</a> can be used.</p>
+</div>
+<div class="paragraph">
+<p>The <code>spring-boot-devtools</code> module also includes support for quick application restarts.
+See the <a href="howto.html#howto.hotswapping">Hot swapping &#8220;How-to&#8221;</a> for details.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="using.devtools"><a class="anchor" href="#using.devtools"></a>8. Developer Tools</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Spring Boot includes an additional set of tools that can make the application development experience a little more pleasant.
+The <code>spring-boot-devtools</code> module can be included in any project to provide additional development-time features.
+To include devtools support, add the module dependency to your build, as shown in the following listings for Maven and Gradle:</p>
+</div>
+<div class="listingblock">
+<div class="title">Maven</div>
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;dependencies&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-boot-devtools&lt;/artifactId&gt;
+        &lt;optional&gt;true&lt;/optional&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Gradle</div>
+<div class="content">
+<pre class="highlight"><code class="language-gradle" data-lang="gradle">dependencies {
+    developmentOnly("org.springframework.boot:spring-boot-devtools")
+}</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Developer tools are automatically disabled when running a fully packaged application.
+If your application is launched from <code>java -jar</code> or if it is started from a special classloader, then it is considered a &#8220;production application&#8221;.
+You can control this behavior by using the <code>spring.devtools.restart.enabled</code> system property.
+To enable devtools, irrespective of the classloader used to launch your application, set the <code>-Dspring.devtools.restart.enabled=true</code> system property.
+This must not be done in a production environment where running devtools is a security risk.
+To disable devtools, exclude the dependency or set the <code>-Dspring.devtools.restart.enabled=false</code> system property.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Flagging the dependency as optional in Maven or using the <code>developmentOnly</code> configuration in Gradle (as shown above) prevents devtools from being transitively applied to other modules that use your project.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Repackaged archives do not contain devtools by default.
+If you want to use a <a href="#using.devtools.remote-applications">certain remote devtools feature</a>, you need to include it.
+When using the Maven plugin, set the <code>excludeDevtools</code> property to <code>false</code>.
+When using the Gradle plugin, <a href="https://docs.spring.io/spring-boot/docs/2.5.3/gradle-plugin/reference/htmlsingle/#packaging-executable-configuring-including-development-only-dependencies">configure the task&#8217;s classpath to include the <code>developmentOnly</code> configuration</a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="using.devtools.property-defaults"><a class="anchor" href="#using.devtools.property-defaults"></a>8.1. Property Defaults</h3>
+<div class="paragraph">
+<p>Several of the libraries supported by Spring Boot use caches to improve performance.
+For example, <a href="features.html#features.developing-web-applications.spring-mvc.template-engines">template engines</a> cache compiled templates to avoid repeatedly parsing template files.
+Also, Spring MVC can add HTTP caching headers to responses when serving static resources.</p>
+</div>
+<div class="paragraph">
+<p>While caching is very beneficial in production, it can be counter-productive during development, preventing you from seeing the changes you just made in your application.
+For this reason, spring-boot-devtools disables the caching options by default.</p>
+</div>
+<div class="paragraph">
+<p>Cache options are usually configured by settings in your <code>application.properties</code> file.
+For example, Thymeleaf offers the <code>spring.thymeleaf.cache</code> property.
+Rather than needing to set these properties manually, the <code>spring-boot-devtools</code> module automatically applies sensible development-time configuration.</p>
+</div>
+<div class="paragraph">
+<p>Because you need more information about web requests while developing Spring MVC and Spring WebFlux applications, developer tools will enable <code>DEBUG</code> logging for the <code>web</code> logging group.
+This will give you information about the incoming request, which handler is processing it, the response outcome, etc.
+If you wish to log all request details (including potentially sensitive information), you can turn on the <code>spring.mvc.log-request-details</code> or <code>spring.codec.log-request-details</code> configuration properties.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If you don&#8217;t want property defaults to be applied you can set <code>spring.devtools.add-properties</code> to <code>false</code> in your <code>application.properties</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+For a complete list of the properties that are applied by the devtools, see <a href="https://github.com/spring-projects/spring-boot/tree/v2.5.3/spring-boot-project/spring-boot-devtools/src/main/java/org/springframework/boot/devtools/env/DevToolsPropertyDefaultsPostProcessor.java">DevToolsPropertyDefaultsPostProcessor</a>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="using.devtools.restart"><a class="anchor" href="#using.devtools.restart"></a>8.2. Automatic Restart</h3>
+<div class="paragraph">
+<p>Applications that use <code>spring-boot-devtools</code> automatically restart whenever files on the classpath change.
+This can be a useful feature when working in an IDE, as it gives a very fast feedback loop for code changes.
+By default, any entry on the classpath that points to a directory is monitored for changes.
+Note that certain resources, such as static assets and view templates, <a href="#using.devtools.restart.excluding-resources">do not need to restart the application</a>.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Triggering a restart</div>
+<div class="paragraph">
+<p>As DevTools monitors classpath resources, the only way to trigger a restart is to update the classpath.
+The way in which you cause the classpath to be updated depends on the IDE that you are using:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>In Eclipse, saving a modified file causes the classpath to be updated and triggers a restart.</p>
+</li>
+<li>
+<p>In IntelliJ IDEA, building the project (<code>Build +&#8594;+ Build Project</code>) has the same effect.</p>
+</li>
+<li>
+<p>If using a build plugin, running <code>mvn compile</code> for Maven or <code>gradle build</code> for Gradle will trigger a restart.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If you are restarting with Maven or Gradle using the build plugin you must leave the <code>forking</code> set to <code>enabled</code>.
+If you disable forking, the isolated application classloader used by devtools will not be created and restarts will not operate properly.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Automatic restart works very well when used with LiveReload.
+<a href="#using.devtools.livereload">See the LiveReload section</a> for details.
+If you use JRebel, automatic restarts are disabled in favor of dynamic class reloading.
+Other devtools features (such as LiveReload and property overrides) can still be used.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+DevTools relies on the application context&#8217;s shutdown hook to close it during a restart.
+It does not work correctly if you have disabled the shutdown hook (<code>SpringApplication.setRegisterShutdownHook(false)</code>).
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+DevTools needs to customize the <code>ResourceLoader</code> used by the <code>ApplicationContext</code>.
+If your application provides one already, it is going to be wrapped.
+Direct override of the <code>getResource</code> method on the <code>ApplicationContext</code> is not supported.
+</td>
+</tr>
+</table>
+</div>
+<div id="using-spring-boot-restart-vs-reload" class="sidebarblock">
+<div class="content">
+<div class="title">Restart vs Reload</div>
+<div class="paragraph">
+<p>The restart technology provided by Spring Boot works by using two classloaders.
+Classes that do not change (for example, those from third-party jars) are loaded into a <em>base</em> classloader.
+Classes that you are actively developing are loaded into a <em>restart</em> classloader.
+When the application is restarted, the <em>restart</em> classloader is thrown away and a new one is created.
+This approach means that application restarts are typically much faster than &#8220;cold starts&#8221;, since the <em>base</em> classloader is already available and populated.</p>
+</div>
+<div class="paragraph">
+<p>If you find that restarts are not quick enough for your applications or you encounter classloading issues, you could consider reloading technologies such as <a href="https://jrebel.com/software/jrebel/">JRebel</a> from ZeroTurnaround.
+These work by rewriting classes as they are loaded to make them more amenable to reloading.</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="using.devtools.restart.logging-condition-delta"><a class="anchor" href="#using.devtools.restart.logging-condition-delta"></a>8.2.1. Logging changes in condition evaluation</h4>
+<div class="paragraph">
+<p>By default, each time your application restarts, a report showing the condition evaluation delta is logged.
+The report shows the changes to your application&#8217;s auto-configuration as you make changes such as adding or removing beans and setting configuration properties.</p>
+</div>
+<div class="paragraph">
+<p>To disable the logging of the report, set the following property:</p>
+</div>
+<div class="listingblock primary">
+<div class="title">Properties</div>
+<div class="content">
+<pre class="highlight"><code class="language-properties" data-lang="properties">spring.devtools.restart.log-condition-evaluation-delta=false</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Yaml</div>
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">spring:
+  devtools:
+    restart:
+      log-condition-evaluation-delta: false</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="using.devtools.restart.excluding-resources"><a class="anchor" href="#using.devtools.restart.excluding-resources"></a>8.2.2. Excluding Resources</h4>
+<div class="paragraph">
+<p>Certain resources do not necessarily need to trigger a restart when they are changed.
+For example, Thymeleaf templates can be edited in-place.
+By default, changing resources in <code>/META-INF/maven</code>, <code>/META-INF/resources</code>, <code>/resources</code>, <code>/static</code>, <code>/public</code>, or <code>/templates</code> does not trigger a restart but does trigger a <a href="#using.devtools.livereload">live reload</a>.
+If you want to customize these exclusions, you can use the <code>spring.devtools.restart.exclude</code> property.
+For example, to exclude only <code>/static</code> and <code>/public</code> you would set the following property:</p>
+</div>
+<div class="listingblock primary">
+<div class="title">Properties</div>
+<div class="content">
+<pre class="highlight"><code class="language-properties" data-lang="properties">spring.devtools.restart.exclude=static/**,public/**</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Yaml</div>
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">spring:
+  devtools:
+    restart:
+      exclude: "static/**,public/**"</code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+If you want to keep those defaults and <em>add</em> additional exclusions, use the <code>spring.devtools.restart.additional-exclude</code> property instead.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="using.devtools.restart.watching-additional-paths"><a class="anchor" href="#using.devtools.restart.watching-additional-paths"></a>8.2.3. Watching Additional Paths</h4>
+<div class="paragraph">
+<p>You may want your application to be restarted or reloaded when you make changes to files that are not on the classpath.
+To do so, use the <code>spring.devtools.restart.additional-paths</code> property to configure additional paths to watch for changes.
+You can use the <code>spring.devtools.restart.exclude</code> property <a href="#using.devtools.restart.excluding-resources">described earlier</a> to control whether changes beneath the additional paths trigger a full restart or a <a href="#using.devtools.livereload">live reload</a>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="using.devtools.restart.disable"><a class="anchor" href="#using.devtools.restart.disable"></a>8.2.4. Disabling Restart</h4>
+<div class="paragraph">
+<p>If you do not want to use the restart feature, you can disable it by using the <code>spring.devtools.restart.enabled</code> property.
+In most cases, you can set this property in your <code>application.properties</code> (doing so still initializes the restart classloader, but it does not watch for file changes).</p>
+</div>
+<div class="paragraph">
+<p>If you need to <em>completely</em> disable restart support (for example, because it does not work with a specific library), you need to set the <code>spring.devtools.restart.enabled</code> <code>System</code> property to <code>false</code> before calling <code>SpringApplication.run(&#8230;&#8203;)</code>, as shown in the following example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java"><span class="fold-block hide-when-folded">import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+</span><span class="fold-block">@SpringBootApplication
+public class MyApplication {
+
+    public static void main(String[] args) {
+        System.setProperty("spring.devtools.restart.enabled", "false");
+        SpringApplication.run(MyApplication.class, args);
+    }
+
+}
+</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="using.devtools.restart.triggerfile"><a class="anchor" href="#using.devtools.restart.triggerfile"></a>8.2.5. Using a Trigger File</h4>
+<div class="paragraph">
+<p>If you work with an IDE that continuously compiles changed files, you might prefer to trigger restarts only at specific times.
+To do so, you can use a &#8220;trigger file&#8221;, which is a special file that must be modified when you want to actually trigger a restart check.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Any update to the file will trigger a check, but restart only actually occurs if Devtools has detected it has something to do.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>To use a trigger file, set the <code>spring.devtools.restart.trigger-file</code> property to the name (excluding any path) of your trigger file.
+The trigger file must appear somewhere on your classpath.</p>
+</div>
+<div class="paragraph">
+<p>For example, if you have a project with the following structure:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>src
++- main
+   +- resources
+      +- .reloadtrigger</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then your <code>trigger-file</code> property would be:</p>
+</div>
+<div class="listingblock primary">
+<div class="title">Properties</div>
+<div class="content">
+<pre class="highlight"><code class="language-properties" data-lang="properties">spring.devtools.restart.trigger-file=.reloadtrigger</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Yaml</div>
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">spring:
+  devtools:
+    restart:
+      trigger-file: ".reloadtrigger"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Restarts will now only happen when the <code>src/main/resources/.reloadtrigger</code> is updated.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+You might want to set <code>spring.devtools.restart.trigger-file</code> as a <a href="#using.devtools.globalsettings">global setting</a>, so that all your projects behave in the same way.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Some IDEs have features that save you from needing to update your trigger file manually.
+<a href="https://spring.io/tools">Spring Tools for Eclipse</a> and <a href="https://www.jetbrains.com/idea/">IntelliJ IDEA (Ultimate Edition)</a> both have such support.
+With Spring Tools, you can use the &#8220;reload&#8221; button from the console view (as long as your <code>trigger-file</code> is named <code>.reloadtrigger</code>).
+For IntelliJ IDEA, you can follow the <a href="https://www.jetbrains.com/help/idea/spring-boot.html#application-update-policies">instructions in their documentation</a>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="using.devtools.restart.customizing-the-classload"><a class="anchor" href="#using.devtools.restart.customizing-the-classload"></a>8.2.6. Customizing the Restart Classloader</h4>
+<div class="paragraph">
+<p>As described earlier in the <a href="#using-spring-boot-restart-vs-reload">Restart vs Reload</a> section, restart functionality is implemented by using two classloaders.
+For most applications, this approach works well.
+However, it can sometimes cause classloading issues.</p>
+</div>
+<div class="paragraph">
+<p>By default, any open project in your IDE is loaded with the &#8220;restart&#8221; classloader, and any regular <code>.jar</code> file is loaded with the &#8220;base&#8221; classloader.
+If you work on a multi-module project, and not every module is imported into your IDE, you may need to customize things.
+To do so, you can create a <code>META-INF/spring-devtools.properties</code> file.</p>
+</div>
+<div class="paragraph">
+<p>The <code>spring-devtools.properties</code> file can contain properties prefixed with <code>restart.exclude</code> and <code>restart.include</code>.
+The <code>include</code> elements are items that should be pulled up into the &#8220;restart&#8221; classloader, and the <code>exclude</code> elements are items that should be pushed down into the &#8220;base&#8221; classloader.
+The value of the property is a regex pattern that is applied to the classpath, as shown in the following example:</p>
+</div>
+<div class="listingblock primary">
+<div class="title">Properties</div>
+<div class="content">
+<pre class="highlight"><code class="language-properties" data-lang="properties">restart.exclude.companycommonlibs=/mycorp-common-[\\w\\d-\\.]+\\.jar
+restart.include.projectcommon=/mycorp-myproj-[\\w\\d-\\.]+\\.jar</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Yaml</div>
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">restart:
+  exclude:
+    companycommonlibs: "/mycorp-common-[\\w\\d-\\.]+\\.jar"
+  include:
+    projectcommon: "/mycorp-myproj-[\\w\\d-\\.]+\\.jar"</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+All property keys must be unique.
+As long as a property starts with <code>restart.include.</code> or <code>restart.exclude.</code> it is considered.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+All <code>META-INF/spring-devtools.properties</code> from the classpath are loaded.
+You can package files inside your project, or in the libraries that the project consumes.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="using.devtools.restart.limitations"><a class="anchor" href="#using.devtools.restart.limitations"></a>8.2.7. Known Limitations</h4>
+<div class="paragraph">
+<p>Restart functionality does not work well with objects that are deserialized by using a standard <code>ObjectInputStream</code>.
+If you need to deserialize data, you may need to use Spring&#8217;s <code>ConfigurableObjectInputStream</code> in combination with <code>Thread.currentThread().getContextClassLoader()</code>.</p>
+</div>
+<div class="paragraph">
+<p>Unfortunately, several third-party libraries deserialize without considering the context classloader.
+If you find such a problem, you need to request a fix with the original authors.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="using.devtools.livereload"><a class="anchor" href="#using.devtools.livereload"></a>8.3. LiveReload</h3>
+<div class="paragraph">
+<p>The <code>spring-boot-devtools</code> module includes an embedded LiveReload server that can be used to trigger a browser refresh when a resource is changed.
+LiveReload browser extensions are freely available for Chrome, Firefox and Safari from <a href="http://livereload.com/extensions/">livereload.com</a>.</p>
+</div>
+<div class="paragraph">
+<p>If you do not want to start the LiveReload server when your application runs, you can set the <code>spring.devtools.livereload.enabled</code> property to <code>false</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+You can only run one LiveReload server at a time.
+Before starting your application, ensure that no other LiveReload servers are running.
+If you start multiple applications from your IDE, only the first has LiveReload support.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+To trigger LiveReload when a file changes, <a href="#using.devtools.restart">Automatic Restart</a> must be enabled.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="using.devtools.globalsettings"><a class="anchor" href="#using.devtools.globalsettings"></a>8.4. Global Settings</h3>
+<div class="paragraph">
+<p>You can configure global devtools settings by adding any of the following files to the <code>$HOME/.config/spring-boot</code> directory:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>spring-boot-devtools.properties</code></p>
+</li>
+<li>
+<p><code>spring-boot-devtools.yaml</code></p>
+</li>
+<li>
+<p><code>spring-boot-devtools.yml</code></p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Any properties added to these file apply to <em>all</em> Spring Boot applications on your machine that use devtools.
+For example, to configure restart to always use a <a href="#using.devtools.restart.triggerfile">trigger file</a>, you would add the following property to your <code>spring-boot-devtools</code> file:</p>
+</div>
+<div class="listingblock primary">
+<div class="title">Properties</div>
+<div class="content">
+<pre class="highlight"><code class="language-properties" data-lang="properties">spring.devtools.restart.trigger-file=.reloadtrigger</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Yaml</div>
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">spring:
+  devtools:
+    restart:
+      trigger-file: ".reloadtrigger"</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If devtools configuration files are not found in <code>$HOME/.config/spring-boot</code>, the root of the <code>$HOME</code> directory is searched for the presence of a <code>.spring-boot-devtools.properties</code> file.
+This allows you to share the devtools global configuration with applications that are on an older version of Spring Boot that does not support the <code>$HOME/.config/spring-boot</code> location.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Profiles are not supported in devtools properties/yaml files.</p>
+</div>
+<div class="paragraph">
+<p>Any profiles activated in <code>.spring-boot-devtools.properties</code> will not affect the loading of <a href="features.html#features.external-config.files.profile-specific">profile-specific configuration files</a>.
+Profile specific filenames (of the form <code>spring-boot-devtools-&lt;profile&gt;.properties</code>) and <code>spring.config.activate.on-profile</code> documents in both YAML and Properties files are not supported.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="using.devtools.globalsettings.configuring-file-system-watcher"><a class="anchor" href="#using.devtools.globalsettings.configuring-file-system-watcher"></a>8.4.1. Configuring File System Watcher</h4>
+<div class="paragraph">
+<p><a href="https://github.com/spring-projects/spring-boot/tree/v2.5.3/spring-boot-project/spring-boot-devtools/src/main/java/org/springframework/boot/devtools/filewatch/FileSystemWatcher.java">FileSystemWatcher</a> works by polling the class changes with a certain time interval, and then waiting for a predefined quiet period to make sure there are no more changes.
+Since Spring Boot relies entirely on the IDE to compile and copy files into the location from where Spring Boot can read them, you might find that there are times when certain changes are not reflected when devtools restarts the application.
+If you observe such problems constantly, try increasing the <code>spring.devtools.restart.poll-interval</code> and <code>spring.devtools.restart.quiet-period</code> parameters to the values that fit your development environment:</p>
+</div>
+<div class="listingblock primary">
+<div class="title">Properties</div>
+<div class="content">
+<pre class="highlight"><code class="language-properties" data-lang="properties">spring.devtools.restart.poll-interval=2s
+spring.devtools.restart.quiet-period=1s</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Yaml</div>
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">spring:
+  devtools:
+    restart:
+      poll-interval: "2s"
+      quiet-period: "1s"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The monitored classpath directories are now polled every 2 seconds for changes, and a 1 second quiet period is maintained to make sure there are no additional class changes.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="using.devtools.remote-applications"><a class="anchor" href="#using.devtools.remote-applications"></a>8.5. Remote Applications</h3>
+<div class="paragraph">
+<p>The Spring Boot developer tools are not limited to local development.
+You can also use several features when running applications remotely.
+Remote support is opt-in as enabling it can be a security risk.
+It should only be enabled when running on a trusted network or when secured with SSL.
+If neither of these options is available to you, you should not use DevTools' remote support.
+You should never enable support on a production deployment.</p>
+</div>
+<div class="paragraph">
+<p>To enable it, you need to make sure that <code>devtools</code> is included in the repackaged archive, as shown in the following listing:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;build&gt;
+    &lt;plugins&gt;
+        &lt;plugin&gt;
+            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;
+            &lt;configuration&gt;
+                &lt;excludeDevtools&gt;false&lt;/excludeDevtools&gt;
+            &lt;/configuration&gt;
+        &lt;/plugin&gt;
+    &lt;/plugins&gt;
+&lt;/build&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then you need to set the <code>spring.devtools.remote.secret</code> property.
+Like any important password or secret, the value should be unique and strong such that it cannot be guessed or brute-forced.</p>
+</div>
+<div class="paragraph">
+<p>Remote devtools support is provided in two parts: a server-side endpoint that accepts connections and a client application that you run in your IDE.
+The server component is automatically enabled when the <code>spring.devtools.remote.secret</code> property is set.
+The client component must be launched manually.</p>
+</div>
+<div class="sect3">
+<h4 id="using.devtools.remote-applications.client"><a class="anchor" href="#using.devtools.remote-applications.client"></a>8.5.1. Running the Remote Client Application</h4>
+<div class="paragraph">
+<p>The remote client application is designed to be run from within your IDE.
+You need to run <code>org.springframework.boot.devtools.RemoteSpringApplication</code> with the same classpath as the remote project that you connect to.
+The application&#8217;s single required argument is the remote URL to which it connects.</p>
+</div>
+<div class="paragraph">
+<p>For example, if you are using Eclipse or Spring Tools and you have a project named <code>my-app</code> that you have deployed to Cloud Foundry, you would do the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Select <code>Run Configurations&#8230;&#8203;</code> from the <code>Run</code> menu.</p>
+</li>
+<li>
+<p>Create a new <code>Java Application</code> &#8220;launch configuration&#8221;.</p>
+</li>
+<li>
+<p>Browse for the <code>my-app</code> project.</p>
+</li>
+<li>
+<p>Use <code>org.springframework.boot.devtools.RemoteSpringApplication</code> as the main class.</p>
+</li>
+<li>
+<p>Add <code>https://myapp.cfapps.io</code> to the <code>Program arguments</code> (or whatever your remote URL is).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>A running remote client might resemble the following listing:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>  .   ____          _                                              __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _          ___               _      \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` |        | _ \___ _ __  ___| |_ ___ \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| []::::::[]   / -_) '  \/ _ \  _/ -_) ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, |        |_|_\___|_|_|_\___/\__\___|/ / / /
+ =========|_|==============|___/===================================/_/_/_/
+ :: Spring Boot Remote :: 2.5.3
+
+2015-06-10 18:25:06.632  INFO 14938 --- [           main] o.s.b.devtools.RemoteSpringApplication   : Starting RemoteSpringApplication on pwmbp with PID 14938 (/Users/pwebb/projects/spring-boot/code/spring-boot-project/spring-boot-devtools/target/classes started by pwebb in /Users/pwebb/projects/spring-boot/code)
+2015-06-10 18:25:06.671  INFO 14938 --- [           main] s.c.a.AnnotationConfigApplicationContext : Refreshing org.spring<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6e081c0f030b19011c05400d01001a0b161a400f0000011a0f1a070100402f0000011a0f1a0701002d01000807092f1e1e02070d0f1a0701002d01001a0b161a2e">[email&#160;protected]</a>2a17b7b6: startup date [Wed Jun 10 18:25:06 PDT 2015]; root of context hierarchy
+2015-06-10 18:25:07.043  WARN 14938 --- [           main] o.s.b.d.r.c.RemoteClientConfiguration    : The connection to http://localhost:8080 is insecure. You should use a URL starting with 'https://'.
+2015-06-10 18:25:07.074  INFO 14938 --- [           main] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2015-06-10 18:25:07.130  INFO 14938 --- [           main] o.s.b.devtools.RemoteSpringApplication   : Started RemoteSpringApplication in 0.74 seconds (JVM running for 1.105)</pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Because the remote client is using the same classpath as the real application it can directly read application properties.
+This is how the <code>spring.devtools.remote.secret</code> property is read and passed to the server for authentication.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+It is always advisable to use <code>https://</code> as the connection protocol, so that traffic is encrypted and passwords cannot be intercepted.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+If you need to use a proxy to access the remote application, configure the <code>spring.devtools.remote.proxy.host</code> and <code>spring.devtools.remote.proxy.port</code> properties.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="using.devtools.remote-applications.update"><a class="anchor" href="#using.devtools.remote-applications.update"></a>8.5.2. Remote Update</h4>
+<div class="paragraph">
+<p>The remote client monitors your application classpath for changes in the same way as the <a href="#using.devtools.restart">local restart</a>.
+Any updated resource is pushed to the remote application and (<em>if required</em>) triggers a restart.
+This can be helpful if you iterate on a feature that uses a cloud service that you do not have locally.
+Generally, remote updates and restarts are much quicker than a full rebuild and deploy cycle.</p>
+</div>
+<div class="paragraph">
+<p>On a slower development environment, it may happen that the quiet period is not enough, and the changes in the classes may be split into batches.
+The server is restarted after the first batch of class changes is uploaded.
+The next batch can’t be sent to the application, since the server is restarting.</p>
+</div>
+<div class="paragraph">
+<p>This is typically manifested by a warning in the <code>RemoteSpringApplication</code> logs about failing to upload some of the classes, and a consequent retry.
+But it may also lead to application code inconsistency and failure to restart after the first batch of changes is uploaded.
+If you observe such problems constantly, try increasing the <code>spring.devtools.restart.poll-interval</code> and <code>spring.devtools.restart.quiet-period</code> parameters to the values that fit your development environment.
+See the <a href="#using.devtools.globalsettings.configuring-file-system-watcher">Configuring File System Watcher</a> section for configuring these properties.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Files are only monitored when the remote client is running.
+If you change a file before starting the remote client, it is not pushed to the remote server.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="using.packaging-for-production"><a class="anchor" href="#using.packaging-for-production"></a>9. Packaging Your Application for Production</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Executable jars can be used for production deployment.
+As they are self-contained, they are also ideally suited for cloud-based deployment.</p>
+</div>
+<div class="paragraph">
+<p>For additional &#8220;production ready&#8221; features, such as health, auditing, and metric REST or JMX end-points, consider adding <code>spring-boot-actuator</code>.
+See <em><a href="actuator.html#actuator">actuator.html</a></em> for details.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="using.whats-next"><a class="anchor" href="#using.whats-next"></a>10. What to Read Next</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You should now understand how you can use Spring Boot and some best practices that you should follow.
+You can now go on to learn about specific <em><a href="features.html#features">Spring Boot features</a></em> in depth, or you could skip ahead and read about the &#8220;<a href="actuator.html#actuator">production ready</a>&#8221; aspects of Spring Boot.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2021-07-22 12:51:30 UTC
+</div>
+</div>
+</div>
+</div>
+</div>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>if (window.parent == window) {(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-2728886-23', 'auto', {'siteSpeedSampleRate': 100});ga('send', 'pageview');}</script><script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"rayId":"6753e7f17bafd1bf","token":"bffcb8a918ae4755926f76178bfbd26b","version":"2021.7.0","si":10}'></script>
+</body>
+</html>

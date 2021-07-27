@@ -451,3 +451,5 @@ $ java -jar target/myproject-0.0.1-SNAPSHOT.jar
 希望本节提供了一些Spring Boot的基础知识，让你开始编写自己的应用程序。如果你是一个面向任务的开发者，你可能想跳到[spring.io](https://spring.io/)并查看一些[入门](https://spring.io/guides/)指南，这些指南解决了 "我如何用Spring做这个？"的具体问题。我们还有针对Spring Boot的"[How-to](https://docs.spring.io/spring-boot/docs/current/reference/html/howto.html#howto) "参考文档。
 
 否则，下一个合乎逻辑的步骤是阅读 [使用spring-boot](/spring-boot/using.html) 。如果你真的没有耐心，你也可以提前阅读[Spring Boot特性](/spring-boot/features.html)。
+
+{{#include ../license.md}}

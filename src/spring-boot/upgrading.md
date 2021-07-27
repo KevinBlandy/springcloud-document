@@ -27,3 +27,5 @@
 ## 3. 升级Spring Boot CLI
 
 要升级现有的CLI安装，使用适当的软件包管理器命令（例如，`brew upgrade`）。如果你手动安装了CLI，请遵循[标准说明](https://docs.spring.io/spring-boot/docs/current/reference/html/getting-started.html#getting-started.installing.cli.manual-installation)，记得更新你的`PATH`环境变量，删除任何旧的引用。
+
+{{#include ../license.md}}

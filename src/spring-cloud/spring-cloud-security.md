@@ -254,3 +254,4 @@ proxy:
 
 详细情况见[ProxyAuthenticationProperties](https://github.com/spring-cloud/spring-cloud-security/tree/master/src/main/java/org/springframework/cloud/security/oauth2/proxy/ProxyAuthenticationProperties)。
 
+{{#include ../license.md}}

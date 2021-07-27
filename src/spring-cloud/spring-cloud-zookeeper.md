@@ -672,3 +672,5 @@ org.springframework.cloud.bootstrap.BootstrapConfiguration=\
 my.project.CustomCuratorFrameworkConfig,\
 my.project.DefaultCuratorFrameworkConfig
 ```
+
+{{#include ../license.md}}

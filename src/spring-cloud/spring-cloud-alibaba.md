@@ -9,3 +9,5 @@ Spring Cloud Alibaba为分布式应用开发提供了一个一站式解决方案
 [https://github.com/alibaba/spring-cloud-alibaba/wiki](https://github.com/alibaba/spring-cloud-alibaba/wiki)
 
 > 官方各个组件都有十分优秀的中文文档，这里就不翻译了。
+
+{{#include ../license.md}}

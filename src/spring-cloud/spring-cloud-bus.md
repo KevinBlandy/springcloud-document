@@ -183,3 +183,5 @@ public class BusConfiguration {
 ## 9. 配置属性
 
 要查看所有与总线相关的配置属性列表，请查看[附录页面](https://docs.spring.io/spring-cloud-bus/docs/current/reference/html/appendix.html)。
+
+{{#include ../license.md}}

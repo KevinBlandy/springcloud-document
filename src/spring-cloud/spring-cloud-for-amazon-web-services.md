@@ -7,3 +7,5 @@ Spring Cloud for Amazon Web Services是Spring Cloud伞式项目的一部分，�
 [https://docs.awspring.io/spring-cloud-aws/docs/current/reference/html/index.html](https://docs.awspring.io/spring-cloud-aws/docs/current/reference/html/index.html)
 
 > 这玩意儿好像用的人少（我反正没见过），就懒得翻译了。以后再说。
+
+{{#include ../license.md}}

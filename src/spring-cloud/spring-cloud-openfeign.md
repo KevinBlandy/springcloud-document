@@ -655,3 +655,5 @@ feign.client.refresh-enabled=true
 ## 2. 配置属性
 
 要查看所有Spring Cloud OpenFeign相关的配置属性列表，请查看[附录页面](https://docs.spring.io/spring-cloud-openfeign/docs/current/reference/html/appendix.html)。
+
+{{#include ../license.md}}

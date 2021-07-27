@@ -8,3 +8,5 @@ Spring Cloud Azure是一个开源项目，提供Spring与Azure服务的无缝集
 [https://docs.microsoft.com/zh-cn/azure/developer/java/spring-framework/](https://docs.microsoft.com/zh-cn/azure/developer/java/spring-framework/)
 
 > 官方有中文文档，这里就不进行翻译了。
+
+{{#include ../license.md}}

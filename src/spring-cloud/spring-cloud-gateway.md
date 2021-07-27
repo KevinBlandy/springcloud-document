@@ -2271,3 +2271,5 @@ Spring MVC和Webflux的所有功能都可用于网关处理方法。因此，你
 ## 19. 配置属性
 
 要查看所有与Spring Cloud Gateway相关的配置属性列表，请参见[附录](https://docs.spring.io/spring-cloud-gateway/docs/current/reference/html/appendix.html)。
+
+{{#include ../license.md}}

@@ -470,3 +470,5 @@ JDK 11删除了Eureka服务器所依赖的JAXB模块。如果你想在运行Eure
 ## 3. 配置属性
 
 要查看所有Spring Cloud Netflix相关配置属性的列表，请检查[附录页面](https://docs.spring.io/spring-cloud-netflix/docs/current/reference/html/appendix.html)。
+
+{{#include ../license.md}}

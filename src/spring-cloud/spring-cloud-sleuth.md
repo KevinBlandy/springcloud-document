@@ -2032,3 +2032,5 @@ Sleuth创建了一个`TracingManagedChannelBuilderCustomizer`，将Brave的客�
 ## 7. 配置属性
 
 要查看所有Spring Cloud Netflix相关配置属性的列表，请检查[附录页面](https://docs.spring.io/spring-cloud-sleuth/docs/3.0.3/reference/htmlsingle/#common-application-properties)。
+
+{{#include ../license.md}}
