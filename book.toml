@@ -1,5 +1,6 @@
 [book]
-authors = ["Spring中文文档"]
+title = "Spring中文文档"
+authors = ["SpringCloud中文社区"]
 language = "zh-CN"
 multilingual = false  
 src = "src"     # 源文件目录
