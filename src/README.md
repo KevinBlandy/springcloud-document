@@ -1,11 +1,8 @@
 # Spring中文文档
 
-Spring系列框架的最新中文文档，由「SpringCloud中文社区」([springcloud.io](http://springcloud.io))提供。
+Spring系列框架的最新中文文档，跟随官方更新。
 
-如果你觉得翻译的内容有改进之处，欢迎提交[PR](https://github.com/KevinBlandy/springcloud-document)帮助完善，非常感谢。
-
-- Spring Boot 版本：2.5.3（部分未翻译）
-- Spring Cloud 版本：2020.0.x aka Ilford（部分未翻译）
+使用 [deepl](https://www.deepl.com/translator) 进行人工翻译，如果你觉得翻译的内容有改进之处，欢迎提交[PR](https://github.com/KevinBlandy/springcloud-document)帮助完善，非常感谢。
 
 文档最后更新时间：2021年7月30日
 
