@@ -2058,4 +2058,1126 @@ ERROR in ch.qos.logback.core.joran.spi.Interpreter@4:71 - no applicable action f
 
 ## 5. 国际化
 
+Spring Boot支持本地化的消息，这样你的应用程序就可以满足不同语言偏好的用户。默认情况下，Spring Boot会在classpath的根部寻找`messages`资源包的存在。
+
+> 自动配置适用于已配置的资源包的默认属性文件（即默认为`messages.properties`）。如果你的资源包只包含特定语言的属性文件，你需要添加默认的。如果没有找到与任何配置的基础名称相匹配的属性文件，将没有自动配置的`MessageSource`。
+
+资源包的基名以及其他几个属性可以使用`spring.messages`命名空间进行配置，如下例所示。
+
+```yaml
+spring:
+  messages:
+    basename: "messages,config.i18n.messages"
+    fallback-to-system-locale: false
+```
+
+`spring.messages.basename`支持逗号分隔的位置列表，可以是包的限定词或从classpath根部解析的资源。
+
+更多支持的选项见[`MessageSourceProperties`](https://github.com/spring-projects/spring-boot/tree/v2.5.3/spring-boot-project/spring-boot-autoconfigure/src/main/java/org/springframework/boot/autoconfigure/context/MessageSourceProperties.java)。
+
+## 6. JSON
+
+Spring Boot提供与三个JSON映射库的集成。
+
+* Gson
+* Jackson
+* JSON-B
+
+Jackson是首选和默认的库。
+
+### 6.1. Jackson
+
+为Jackson提供自动配置，Jackson是`spring-boot-starter-json`的一部分。当Jackson在classpath上时，会自动配置一个`ObjectMapper`bean。提供了几个配置属性用于[定制 ObjectMapper 的配置](https://docs.spring.io/spring-boot/docs/current/reference/html/howto.html#howto.spring-mvc.customize-jackson-objectmapper)。
+
+### 6.2. Gson
+
+为Gson提供了自动配置。当Gson在classpath上时，会自动配置一个`Gson`bean。提供了几个`spring.gson.*`配置属性来定制配置。为了获得更多的控制权，可以使用一个或多个`GsonBuilderCustomizer` bean。
+
+### 6.3. JSON-B
+
+为JSON-B提供了自动配置功能。当JSON-B API和一个实现在classpath上时，一个`Jsonb`bean将被自动配置。首选的JSON-B实现是Apache Johnzon，为其提供了依赖性管理。
+
+## 7. 开发 Web Applications
+
+Spring Boot非常适用于Web Application开发。你可以通过使用嵌入式Tomcat、Jetty、Undertow或Netty创建一个独立的HTTP服务器。大多数Web应用程序使用`spring-boot-starter-web`模块来快速启动和运行。你也可以选择通过使用`spring-boot-starter-webflux`模块来构建reactive Web应用。
+
+如果你还没有开发过Spring Boot的Web应用，你可以按照[入门](https://docs.spring.io/spring-boot/docs/current/reference/html/getting-started.html#getting-started.first-application)章节中的 "Hello World!"的例子来做。
+
+### 7.1. Spring Web MVC 框架
+
+[Spring Web MVC framework](https://docs.spring.io/spring-framework/docs/5.3.9/reference/html/web.html#mvc)（通常被称为 "Spring MVC"）是一个丰富的 "model view controller" Web框架。Spring MVC让你创建特殊的`@Controller`或`@RestController`bean来处理进入的HTTP请求。控制器中的方法通过使用`@RequestMapping`注解被映射到HTTP。
+
+下面的代码显示了一个典型的`@RestController`，它提供JSON数据。
+
+```java
+import java.util.List;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/users")
+public class MyRestController {
+
+    private final UserRepository userRepository;
+
+    private final CustomerRepository customerRepository;
+
+    public MyRestController(UserRepository userRepository, CustomerRepository customerRepository) {
+        this.userRepository = userRepository;
+        this.customerRepository = customerRepository;
+    }
+
+    @GetMapping("/{user}")
+    public User getUser(@PathVariable Long userId) {
+        return this.userRepository.findById(userId).get();
+    }
+
+    @GetMapping("/{user}/customers")
+    public List<Customer> getUserCustomers(@PathVariable Long userId) {
+        return this.userRepository.findById(userId).map(this.customerRepository::findByUser).get();
+    }
+
+    @DeleteMapping("/{user}")
+    public void deleteUser(@PathVariable Long userId) {
+        this.userRepository.deleteById(userId);
+    }
+
+}
+```
+
+Spring MVC是Spring框架核心的一部分，详细的信息可以在[参考文档](https://docs.spring.io/spring-framework/docs/5.3.9/reference/html/web.html#mvc)中找到。在[spring.io/guides](https://spring.io/guides)上也有一些涵盖Spring MVC的指南。
+
+#### 7.1.1. Spring MVC自动配置
+
+Spring Boot为Spring MVC提供了自动配置功能，对大多数应用程序都很适用。
+
+自动配置在Spring默认的基础上增加了以下功能。
+
+* 包含`ContentNegotiatingViewResolver`和`BeanNameViewResolver` Bean。
+* 支持为静态资源提供服务，包括对WebJars的支持（[本文稍后报道](https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.developing-web-applications.spring-mvc.static-content)）。
+* 自动注册`Converter`、`GenericConverter`和`Formatter` Bean。
+* 支持`HttpMessageConverters`([本文稍后报道](https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.developing-web-applications.spring-mvc.message-converters))。
+* 自动注册 `MessageCodesResolver` ([本文稍后报道](https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.developing-web-applications.spring-mvc.message-codes))。
+* 静态的`index.html`支持。
+* 自动使用 `ConfigurableWebBindingInitializer` bean（[本文稍后介绍](https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.developing-web-applications.spring-mvc.binding-initializer)）。
+
+如果你想保留那些Spring Boot MVC定制，并做更多的[MVC定制](https://docs.spring.io/spring-framework/docs/5.3.9/reference/html/web.html#mvc)（拦截器、格式化器、视图控制器和其他功能），你可以添加你自己的`@Configuration`类，类型为`WebMvcConfigurer`，但不含`@EnableWebMvc`。
+
+如果你想提供`RequestMappingHandlerMapping`、`RequestMappingHandlerAdapter`或`ExceptionHandlerExceptionResolver`的自定义实例，并且仍然保持Spring Boot MVC的自定义，你可以声明一个`WebMvcRegistrations`类型的bean，用它来提供这些组件的自定义实例。
+
+如果你想完全控制Spring MVC，你可以添加你自己的`@Configuration`注释`@EnableWebMvc`，或者添加你自己的`@Configuration`注释`DelegatingWebMvcConfiguration`，如`@EnableWebMvc`的Javadoc中所述。
+
+> Spring MVC使用不同的`ConversionService`来转换`application.properties`或`application.yaml`文件中的值。这意味着`Period`、`Duration`和`DataSize`转换器不可用，`@DurationUnit`和`@DataSizeUnit`注释将被忽略。
+>
+> 如果你想定制Spring MVC使用的 `ConversionService`，你可以提供一个带有 `addFormatters` 方法的 `WebMvcConfigurer` bean。从这个方法中，你可以注册任何你喜欢的转换器，或者你可以委托给`ApplicationConversionService`上的静态方法。
+
+#### 7.1.2. HttpMessageConverters
+
+Spring MVC使用`HttpMessageConverter`接口来转换HTTP请求和响应。合理的默认值是开箱即用的。例如，对象可以自动转换为JSON（通过使用Jackson库）或XML（通过使用Jackson XML扩展，如果可用的话，或通过使用JAXB，如果Jackson XML扩展不可用）。默认情况下，字符串是以`UTF-8`编码的。
+
+如果你需要添加或定制转换器，你可以使用Spring Boot的`HttpMessageConverters`类，如以下列表所示。
+
+```java
+import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.converter.HttpMessageConverter;
+
+@Configuration(proxyBeanMethods = false)
+public class MyHttpMessageConvertersConfiguration {
+
+    @Bean
+    public HttpMessageConverters customConverters() {
+        HttpMessageConverter<?> additional = new AdditionalHttpMessageConverter();
+        HttpMessageConverter<?> another = new AnotherHttpMessageConverter();
+        return new HttpMessageConverters(additional, another);
+    }
+
+}
+```
+
+任何存在于上下文中的`HttpMessageConverter`bean都会被添加到转换器的列表中。你也可以用同样的方式覆盖默认的转换器。
+
+#### 7.1.3. 自定义 JSON Serializers 和 Deserializers
+
+如果你使用Jackson来序列化和反序列化JSON数据，你可能想编写自己的`JsonSerializer`和`JsonDeserializer`类。自定义序列化器通常是[通过模块与Jackson注册](https://github.com/FasterXML/jackson-docs/wiki/JacksonHowToCustomSerializers)，但Spring Boot提供了一个替代性的`@JsonComponent`注解，使直接注册Spring Beans更容易。
+
+你可以直接在`JsonSerializer`、`JsonDeserializer`或`KeyDeserializer`实现上使用`@JsonComponent`注解。你也可以在包含序列化器/反序列化器作为内层类的类上使用它，如下面的例子所示。
+
+```java
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.ObjectCodec;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.SerializerProvider;
+
+import org.springframework.boot.jackson.JsonComponent;
+
+@JsonComponent
+public class MyJsonComponent {
+
+    public static class Serializer extends JsonSerializer<MyObject> {
+
+        @Override
+        public void serialize(MyObject value, JsonGenerator jgen, SerializerProvider serializers) throws IOException {
+            jgen.writeStringField("name", value.getName());
+            jgen.writeNumberField("age", value.getAge());
+        }
+
+    }
+
+    public static class Deserializer extends JsonDeserializer<MyObject> {
+
+        @Override
+        public MyObject deserialize(JsonParser jsonParser, DeserializationContext ctxt)
+                throws IOException, JsonProcessingException {
+            ObjectCodec codec = jsonParser.getCodec();
+            JsonNode tree = codec.readTree(jsonParser);
+            String name = tree.get("name").textValue();
+            int age = tree.get("age").intValue();
+            return new MyObject(name, age);
+        }
+
+    }
+
+}
+```
+
+`ApplicationContext`中的所有`@JsonComponent` Bean 都会自动向Jackson注册。因为`@JsonComponent`是用`@Component`元注释的，所以通常的组件扫描规则适用。
+
+Spring Boot还提供了[`JsonObjectSerializer`](https://github.com/spring-projects/spring-boot/tree/v2.5.3/spring-boot-project/spring-boot/src/main/java/org/springframework/boot/jackson/JsonObjectSerializer.java)和[`JsonObjectDeserializer`](https://github.com/spring-projects/spring-boot/tree/v2.5.3/spring-boot-project/spring-boot/src/main/java/org/springframework/boot/jackson/JsonObjectDeserializer.java)基类，在序列化对象时提供了标准Jackson版本的有用替代品。详情见Javadoc中的[`JsonObjectSerializer`](https://docs.spring.io/spring-boot/docs/2.5.3/api/org/springframework/boot/jackson/JsonObjectSerializer.html)和[`JsonObjectDeserializer`](https://docs.spring.io/spring-boot/docs/2.5.3/api/org/springframework/boot/jackson/JsonObjectDeserializer.html)。
+
+上面的例子可以改写为使用`JsonObjectSerializer`/`JsonObjectDeserializer`，如下所示。
+
+```java
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.ObjectCodec;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.SerializerProvider;
+
+import org.springframework.boot.jackson.JsonComponent;
+import org.springframework.boot.jackson.JsonObjectDeserializer;
+import org.springframework.boot.jackson.JsonObjectSerializer;
+
+@JsonComponent
+public class MyJsonComponent {
+
+    public static class Serializer extends JsonObjectSerializer<MyObject> {
+
+        @Override
+        protected void serializeObject(MyObject value, JsonGenerator jgen, SerializerProvider provider)
+                throws IOException {
+            jgen.writeStringField("name", value.getName());
+            jgen.writeNumberField("age", value.getAge());
+        }
+
+    }
+
+    public static class Deserializer extends JsonObjectDeserializer<MyObject> {
+
+        @Override
+        protected MyObject deserializeObject(JsonParser jsonParser, DeserializationContext context, ObjectCodec codec,
+                JsonNode tree) throws IOException {
+            String name = nullSafeValue(tree.get("name"), String.class);
+            int age = nullSafeValue(tree.get("age"), Integer.class);
+            return new MyObject(name, age);
+        }
+
+    }
+
+}
+```
+
+#### 7.1.4. MessageCodesResolver
+
+Spring MVC有一个生成错误代码的策略，用于从绑定错误中渲染错误信息。`MessageCodesResolver`。如果你设置了`spring.mvc.message-codes-resolver-format`属性`PREFIX_ERROR_CODE`或`POSTFIX_ERROR_CODE`，Spring Boot就会为你创建一个（见[`DefaultMessageCodesResolver.Format`](https://docs.spring.io/spring-framework/docs/5.3.9/javadoc-api/org/springframework/validation/DefaultMessageCodesResolver.Format.html)中的枚举)。
+
+#### 7.1.5. 静态内容
+
+默认情况下，Spring Boot从classpath中的`/static`（或`/public`或`/resources`或`/META-INF/resources`）目录或`ServletContext`的根中提供静态内容。它使用了Spring MVC中的`ResourceHttpRequestHandler`，因此你可以通过添加你自己的`WebMvcConfigurer`并重写`addResourceHandlers`方法来修改该行为。
+
+在独立的Web应用中，容器中的默认servlet也被启用，并作为一个fallback，如果Spring决定不处理它，就从`ServletContext`的根部提供内容。大多数时候，这种情况不会发生（除非你修改默认的MVC配置），因为Spring总是可以通过`DispatcherServlet`来处理请求。
+
+默认情况下，资源被映射到`/**`上，但你可以通过`spring.mvc.static-path-pattern`属性来调整。例如，将所有资源重新定位到`/resources/**`，可以通过以下方式实现。
+
+```yaml
+spring:
+  mvc:
+    static-path-pattern: "/resources/**"
+```
+
+你也可以通过使用`spring.web.resources.static-locations`属性来定制静态资源的位置（用目录位置的列表代替默认值）。根Servlet上下文路径，`"/"`，也被自动添加为一个位置。
+
+除了前面提到的 "标准 "静态资源位置外，还为[Webjars内容](https://www.webjars.org/)提供了一个特殊情况。任何路径为`/webjars/**`的资源，如果是以Webjars格式打包的，则从jar文件中提供。
+
+> 如果你的应用程序被打包成jar，请不要使用`src/main/webapp`目录。虽然这个目录是一个通用的标准，但它只适用于war打包，如果你生成一个jar，它就会被大多数构建工具默默地忽略。
+
+Spring Boot还支持Spring MVC提供的高级资源处理功能，允许使用的情况包括破坏缓存的静态资源或为Webjars使用版本无关的URL。
+
+要对Webjars使用版本不可知的URL，请添加`webjars-locator-core`依赖。然后声明你的Webjar。以jQuery为例，添加`"/webjars/jquery/jquery.min.js "的结果是`"/webjars/jquery/x.y.z/jquery.min.js"，其中`x.y.z`是Webjar的版本。
+
+> 如果你使用JBoss，你需要声明`webjars-locator-jboss-vfs`依赖关系而不是`webjars-locator-core`。否则，所有的Webjars都会解析为`404`。
+
+要使用缓存破坏，以下配置为所有静态资源配置了一个缓存破坏解决方案，有效地在URL中添加了一个内容哈希，如`<link href="/css/spring-2a2d595e6ed9a0b24f027f2b63b134d6.css"/>`，。
+
+```yaml
+spring:
+  web:
+    resources:
+      chain:
+        strategy:
+          content:
+            enabled: true
+            paths: "/**"
+```
+
+> 由于Thymeleaf和FreeMarker自动配置了`ResourceUrlEncodingFilter`，资源的链接在运行时被重写在模板中。在使用JSP的时候，你应该手动声明这个过滤器。其他模板引擎目前没有自动支持，但可以通过自定义template macros/helpers和使用[`ResourceUrlProvider`](https://docs.spring.io/spring-framework/docs/5.3.9/javadoc-api/org/springframework/web/servlet/resource/ResourceUrlProvider.html)。
+
+当用例如JavaScript模块加载器动态加载资源时，重命名文件不是一个选项。这就是为什么也支持其他策略，并且可以组合使用。一个 `fixed` 策略在URL中添加一个静态的版本字符串，而不改变文件名，如下面的例子所示。
+
+```yaml
+spring:
+  web:
+    resources:
+      chain:
+        strategy:
+          content:
+            enabled: true
+            paths: "/**"
+          fixed:
+            enabled: true
+            paths: "/js/lib/"
+            version: "v12"
+
+```
+
+通过这种配置，位于`"/js/lib/"`下的JavaScript模块使用固定的版本策略（`"/v12/js/lib/mymodule.js"`），而其他资源仍然使用内容策略（`<link href="/css/spring-2a2d595e6ed9a0b24f027f2b63b134d6.css"/>`）。
+
+更多支持的选项见[`ResourceProperties`](https://github.com/spring-projects/spring-boot/tree/v2.5.3/spring-boot-project/spring-boot-autoconfigure/src/main/java/org/springframework/boot/autoconfigure/web/ResourceProperties.java)。
+
+> 在专门的[博文](https://spring.io/blog/2014/07/24/spring-framework-4-1-handling-static-web-resources)和Spring Framework的[参考文档](https://docs.spring.io/spring-framework/docs/5.3.9/reference/html/web.html#mvc-config-static-resources)中已经对这一特性进行了详尽的描述。
+
+#### 7.1.6. Welcome Page
+
+Spring Boot同时支持静态和模板化的欢迎页面。它首先在配置的静态内容位置寻找一个`index.html`文件。如果没有找到，它就会寻找`index`模板。如果找到了其中之一，它就会自动作为应用程序的欢迎页面使用。
+
+#### 7.1.7. 路径匹配和内容协商
+
+Spring MVC可以通过查看请求路径并将其与应用程序中定义的映射（例如，控制器方法上的`@GetMapping`注解）相匹配，将传入的HTTP请求映射到处理程序。
+
+Spring Boot选择默认禁用后缀模式匹配，这意味着像 `GET /projects/spring-boot.json`这样的请求不会被匹配到`@GetMapping("/projects/spring-boot")`映射。这被认为是一个[Spring MVC应用的最佳实践](https://docs.spring.io/spring-framework/docs/5.3.9/reference/html/web.html#mvc-ann-requestmapping-suffix-pattern-match)。这个功能在过去主要是针对HTTP客户端，他们没有发送正确的 `Accept` 请求头；我们需要确保向客户端发送正确的内容类型。现在，内容协商（Content Negotiation）要可靠得多。
+
+还有其他方法来处理那些没有持续发送正确 `Accept` 请求头的HTTP客户端。我们可以不使用后缀匹配，而是使用一个查询参数来确保像`"GET /projects/spring-boot?format=json"`这样的请求会被映射到`@GetMapping("/projects/spring-boot")`。
+
+```yaml
+spring:
+  mvc:
+    contentnegotiation:
+      favor-parameter: true
+```
+
+或者如果你喜欢使用一个不同的参数名称。
+
+```yaml
+spring:
+  mvc:
+    contentnegotiation:
+      favor-parameter: true
+      parameter-name: "myparam"
+```
+
+大多数标准媒体类型都是开箱即用的，但你也可以定义新的媒体类型。
+
+```yaml
+spring:
+  mvc:
+    contentnegotiation:
+      media-types:
+        markdown: "text/markdown"
+```
+
+后缀模式匹配已被废弃，并将在未来的版本中被删除。如果你了解这些注意事项，并且仍然希望你的应用程序使用后缀模式匹配，则需要进行以下配置。
+
+```yaml
+spring:
+  mvc:
+    contentnegotiation:
+      favor-path-extension: true
+    pathmatch:
+      use-suffix-pattern: true
+```
+
+另外，与其开放所有后缀模式，不如只支持已注册的后缀模式更安全。
+
+```yaml
+spring:
+  mvc:
+    contentnegotiation:
+      favor-path-extension: true
+    pathmatch:
+      use-registered-suffix-pattern: true
+```
+
+从Spring Framework 5.3开始，Spring MVC支持几种实现策略来匹配请求路径和控制器处理程序。它以前只支持 `AntPathMatcher` 策略，但现在也提供 `PathPatternParser`。Spring Boot现在提供了一个配置属性，可以选择并加入新的策略。
+
+```yaml
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: "path-pattern-parser"
+```
+
+关于你为什么要考虑这个新实施的更多细节，请查看[专用博文](https://spring.io/blog/2020/06/30/url-matching-with-pathpattern-in-spring-mvc)。
+
+> `PathPatternParser`是一个优化的实现，但限制了[一些路径模式变体](https://docs.spring.io/spring-framework/docs/5.3.9/reference/html/web.html#mvc-ann-requestmapping-uri-templates)的使用，并且与后缀模式匹配（`spring.mvc.pathmatch.use-suffix-pattern`，`spring.mvc.pathmatch.use-registered-suffix-pattern`）或将`DispatcherServlet`与Servlet前缀映射（`spring.mvc.Servlet.path`）不兼容。
+
+#### 7.1.8. ConfigurableWebBindingInitializer
+
+Spring MVC使用`WebBindingInitializer`来为特定的请求初始化`WebDataBinder`。如果你创建了自己的`ConfigurableWebBindingInitializer` `@Bean`，Spring Boot会自动配置Spring MVC来使用它。
+
+#### 7.1.9. 模板引擎
+
+除了REST网络服务，你还可以使用Spring MVC来提供动态HTML内容。Spring MVC支持各种模板技术，包括Thymeleaf、FreeMarker和JSP。此外，许多其他模板引擎也包括它们自己的Spring MVC集成。
+
+Spring Boot包括对以下模板引擎的自动配置支持。
+
+* [FreeMarker](https://freemarker.apache.org/docs/)
+* [Groovy](https://docs.groovy-lang.org/docs/next/html/documentation/template-engines.html#_the_markuptemplateengine)
+* [Thymeleaf](https://www.thymeleaf.org/)
+* [Mustache](https://mustache.github.io/)
+
+> 如果可能的话，应该避免使用JSP。在与嵌入式Servlet容器一起使用它们时，有几个[已知的限制](https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.developing-web-applications.embedded-container.jsp-limitations)。
+
+当你使用这些默认配置的模板引擎之一时，你的模板会自动从`src/main/resources/templates`中获取。
+
+> 根据你运行应用程序的方式，你的IDE可能会对classpath进行不同的排序。在IDE中从其主方法中运行你的应用程序，与你通过使用Maven或Gradle或从其打包的jar中运行你的应用程序时的排序不同。这可能导致Spring Boot无法找到预期的模板。如果你有这个问题，你可以在IDE中重新排序classpath，把模块的类和资源放在前面。
+
+#### 7.1.10. Error处理
+
+默认情况下，Spring Boot提供了一个`/error`映射，以合理的方式处理所有错误，它被注册为servlet容器中的 `global` 错误页面。对于机器客户端，它会产生一个JSON响应，包含错误的细节、HTTP状态和异常消息。对于浏览器客户端，有一个 `whitelabel` 错误视图，以HTML格式显示相同的数据（要定制它，请添加一个解析为 `error` 的`View`）。
+
+如果你想定制默认的错误处理行为，有一些`server.error`属性可以设置。参见附录中的[Server Properties](https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html#application-properties.server)部分。
+
+要完全替换默认行为，你可以实现`ErrorController`并注册该类型的Bean定义，或者添加`ErrorAttributes`类型的Bean来使用现有机制但替换内容。
+
+> `BasicErrorController`可以作为自定义`ErrorController`的基类。如果你想为一个新的内容类型添加一个处理程序（默认是专门处理`text/html`，并为其他所有内容提供一个fallback ），这特别有用。要做到这一点，请扩展`BasicErrorController`，添加一个带有`@RequestMapping`的公共方法，该方法具有`produces`属性，并创建一个新类型的bean。
+
+你也可以定义一个带有`@ControllerAdvice`注释的类，为特定的controller/exception 型定制返回的JSON文档，如以下例子所示。
+
+```java
+import javax.servlet.RequestDispatcher;
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
+@ControllerAdvice(basePackageClasses = SomeController.class)
+public class MyControllerAdvice extends ResponseEntityExceptionHandler {
+
+    @ResponseBody
+    @ExceptionHandler(MyException.class)
+    public ResponseEntity<?> handleControllerException(HttpServletRequest request, Throwable ex) {
+        HttpStatus status = getStatus(request);
+        return new ResponseEntity<>(new MyErrorBody(status.value(), ex.getMessage()), status);
+    }
+
+    private HttpStatus getStatus(HttpServletRequest request) {
+        Integer code = (Integer) request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
+        HttpStatus status = HttpStatus.resolve(code);
+        return (status != null) ? status : HttpStatus.INTERNAL_SERVER_ERROR;
+    }
+
+}
+```
+
+在前面的例子中，如果`YourException`是由定义在与`SomeController`相同包中的控制器抛出的，那么就会使用`CustomErrorType`POJO的JSON表示，而不是`ErrorAttributes`表示。
+
+在某些情况下，在控制器级别处理的错误不会被[metrics infrastructure](https://docs.spring.io/spring-boot/docs/current/reference/html/actuator.html#actuator.metrics.supported.spring-mvc)记录。应用程序可以通过将处理的异常设置为请求属性来确保这些异常被请求度量所记录。
+
+```java
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.boot.web.servlet.error.ErrorAttributes;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+
+@Controller
+public class MyController {
+
+    @ExceptionHandler(CustomException.class)
+    String handleCustomException(HttpServletRequest request, CustomException ex) {
+        request.setAttribute(ErrorAttributes.ERROR_ATTRIBUTE, ex);
+        return "errorView";
+    }
+
+}
+```
+
+##### Custom Error Pages
+
+如果你想为一个给定的状态代码显示一个自定义的HTML错误页面，你可以在`/error`目录下添加一个文件。错误页面可以是静态HTML（即添加在任何一个静态资源目录下），也可以通过使用模板建立。文件的名称应该是准确的状态代码或一系列的掩码。
+
+例如，要把`404`映射到一个静态HTML文件，你的目录结构将如下。
+
+```text
+src/
+ +- main/
+     +- java/
+     |   + <source code>
+     +- resources/
+         +- public/
+             +- error/
+             |   +- 404.html
+             +- <other public assets>
+```
+
+通过使用FreeMarker模板来映射所有的`5xx`错误，你的目录结构如下。
+
+```text
+src/
+ +- main/
+     +- java/
+     |   + <source code>
+     +- resources/
+         +- templates/
+             +- error/
+             |   +- 5xx.ftlh
+             +- <other templates>
+```
+
+对于更复杂的映射，你也可以添加实现`ErrorViewResolver`接口的Bean，如下例所示。
+
+```java
+public class MyErrorViewResolver implements ErrorViewResolver {
+
+    @Override
+    public ModelAndView resolveErrorView(HttpServletRequest request, HttpStatus status, Map<String, Object> model) {
+        // Use the request or status to optionally return a ModelAndView
+        if (status == HttpStatus.INSUFFICIENT_STORAGE) {
+            // We could add custom model values here
+            new ModelAndView("myview");
+        }
+        return null;
+    }
+
+}
+```
+
+你也可以使用常规的Spring MVC特性，如[`@ExceptionHandler`方法](https://docs.spring.io/spring-framework/docs/5.3.9/reference/html/web.html#mvc-exceptionhandlers)和[`@ControllerAdvice`](https://docs.spring.io/spring-framework/docs/5.3.9/reference/html/web.html#mvc-ann-controller-advice)。`ErrorController`会拾取任何未处理的异常。
+
+##### 在Spring MVC之外映射错误页面
+
+对于不使用Spring MVC的应用程序，你可以使用`ErrorPageRegistrar`接口来直接注册`ErrorPages`。这种抽象直接与底层的嵌入式servlet容器一起工作，即使你没有Spring MVC的`DispatcherServlet`也能工作。
+
+```java
+import org.springframework.boot.web.server.ErrorPage;
+import org.springframework.boot.web.server.ErrorPageRegistrar;
+import org.springframework.boot.web.server.ErrorPageRegistry;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
+
+@Configuration(proxyBeanMethods = false)
+public class MyErrorPagesConfiguration {
+
+    @Bean
+    public ErrorPageRegistrar errorPageRegistrar() {
+        return this::registerErrorPages;
+    }
+
+    private void registerErrorPages(ErrorPageRegistry registry) {
+        registry.addErrorPages(new ErrorPage(HttpStatus.BAD_REQUEST, "/400"));
+    }
+
+}
+```
+
+> 如果你用一个最终由 `Filter` 处理的路径注册 `ErrorPage`（这在一些非Spring的Web框架中很常见，比如Jersey和Wicket），那么 `Filter` 必须明确注册为 `ERROR` dispatcher，如下例所示。
+
+```java
+import java.util.EnumSet;
+
+import javax.servlet.DispatcherType;
+
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration(proxyBeanMethods = false)
+public class MyFilterConfiguration {
+
+    @Bean
+    public FilterRegistrationBean<MyFilter> myFilter() {
+        FilterRegistrationBean<MyFilter> registration = new FilterRegistrationBean<>(new MyFilter());
+        // ...
+        registration.setDispatcherTypes(EnumSet.allOf(DispatcherType.class));
+        return registration;
+    }
+
+}
+```
+
+请注意，默认的`FilterRegistrationBean`不包括`ERROR` dispatcher 类型。
+
+##### War部署中的错误处理
+
+当部署到servlet容器时，Spring Boot使用其错误页面过滤器，将具有错误状态的请求转发到适当的错误页面。这是必要的，因为Servlet规范并没有提供注册错误页面的API。根据你部署war文件的容器和你的应用程序使用的技术，可能需要一些额外的配置。
+
+错误页面过滤器只能在响应尚未提交的情况下将请求转发到正确的错误页面。默认情况下，WebSphere Application Server 8.0 及更高版本会在成功完成 servlet 的服务方法后提交响应。你应该通过将`com.ibm.ws.webcontainer.invokeFlushAfterService`设置为`false`来禁用这种行为。
+
+如果你使用Spring Security并希望在错误页面中访问本金，你必须配置Spring Security的过滤器，使其在error dispatches中被调用。为此，将`spring.security.filter.dispatcher-types`属性设置为`async, error, forward, request`。
+
+#### 7.1.11. Spring HATEOAS
+
+如果你开发的RESTful API使用了hypermedia，Spring Boot为Spring HATEOAS提供了自动配置，对大多数应用都很适用。自动配置取代了使用`@EnableHypermediaSupport` 的需要，并注册了一些Bean，以方便构建基于超媒体的应用程序，包括 `LinkDiscoverers`（用于客户端支持）和 `ObjectMapper`，配置为将响应正确整合为所需的表示方式。通过设置各种 `spring.jackson.*`属性来定制 `ObjectMapper`，如果有的话，可以通过 `Jackson2ObjectMapperBuilder` bean来实现。
+
+你可以通过使用`@EnableHypermediaSupport`来控制Spring HATEOAS的配置。请注意，这样做会使前面描述的`ObjectMapper`定制失效。
+
+> `spring-boot-starter-hateoas`是针对Spring MVC的，不应该与Spring WebFlux结合。为了在Spring WebFlux中使用Spring HATEOAS，你可以在添加`org.springframework.hateoas:spring-hateoas`的同时直接依赖`spring-boot-starter-webflux`。
+
+#### 7.1.12. CORS 支持
+
+[跨源资源共享](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) (CORS)是一个由[大多数浏览器](https://www.w3.org/TR/cors/)实现的[W3C规范](https://caniuse.com/#feat=cors)，它让你以灵活的方式指定什么样的跨域请求是被授权的。，而不是使用一些不太安全、不太强大的方法，如IFRAME或JSONP。
+
+从4.2版本开始，Spring MVC[支持CORS](https://docs.spring.io/spring-framework/docs/5.3.9/reference/html/web.html#mvc-cors)。在你的Spring Boot应用程序中使用带有[`@CrossOrigin`](https://docs.spring.io/spring-framework/docs/5.3.9/javadoc-api/org/springframework/web/bind/annotation/CrossOrigin.html)注释的[Controller方法CORS配置](https://docs.spring.io/spring-framework/docs/5.3.9/reference/html/web.html#mvc-cors-controller)不需要任何特定的配置。[全局CORS配置](https://docs.spring.io/spring-framework/docs/5.3.9/reference/html/web.html#mvc-cors-global)可以通过注册一个`WebMvcConfigurer`bean与定制的`addCorsMappings(CorsRegistry)`方法来定义，如以下例子所示。
+
+```java
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+@Configuration(proxyBeanMethods = false)
+public class MyCorsConfiguration {
+
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/api/**");
+            }
+
+        };
+    }
+
+}
+```
+
+### 7.2. Spring WebFlux框架
+
+Spring WebFlux是Spring Framework 5.0中引入的新的响应式Web框架。与Spring MVC不同，它不需要Servlet API，是完全异步和非阻塞的，并通过[Reactor项目](https://projectreactor.io/)实现了[Reactive Streams](https://www.reactive-streams.org/)规范。
+
+Spring WebFlux有两种风格：功能性的和基于注解的。基于注解的版本与Spring MVC模型非常接近，如下面的例子所示。
+
+```java
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/users")
+public class MyRestController {
+
+    private final UserRepository userRepository;
+
+    private final CustomerRepository customerRepository;
+
+    public MyRestController(UserRepository userRepository, CustomerRepository customerRepository) {
+        this.userRepository = userRepository;
+        this.customerRepository = customerRepository;
+    }
+
+    @GetMapping("/{user}")
+    public Mono<User> getUser(@PathVariable Long userId) {
+        return this.userRepository.findById(userId);
+    }
+
+    @GetMapping("/{user}/customers")
+    public Flux<Customer> getUserCustomers(@PathVariable Long userId) {
+        return this.userRepository.findById(userId).flatMapMany(this.customerRepository::findByUser);
+    }
+
+    @DeleteMapping("/{user}")
+    public void deleteUser(@PathVariable Long userId) {
+        this.userRepository.deleteById(userId);
+    }
+
+}
+```
+
+"WebFlux.fn"，功能变体，将路由配置与请求的实际处理分开，如下例所示。
+
+```java
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.MediaType;
+import org.springframework.web.reactive.function.server.RequestPredicate;
+import org.springframework.web.reactive.function.server.RouterFunction;
+import org.springframework.web.reactive.function.server.ServerResponse;
+
+import static org.springframework.web.reactive.function.server.RequestPredicates.DELETE;
+import static org.springframework.web.reactive.function.server.RequestPredicates.GET;
+import static org.springframework.web.reactive.function.server.RequestPredicates.accept;
+import static org.springframework.web.reactive.function.server.RouterFunctions.route;
+
+@Configuration(proxyBeanMethods = false)
+public class MyRoutingConfiguration {
+
+    private static final RequestPredicate ACCEPT_JSON = accept(MediaType.APPLICATION_JSON);
+
+    @Bean
+    public RouterFunction<ServerResponse> monoRouterFunction(MyUserHandler userHandler) {
+        return route(
+                GET("/{user}").and(ACCEPT_JSON), userHandler::getUser).andRoute(
+                GET("/{user}/customers").and(ACCEPT_JSON), userHandler::getUserCustomers).andRoute(
+                DELETE("/{user}").and(ACCEPT_JSON), userHandler::deleteUser);
+    }
+
+}
+```
+
+```java
+import reactor.core.publisher.Mono;
+
+import org.springframework.stereotype.Component;
+import org.springframework.web.reactive.function.server.ServerRequest;
+import org.springframework.web.reactive.function.server.ServerResponse;
+
+@Component
+public class MyUserHandler {
+
+    public Mono<ServerResponse> getUser(ServerRequest request) {
+        ...
+    }
+
+    public Mono<ServerResponse> getUserCustomers(ServerRequest request) {
+        ...
+    }
+
+    public Mono<ServerResponse> deleteUser(ServerRequest request) {
+        ...
+    }
+
+}
+```
+
+WebFlux是Spring框架的一部分，详细信息可在其[参考文档](https://docs.spring.io/spring-framework/docs/5.3.9/reference/html/web-reactive.html#webflux-fn)中找到。
+
+> 你可以定义任意多的`RouterFunction` Bean，以使路由器的定义模块化。如果你需要应用一个优先级，Bean可以被排序。
+
+要开始使用，请将`spring-boot-starter-webflux`模块添加到你的应用程序。
+
+> 在你的应用程序中同时添加`spring-boot-starter-web`和`spring-boot-starter-webflux`模块会导致Spring Boot自动配置Spring MVC，而不是WebFlux。选择这种行为是因为许多Spring开发者将`spring-boot-starter-webflux`添加到他们的Spring MVC应用中，以使用响应式`WebClient`。你仍然可以通过将选择的应用类型设置为`SpringApplication.setWebApplicationType(WebApplicationType.REACTIVE)`来执行你的选择。
+
+#### 7.2.1. Spring WebFlux Auto-configuration
+
+Spring Boot为Spring WebFlux提供了自动配置，对大多数应用程序都很适用。
+
+自动配置在Spring的默认值基础上增加了以下功能。
+
+* 为 `HttpMessageReader` 和 `HttpMessageWriter` 实例配置编解码器（[本文后面的描述](https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.developing-web-applications.spring-webflux.httpcodecs)）。
+* 支持为静态资源提供服务，包括对WebJars的支持（[本文稍后](https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.developing-web-applications.spring-mvc.static-content)描述）。
+
+如果你想保留Spring Boot的WebFlux特性，并想添加额外的[WebFlux配置](https://docs.spring.io/spring-framework/docs/5.3.9/reference/html/web-reactive.html#webflux-config)，你可以添加自己的`@Configuration`类，类型为`WebFluxConfigurer`，但不包括`@EnableWebFlux`。
+
+如果你想完全控制Spring WebFlux，你可以添加你自己的`@Configuration`，并注有`@EnableWebFlux`。
+
+#### 7.2.2. 带有HttpMessageReaders和HttpMessageWriters的HTTP编解码器
+
+Spring WebFlux使用`HttpMessageReader`和`HttpMessageWriter`接口来转换HTTP请求和响应。它们是用`CodecConfigurer`配置的，通过查看classpath中可用的库，具有合理的默认值。
+
+Spring Boot为编解码器提供专门的配置属性，`spring.codec.*`。它还通过使用`CodecCustomizer`实例来应用进一步的定制。例如，`spring.jackson.*`配置键被应用于Jackson编解码器。
+
+如果你需要添加或定制编解码器，你可以创建一个自定义的`CodecCustomizer`组件，如下面的例子所示。
+
+```java
+import org.springframework.boot.web.codec.CodecCustomizer;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.codec.ServerSentEventHttpMessageReader;
+
+@Configuration(proxyBeanMethods = false)
+public class MyCodecsConfiguration {
+
+    @Bean
+    public CodecCustomizer myCodecCustomizer() {
+        return (configurer) -> {
+            configurer.registerDefaults(false);
+            configurer.customCodecs().register(new ServerSentEventHttpMessageReader());
+            // ...
+        };
+    }
+
+}
+```
+
+你也可以利用[Boot的自定义JSON序列化器和反序列化器](https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.developing-web-applications.spring-mvc.json)。
+
+#### 7.2.3. 静态内容
+
+默认情况下，Spring Boot从classpath中名为`/static`（或`/public`或`/resources`或`/META-INF/resources`）的目录提供静态内容。它使用Spring WebFlux的`ResourceWebHandler`，所以你可以通过添加你自己的`WebFluxConfigurer'和覆盖`addResourceHandlers`方法来修改该行为。
+
+默认情况下，资源被映射在`/**`上，但你可以通过设置`spring.webflux.static-path-pattern`属性来调整它。例如，将所有资源重新定位到`/resources/**`，可以通过以下方式实现。
+
+```yaml
+spring:
+  webflux:
+    static-path-pattern: "/resources/**"
+```
+
+你也可以通过使用`spring.web.resources.static-locations`来定制静态资源位置。这样做将默认值替换为目录位置的列表。如果你这样做，默认的欢迎页面检测会切换到你的自定义位置。因此，如果在启动时你的任何位置有`index.html`，它就是应用程序的主页。
+
+除了前面列出的 "标准" 静态资源位置外，对[Webjars内容](https://www.webjars.org/)也有特殊情况。任何路径为`/webjars/**`的资源，如果是以Webjars格式打包的，则从jar文件中提供。
+
+> Spring WebFlux应用程序并不严格依赖Servlet API，所以它们不能以war文件的形式部署，也不使用`src/main/webapp`目录。
+
+#### 7.2.4. 欢迎页
+
+Spring Boot同时支持静态和模板化的欢迎页面。它首先在配置的静态内容位置寻找一个`index.html`文件。如果没有找到，它就会寻找`index`模板。如果找到了其中之一，它就会自动作为应用程序的欢迎页面使用。
+
+#### 7.2.5. 模板引擎
+
+除了REST Web服务，你还可以使用Spring WebFlux来提供动态HTML内容。Spring WebFlux支持各种模板技术，包括Thymeleaf、FreeMarker和Mustache。
+
+Spring Boot包括对以下模板引擎的自动配置支持。
+
+* [FreeMarker](https://freemarker.apache.org/docs/)
+* [Thymeleaf](https://www.thymeleaf.org/)
+* [Mustache](https://mustache.github.io/)
+
+当你使用这些默认配置的模板引擎之一时，你的模板会自动从`src/main/resources/templates`中获取。
+
+#### 7.2.6 Error处理
+
+Spring Boot提供了一个`WebExceptionHandler`，以合理的方式处理所有错误。它在处理顺序中的位置紧靠WebFlux提供的处理程序，后者被认为是最后一个。对于机器客户端，它产生一个JSON响应，包含错误的细节、HTTP状态和异常消息。对于浏览器客户端，有一个 `whitelabel` 错误处理程序，以HTML格式渲染相同的数据。你也可以提供你自己的HTML模板来显示错误（见[下一节](https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.developing-web-applications.spring-webflux.error-handling.error-pages)）。
+
+定制这一功能的第一步通常是使用现有的机制，但要替换或增强错误内容。为此，你可以添加一个`ErrorAttributes`类型的bean。
+
+为了改变错误处理行为，你可以实现`ErrorWebExceptionHandler`并注册该类型的bean定义。因为`ErrorWebExceptionHandler`是相当低级的，Spring Boot还提供了一个方便的`AbstractErrorWebExceptionHandler`，让你以WebFlux的功能方式处理错误，如下面的例子所示。
+
+```java
+import reactor.core.publisher.Mono;
+
+import org.springframework.boot.autoconfigure.web.WebProperties.Resources;
+import org.springframework.boot.autoconfigure.web.reactive.error.AbstractErrorWebExceptionHandler;
+import org.springframework.boot.web.reactive.error.ErrorAttributes;
+import org.springframework.context.ApplicationContext;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Component;
+import org.springframework.web.reactive.function.server.RouterFunction;
+import org.springframework.web.reactive.function.server.RouterFunctions;
+import org.springframework.web.reactive.function.server.ServerRequest;
+import org.springframework.web.reactive.function.server.ServerResponse;
+import org.springframework.web.reactive.function.server.ServerResponse.BodyBuilder;
+
+@Component
+public class MyErrorWebExceptionHandler extends AbstractErrorWebExceptionHandler {
+
+    public MyErrorWebExceptionHandler(ErrorAttributes errorAttributes, Resources resources,
+            ApplicationContext applicationContext) {
+        super(errorAttributes, resources, applicationContext);
+    }
+
+    @Override
+    protected RouterFunction<ServerResponse> getRoutingFunction(ErrorAttributes errorAttributes) {
+        return RouterFunctions.route(this::acceptsXml, this::handleErrorAsXml);
+    }
+
+    private boolean acceptsXml(ServerRequest request) {
+        return request.headers().accept().contains(MediaType.APPLICATION_XML);
+    }
+
+    public Mono<ServerResponse> handleErrorAsXml(ServerRequest request) {
+        BodyBuilder builder = ServerResponse.status(HttpStatus.INTERNAL_SERVER_ERROR);
+        // ... additional builder calls
+        return builder.build();
+    }
+
+}
+```
+
+为了更全面地了解情况，你也可以直接子类化`DefaultErrorWebExceptionHandler`并重写特定的方法。
+
+在某些情况下，在控制器或处理函数层面上处理的错误不会被[metrics infrastructure](https://docs.spring.io/spring-boot/docs/current/reference/html/actuator.html#actuator.metrics.supported.spring-webflux)记录。应用程序可以通过将处理的异常设置为请求属性来确保这些异常被请求度量所记录。
+
+```java
+import org.springframework.boot.web.reactive.error.ErrorAttributes;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.reactive.result.view.Rendering;
+import org.springframework.web.server.ServerWebExchange;
+
+@Controller
+public class MyExceptionHandlingController {
+
+    @GetMapping("/profile")
+    public Rendering userProfile() {
+        // ...
+        throw new IllegalStateException();
+    }
+
+    @ExceptionHandler(IllegalStateException.class)
+    public Rendering handleIllegalState(ServerWebExchange exchange, IllegalStateException exc) {
+        exchange.getAttributes().putIfAbsent(ErrorAttributes.ERROR_ATTRIBUTE, exc);
+        return Rendering.view("errorView").modelAttribute("message", exc.getMessage()).build();
+    }
+
+}
+```
+
+##### 自定义错误页面
+
+如果你想为一个给定的状态代码显示一个自定义的HTML错误页面，你可以在`/error`目录下添加一个文件。错误页面可以是静态HTML（即添加在任何一个静态资源目录下）或用模板构建。文件的名字应该是准确的状态代码或一系列的掩码。
+
+例如，要把`404`映射到一个静态HTML文件，你的目录结构如下。
+
+```text
+src/
+ +- main/
+     +- java/
+     |   + <source code>
+     +- resources/
+         +- public/
+             +- error/
+             |   +- 404.html
+             +- <other public assets>
+
+```
+
+通过使用Mustache模板来映射所有`5xx`错误，你的目录结构如下。
+
+```text
+src/
+ +- main/
+     +- java/
+     |   + <source code>
+     +- resources/
+         +- templates/
+             +- error/
+             |   +- 5xx.mustache
+             +- <other templates>
+
+```
+
+#### 7.2.7. Web Filters
+
+Spring WebFlux提供了一个`WebFilter`接口，可以实现它来过滤HTTP请求-响应交换。在应用程序上下文中发现的`WebFilter` Bean将被自动用于过滤每个交换。
+
+如果过滤器的顺序很重要，它们可以实现`Ordered`或用`@Order`来注释。Spring Boot的自动配置可以为你配置网络过滤器。当它这样做时，将使用下表中显示的顺序。
+
+|Web Filter|Order|
+| --- | --- |
+|`MetricsWebFilter`|`Ordered.HIGHEST_PRECEDENCE + 1`|
+|`WebFilterChainProxy` (Spring Security)|`-100`|
+|`HttpTraceWebFilter`|`Ordered.LOWEST_PRECEDENCE - 10`|
+
+### 7.3. JAX-RS and Jersey
+
+如果你喜欢REST端点的JAX-RS编程模型，你可以使用其中一个可用的实现来代替Spring MVC。[Jersey](https://jersey.github.io/)和[Apache CXF](https://cxf.apache.org/)开箱即用，效果相当好。CXF要求你将其 `Servlet` 或 `Filter` 注册为应用上下文中的 `@Bean`。Jersey有一些原生的Spring支持，所以我们也在Spring Boot中为它提供了自动配置支持，同时还有一个启动器。
+
+要开始使用Jersey，请将`spring-boot-starter-jersey`作为一个依赖项，然后你需要一个`ResourceConfig`类型的`@Bean`，在其中注册所有的端点，如下例所示。
+
+```java
+import org.glassfish.jersey.server.ResourceConfig;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class MyJerseyConfig extends ResourceConfig {
+
+    public MyJerseyConfig() {
+        register(MyEndpoint.class);
+    }
+
+}
+```
+
+> Jersey对扫描可执行压缩文件的支持是相当有限的。例如，它不能扫描在[完全可执行的jar文件](https://docs.spring.io/spring-boot/docs/current/reference/html/deployment.html#deployment.installing)中发现的包中的端点，或者在运行可执行的war文件时在`WEB-INF/classes`中发现的端点。为了避免这种限制，不应该使用`packages`方法，而应该使用`register`方法单独注册端点，如前面的例子所示。
+
+对于更高级的定制，你也可以注册任意数量的实现`ResourceConfigCustomizer`的bean。
+
+所有注册的端点都应该是带有HTTP资源注释的`@Components`（`@GET`和其他），如下面的例子所示。
+
+```java
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+
+import org.springframework.stereotype.Component;
+
+@Component
+@Path("/hello")
+public class MyEndpoint {
+
+    @GET
+    public String message() {
+        return "Hello";
+    }
+
+}
+```
+
+由于`Endpoint`是Spring的`@Component`，它的生命周期由Spring管理，你可以使用`@Autowired`注解来注入依赖关系，使用`@Value`注解来注入外部配置。默认情况下，Jersey servlet被注册并映射到`/*`。你可以通过添加`@ApplicationPath`到你的`ResourceConfig`来改变映射。
+
+默认情况下，Jersey被设置为Servlet在一个`@Bean`类型的`ServletRegistrationBean`中，名为`jerseyServletRegistration`。默认情况下，servlet被懒惰地初始化，但你可以通过设置`spring.jersey.servlet.load-on-startup`来定制这一行为。你可以通过创建一个你自己的同名Bean来禁用或覆盖该Bean。你也可以通过设置`spring.jersey.type=filter`来使用过滤器而不是servlet（在这种情况下，要替换或覆盖的`@Bean`是`jerseyFilterRegistration`）。过滤器有一个`@Order`，你可以用`spring.jersey.filter.order`来设置。当使用Jersey作为过滤器时，必须有一个Servlet来处理任何没有被Jersey拦截的请求。如果你的应用程序不包含这样的Servlet，你可能想通过设置`server.servlet.register-default-servlet`为`true`来启用默认Servlet。Servlet和过滤器的注册都可以通过使用`spring.jersey.init.*`来指定属性的映射来获得初始参数。
+
+### 7.4. 嵌入式Servlet容器支持
+
+Spring Boot包括对嵌入式[Tomcat](https://tomcat.apache.org/)、[Jetty](https://www.eclipse.org/jetty/)和[Undertow](https://github.com/undertow-io/undertow) 服务器的支持。大多数开发者使用适当的 "Starter"来获得一个完全配置的实例。默认情况下，嵌入式服务器在端口`8080`上监听HTTP请求。
+
+#### 7.4.1. Servlets, Filters, and listeners
+
+当使用嵌入式Servlet容器时，你可以从Servlet规范中注册Servlet、过滤器和所有监听器（如`HttpSessionListener`），可以使用Spring Bean或通过扫描Servlet组件。
+
+##### 把 Servlets, Filters, and Listeners 注册为 Spring Bean
+
+任何属于Spring Bean的`Servlet`、`Filter`或Servlet`*Listener`实例都会在嵌入式容器中注册。如果你想在配置过程中引用`application.properties`中的一个值，这可能特别方便。
+
+默认情况下，如果上下文只包含一个Servlet，它会被映射到`/`。在有多个Servlet Bean的情况下，bean名称被用作路径前缀。过滤器映射到`/*`。
+
+如果基于惯例的映射不够灵活，你可以使用`ServletRegistrationBean`、`FilterRegistrationBean`和`ServletListenerRegistrationBean`类来完全控制。
+
+通常，让Filter Bean不排序是安全的。如果需要一个特定的顺序，你应该用`@Order`来注解`Filter`或者让它实现`Ordered`。你不能通过给`Filter'的Bean方法加上`@Order'注释来配置其顺序。如果你不能改变`Filter`类来添加`@Order`或实现`Ordered`，你必须为`Filter`定义一个`FilterRegistrationBean`并使用`setOrder(int)`方法设置注册Bean的顺序。避免配置一个以`Ordered.HIGHEST_PRECEDENCE`读取请求正文的Filter，因为它可能违背你的应用程序的字符编码配置。如果一个Servlet过滤器封装了请求，它应该被配置为小于或等于`OrderedFilter.REQUEST_WRAPPER_FILTER_MAX_ORDER`的顺序。
+
+> 要查看应用程序中每个 `Filter` 的顺序，请为 "web" [日志组](https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.logging.log-groups)启用调试级别的日志 (`logging.level.web=debug`) 。注册过滤器的细节，包括它们的顺序和URL模式，将在启动时被记录下来。
+
+在注册`Filter`Bean时要小心，因为它们在应用程序生命周期的早期就被初始化了。如果你需要注册一个与其他Bean交互的`Filter`，请考虑使用[`DelegatingFilterProxyRegistrationBean`](https://docs.spring.io/spring-boot/docs/2.5.3/api/org/springframework/boot/web/servlet/DelegatingFilterProxyRegistrationBean.html)代替。
+
+#### 7.4.2. Servlet Context Initialization
+
+嵌入式Servlet容器不直接执行Servlet 3.0+ `javax.servlet.ServletContainerInitializer`接口或Spring的`org.springframework.web.WebApplicationInitializer`接口。这是一个有意的设计决定，旨在减少设计在战争中运行的第三方库可能破坏Spring Boot应用程序的风险。
+
+如果你需要在Spring Boot应用程序中执行Servlet上下文初始化，你应该注册一个实现`org.springframework.boot.web.servlet.ServletContextInitializer`接口的bean。单一的`onStartup`方法提供了对`ServletContext`的访问，如果有必要，可以很容易地作为现有`WebApplicationInitializer`的适配器。
+
+##### 扫描 Servlets, Filters, listeners
+
+当使用嵌入式容器时，可以通过使用`@ServletComponentScan` 来启用对`@WebServlet`、`@WebFilter` 和`@WebListener` 注释的类的自动注册。
+
+> `@ServletComponentScan`在独立的容器中没有作用，而是使用容器的内置发现机制。
+
+#### 7.4.3. ServletWebServerApplicationContext
+
+Spring Boot使用不同类型的`ApplicationContext`来支持嵌入式Servlet容器。`ServletWebServerApplicationContext`是一种特殊类型的`WebApplicationContext`，它通过搜索单个`ServletWebServerFactory`bean来引导自己。通常一个`TomcatServletWebServerFactory`、`JettyServletWebServerFactory`或`UndertowServletWebServerFactory`已经被自动配置。
+
+> 你通常不需要知道这些实现类。大多数应用程序都是自动配置的，适当的 `ApplicationContext` 和 `ServletWebServerFactory` 是代表你创建的。
+
+#### 7.4.4. 定制嵌入式Servlet容器
+
+普通的servlet容器设置可以通过使用Spring的`Environment`属性来进行配置。通常情况下，你会在`application.properties`或`application.yaml`文件中定义这些属性。
+
+常见的服务器设置包括。
+
+* 网络设置。传入的HTTP请求的监听端口（`server.port`），与`server.address`绑定的接口地址，等等。
+* 会话设置。会话是否持久（`server.servlet.session.persistent`），会话超时（`server.servlet.session.timeout`），会话数据的位置（`server.servlet.session.store-dir`），以及会话cookie配置（`server.servlet.session.cookie.*`）。
+* 错误管理。错误页面的位置（`server.error.path`）等。
+* [SSL](https://docs.spring.io/spring-boot/docs/current/reference/html/howto.html#howto.webserver.configure-ssl)
+* [HTTP compression](https://docs.spring.io/spring-boot/docs/current/reference/html/howto.html#howto.webserver.enable-response-compression)
+
+Spring Boot尽可能地公开通用设置，但这并不总是可能的。对于这些情况，专门的命名空间提供了针对服务器的定制功能（见`server.tomcat`和`server.undertow`）。例如，[访问日志](https://docs.spring.io/spring-boot/docs/current/reference/html/howto.html#howto.webserver.configure-access-logs)可以用嵌入式servlet容器的特定功能进行配置。
+
+> 完整的列表请参见[`ServerProperties`](https://github.com/spring-projects/spring-boot/tree/v2.5.3/spring-boot-project/spring-boot-autoconfigure/src/main/java/org/springframework/boot/autoconfigure/web/ServerProperties.java)类。
+
+##### 程序化定制
+
+如果你需要以编程方式配置你的嵌入式Servlet容器，你可以注册一个实现`WebServerFactoryCustomizer`接口的Spring Bean。`WebServerFactoryCustomizer`提供了对`ConfigurableServletWebServerFactory`的访问，其中包括许多自定义设置方法。下面的例子显示了以编程方式设置端口。
+
+```java
+import org.springframework.boot.web.server.WebServerFactoryCustomizer;
+import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory;
+import org.springframework.stereotype.Component;
+
+@Component
+public class MyWebServerFactoryCustomizer implements WebServerFactoryCustomizer<ConfigurableServletWebServerFactory> {
+
+    @Override
+    public void customize(ConfigurableServletWebServerFactory server) {
+        server.setPort(9000);
+    }
+
+}
+```
+
+`TomcatServletWebServerFactory`、`JettyServletWebServerFactory`和`UndertowServletWebServerFactory`是`ConfigurableServletWebServerFactory`的专用变体，分别为Tomcat、Jetty和Undertow提供额外的自定义设置方法。下面的例子展示了如何定制`TomcatServletWebServerFactory`，它提供对Tomcat特定配置选项的访问。
+
+```java
+import java.time.Duration;
+
+import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
+import org.springframework.boot.web.server.WebServerFactoryCustomizer;
+import org.springframework.stereotype.Component;
+
+@Component
+public class MyTomcatWebServerFactoryCustomizer implements WebServerFactoryCustomizer<TomcatServletWebServerFactory> {
+
+    @Override
+    public void customize(TomcatServletWebServerFactory server) {
+        server.addConnectorCustomizers((connector) -> connector.setAsyncTimeout(Duration.ofSeconds(20).toMillis()));
+    }
+
+}
+```
+
+##### 直接定制ConfigurableServletWebServerFactory
+
+对于需要你从`ServletWebServerFactory`扩展的更高级的用例，你可以自己公开这种类型的bean。
+
+我们为许多配置选项提供了设置器。如果你需要做一些更特殊的事情，也提供了几个受保护的方法 "Hook"。详情请参见[source code documentation](https://docs.spring.io/spring-boot/docs/2.5.3/api/org/springframework/boot/web/servlet/server/ConfigurableServletWebServerFactory.html)。
+
+> 自动配置的定制器仍然应用在你的定制factory上，所以要小心使用这个选项。
+
+#### 7.4.5. JSP的局限性
+
+当运行使用嵌入式 servlet 容器的 Spring Boot 应用程序时（并且被打包为可执行包），对 JSP 的支持存在一些限制。
+
+* 对于Jetty和Tomcat，如果你使用war打包，应该可以工作。一个可执行的war在用`java -jar`启动时可以工作，并且也可以部署到任何标准的容器。当使用可执行jar时，不支持JSP。
+* Undertow不支持JSP。
+* 创建一个自定义的`error.jsp`页面并不能覆盖[错误处理](https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.developing-web-applications.spring-mvc.error-handling)的默认视图。应该使用[自定义错误页面](https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.developing-web-applications.spring-mvc.error-handling.error-pages)来代替。
+
+### 7.5. 嵌入式Reactive务器支持
+
+Spring Boot包括对以下嵌入式反应式Web服务器的支持。Reactor Netty、Tomcat、Jetty和Undertow。大多数开发者使用适当的 "Starter"来获得一个完全配置的实例。默认情况下，嵌入式服务器监听8080端口的HTTP请求。
+
+### 7.6. Reactive Server Resources Configuration
+
+在自动配置Reactor Netty或Jetty服务器时，Spring Boot将创建特定的Bean，为服务器实例提供HTTP资源：`ReactorResourceFactory`或`JettyResourceFactory`。
+
+默认情况下，这些资源也将与Reactor Netty和Jetty客户端共享，以获得最佳性能，因为。
+
+* 服务器和客户端使用相同的技术
+* 客户端实例是使用Spring Boot自动配置的`WebClient.Builder`bean构建的。
+
+开发人员可以通过提供自定义的`ReactorResourceFactory`或`JettyResourceFactory`bean来覆盖Jetty和Reactor Netty的资源配置 - 这将适用于客户端和服务器。
+
+你可以在[WebClient Runtime部分](https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.webclient.runtime)中了解更多关于客户端的资源配置。
+
+## 8. 优雅关机
+
+TODO
+
 {{#include ../license.md}}
